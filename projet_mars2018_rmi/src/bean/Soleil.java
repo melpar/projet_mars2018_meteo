@@ -1,6 +1,8 @@
 package bean;
 
-public enum Soleil {
+import java.io.Serializable;
+
+public enum Soleil implements Serializable {
     // Objets directement construits
     ECLAIRCIES("Eclaircies", 1), AVERSES("Averses", 2), AVERSE_ORAGEUSE("Averses orageuses",
 	    3), ENSOLEILLE("Ensoleillé", 4), NEIGE("Neige", 5), NUAGEUX("Nuageux", 6);

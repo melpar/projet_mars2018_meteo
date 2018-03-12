@@ -1,10 +1,16 @@
 package bean;
 
+import java.io.Serializable;
 import java.sql.Blob;
 
 import annotation.Regexp;
 
-public class Photo {
+public class Photo implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     @Regexp(expr = ".{2,50}", value = "Il faut entre 2 et 50 lettres pour le nom")
     private String nom;
 

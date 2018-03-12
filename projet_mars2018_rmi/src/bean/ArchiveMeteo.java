@@ -1,9 +1,14 @@
 package bean;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class ArchiveMeteo {
+public class ArchiveMeteo implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private Lieu lieu;
     private Date date;
     private DonneeMeteo donnee;

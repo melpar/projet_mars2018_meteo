@@ -1,6 +1,9 @@
 package rmi.impl;
 
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +76,37 @@ public class ServeurImpl implements Serveur {
     public boolean productionPDF(List<ArchiveMeteo> archives) throws RemoteException {
 	// TODO Auto-generated method stub
 	return false;
+    }
+
+    public static void main(String[] args) {
+
+	int port = 2000;
+
+	Registry registry = null;
+
+	try {
+	    LocateRegistry.createRegistry(port);
+	    registry = LocateRegistry.getRegistry(port);
+	} catch (Exception e) {
+	    System.out.println("Erreur createRegistry");
+	}
+
+	ServeurImpl si = new ServeurImpl();
+	Serveur serveurRMI = null;
+
+	try {
+	    serveurRMI = (Serveur) UnicastRemoteObject.exportObject(si, 0);
+	} catch (Exception e) {
+	    System.out.println("Erreur exportObject");
+	}
+
+	try {
+	    registry.rebind("serveurRMI", serveurRMI);
+	} catch (Exception e) {
+	    System.out.println("Erreur rebind");
+	}
+
+	System.out.println("Serveur RMI lancé");
     }
 
 }

@@ -1,11 +1,15 @@
 package test;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
 
 import base.Base;
 import bean.ArchiveMeteo;
+import bean.DonneeMeteo;
+import bean.Lieu;
+import bean.Soleil;
 
 public class TestBase {
 
@@ -37,33 +41,33 @@ public class TestBase {
     // base.fermer();
     // }
 
-    // @Test
-    // public void testAjoutArchive() {
-    // DonneeMeteo donnee = new DonneeMeteo();
-    // donnee.setDirectionVent(10);
-    // donnee.setPluie(20);
-    // donnee.setSoleil(Soleil.AVERSES);
-    // donnee.setTemperature(5);
-    // donnee.setVitesseVent(25);
-    //
-    // Lieu lieu = new Lieu();
-    // lieu.setDepartement("Finistere");
-    // lieu.setPays("France");
-    // lieu.setVille("Brest");
-    //
-    // ArchiveMeteo archive = new ArchiveMeteo();
-    // archive.setDate(new Date());
-    // archive.setDonnee(donnee);
-    // archive.setLieu(lieu);
-    // archive.setPhotos(null);
-    // Base base = new Base();
-    // base.ouvrir();
-    // base.ajouterDonneeArchive(archive);
-    // base.fermer();
-    // }
+    @Test
+    public void testAjoutArchive() {
+	DonneeMeteo donnee = new DonneeMeteo();
+	donnee.setDirectionVent(50);
+	donnee.setPluie(10);
+	donnee.setSoleil(Soleil.AVERSES);
+	donnee.setTemperature(8);
+	donnee.setVitesseVent(25);
+
+	Lieu lieu = new Lieu();
+	lieu.setDepartement("Ille-et-Vilaine");
+	lieu.setPays("France");
+	lieu.setVille("Rennes");
+
+	ArchiveMeteo archive = new ArchiveMeteo();
+	archive.setDate(new Date(117, 03, 12));
+	archive.setDonnee(donnee);
+	archive.setLieu(lieu);
+	archive.setPhotos(null);
+	Base base = new Base();
+	base.ouvrir();
+	base.ajouterDonneeArchive(archive);
+	base.fermer();
+    }
 
     // @Test
-    // public void testAjoutArchive() {
+    // public void testSelectionJour() {
     //
     // Base base = new Base();
     // base.ouvrir();
@@ -81,7 +85,7 @@ public class TestBase {
     // }
 
     @Test
-    public void testAjoutArchive() {
+    public void testSelectionMois() {
 
 	Base base = new Base();
 	base.ouvrir();

@@ -1,8 +1,15 @@
 package bean;
 
+import java.io.Serializable;
+
 import annotation.Regexp;
 
-public class DonneeMeteo {
+public class DonneeMeteo implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     // pourcentage
     @Regexp(expr = "(^[0-9][0-9]?(,[0-9]{1,3})?$|^100$)", value = "Le pourcentage de pluie doit être entre 0 et 100 avec maximum deux chiffres apres la virgule")
     private double pluie;
