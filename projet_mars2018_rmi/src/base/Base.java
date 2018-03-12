@@ -2,10 +2,12 @@ package base;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 
 import bean.ArchiveMeteo;
 import bean.DonneeMeteo;
@@ -86,18 +88,22 @@ public class Base {
 	try {
 	    String sql = "insert into T_DONNEE_DON (DON_pluie, DON_directionVent, DON_vitesseVent, DON_soleil, DON_temperature)"
 		    + "values (?, ?, ?,?,?) ";
-	    PreparedStatement ps = co.prepareStatement(sql);
+	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 	    ps.setDouble(1, donnee.getPluie());
 	    ps.setDouble(2, donnee.getDirectionVent());
 	    ps.setDouble(3, donnee.getVitesseVent());
 	    ps.setInt(4, donnee.getSoleil().getId());
 	    ps.setDouble(5, donnee.getTemperature());
 	    res = ps.executeUpdate();
-	    System.out.println("Exec sql : " + sql);
+	    ResultSet result = ps.getGeneratedKeys();
+	    if (result.next()) {
+		System.out.println("Exec sql : " + sql + " enregistré à l'id" + result.getInt(1));
+		return result.getInt(1);
+	    }
 	} catch (Exception e) {
 	    System.out.println("Erreur Base.ajouterDonnee " + e.getMessage());
 	}
-	return res;
+	return -1;
     }
 
     public int ajouterLieu(Lieu lieu) {
