@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<jsp:useBean id="lst" class="java.util.ArrayList" scope="request" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,6 +24,17 @@
         </div>
       </div>
     </form>
+    <ul class="collection with-header">
+        <li class="collection-header"><h4>First Names</h4></li>
+        <li class="collection-item">Alvin</li>
+        <li class="collection-item">Alvin</li>
+        <li class="collection-item">Alvin</li>
+        <li class="collection-item">Alvin</li>
+
+        <c:forEach var="archive" items="${lst}">
+		<li>${archive.lieux.ville}</li>
+		</c:forEach>
+      </ul>
 </body>
 <script type="text/javascript">
 $('.datepicker').pickadate({
