@@ -81,8 +81,23 @@ public class Base {
     }
 
     public int ajouterDonnee(DonneeMeteo donnee) {
-	// TODO Auto-generated method stub
-	return -1;
+	int res = 0;
+
+	try {
+	    String sql = "insert into T_DONNEE_DON (DON_pluie, DON_directionVent, DON_vitesseVent, DON_soleil, DON_temperature)"
+		    + "values (?, ?, ?,?,?) ";
+	    PreparedStatement ps = co.prepareStatement(sql);
+	    ps.setDouble(1, donnee.getPluie());
+	    ps.setDouble(2, donnee.getDirectionVent());
+	    ps.setDouble(3, donnee.getVitesseVent());
+	    ps.setInt(4, donnee.getSoleil().getId());
+	    ps.setDouble(5, donnee.getTemperature());
+	    res = ps.executeUpdate();
+	    System.out.println("Exec sql : " + sql);
+	} catch (Exception e) {
+	    System.out.println("Erreur Base.ajouterDonnee " + e.getMessage());
+	}
+	return res;
     }
 
     public int ajouterLieu(Lieu lieu) {
@@ -97,7 +112,7 @@ public class Base {
 	    res = ps.executeUpdate();
 	    System.out.println("Exec sql : " + sql);
 	} catch (Exception e) {
-	    System.out.println("Erreur Base.enregistrerLivre " + e.getMessage());
+	    System.out.println("Erreur Base.ajouterLieu " + e.getMessage());
 	}
 	return res;
     }

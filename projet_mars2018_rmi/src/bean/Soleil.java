@@ -2,8 +2,8 @@ package bean;
 
 public enum Soleil {
     // Objets directement construits
-    ECLAIRCIES("Eclaircies", 1), AVERSE("Averses", 2), AVERSE_ORAGEUSE("Averses orageuses", 3), ENSOLEILLE("Ensoleillé",
-	    4), NEIGE("Neige", 5), NUAGEUX("Nuageux", 6);
+    ECLAIRCIES("Eclaircies", 1), AVERSES("Averses", 2), AVERSE_ORAGEUSE("Averses orageuses",
+	    3), ENSOLEILLE("Ensoleillé", 4), NEIGE("Neige", 5), NUAGEUX("Nuageux", 6);
     private String name = "";
     private int id;
 
@@ -13,7 +13,7 @@ public enum Soleil {
 	this.id = id;
     }
 
-    public String toString() {
+    public String getName() {
 	return name;
     }
 
