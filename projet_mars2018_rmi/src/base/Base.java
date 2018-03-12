@@ -16,6 +16,7 @@ import bean.ArchiveMeteo;
 import bean.DonneeMeteo;
 import bean.Lieu;
 import bean.Soleil;
+import util.Cryptage;
 
 /**
  * 
@@ -251,8 +252,16 @@ public class Base {
     }
 
     public boolean connexion(String identifiant, String mdp) {
+	util.Cryptage cry = new Cryptage("mdp");
+	String mdpCrypte = "";
+	try {
+	    mdpCrypte = cry.chiffrer();
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 	String selectSQL = "SELECT * FROM T_CONNEXION_CON WHERE CON_identifiant = '" + identifiant
-		+ "' AND CON_motDePasse = '" + mdp + "'";
+		+ "' AND CON_motDePasse = '" + mdpCrypte + "'";
 	try {
 	    PreparedStatement preparedStatement = co.prepareStatement(selectSQL);
 	    ResultSet rs = preparedStatement.executeQuery(selectSQL);

@@ -9,10 +9,14 @@ import bean.ArchiveMeteo;
 import bean.DonneeMeteo;
 import bean.Lieu;
 import bean.Photo;
+import validation.Validation;
 
 public interface Serveur extends Remote {
 
     public boolean connexion(String identifiant, String mdp) throws RemoteException;
+
+    public Validation valider(String pays, String ville, String departement, String direction, String vitesse,
+	    String temperature);
 
     public String ajouterDonneesArchive(List<ArchiveMeteo> archives) throws RemoteException;
 

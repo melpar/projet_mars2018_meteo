@@ -23,9 +23,9 @@
         <div class="input-field col s6">
 			<input name="maDate" type="text" class="datepicker">        	
         </div>
-        <div class="input-field col s3">
-			<input name="submit" type="submit" value="Valider"/>       	
-        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="submit">Valider
+		    <i class="material-icons right">send</i>
+		  </button>
       </div>
     </form>
      <ul class="collapsible" data-collapsible="expandable">

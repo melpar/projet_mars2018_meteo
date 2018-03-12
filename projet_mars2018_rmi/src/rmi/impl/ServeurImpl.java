@@ -13,6 +13,7 @@ import bean.DonneeMeteo;
 import bean.Lieu;
 import bean.Photo;
 import rmi.Serveur;
+import validation.Validation;
 
 public class ServeurImpl implements Serveur {
 
@@ -108,6 +109,13 @@ public class ServeurImpl implements Serveur {
 	}
 
 	System.out.println("Serveur RMI lancé");
+    }
+
+    @Override
+    public Validation valider(String pays, String ville, String departement, String direction, String vitesse,
+	    String temperature) {
+	// TODO Auto-generated method stub
+	return null;
     }
 
 }
