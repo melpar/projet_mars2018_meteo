@@ -9,7 +9,6 @@ import bean.ArchiveMeteo;
 import bean.DonneeMeteo;
 import bean.Lieu;
 import bean.Photo;
-import mock.ListeArchiveMOCK;
 import rmi.Serveur;
 
 public class ServeurImpl implements Serveur {
@@ -54,14 +53,20 @@ public class ServeurImpl implements Serveur {
 
     @Override
     public List<ArchiveMeteo> consulterParJour(Date date) throws RemoteException {
-	// TODO Auto-generated method stub
-	return ListeArchiveMOCK.getByJour(date);
+	Base base = new Base();
+	base.ouvrir();
+	List<ArchiveMeteo> archives = base.consulterParJour(date);
+	base.fermer();
+	return archives;
     }
 
     @Override
     public List<ArchiveMeteo> consulterParMois(int annee, int mois) throws RemoteException {
-	// TODO Auto-generated method stub
-	return null;
+	Base base = new Base();
+	base.ouvrir();
+	List<ArchiveMeteo> archives = base.consulterParMois(mois, annee);
+	base.fermer();
+	return archives;
     }
 
     @Override
