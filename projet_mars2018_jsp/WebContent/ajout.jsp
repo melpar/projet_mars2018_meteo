@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link type="text/css" rel="stylesheet" href="Materialize/css/materialize.min.css"  media="screen,projection"/>
-<title>Connexion</title>
+<title>Ajout données</title>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -13,14 +13,14 @@
     <form class="col s12">
       <div class="row">
         <div class="input-field col s6">
-          <input placeholder="Email" id="email" type="text" class="validate">
-          <label for="email"></label>
+          <input placeholder="Pays" id="pays" type="text" class="validate">
+          <label for="pays"></label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <input  placeholder="Mot de passe" id="password" type="password" class="validate">
-          <label for="password"></label>
+          <input  placeholder="Ville" id="ville" type="text" class="validate">
+          <label for="ville"></label>
         </div>
       </div>
       <div class="row">

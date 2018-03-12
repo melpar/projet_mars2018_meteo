@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,16 +16,16 @@ import rmi.Serveur;
 import rmi.impl.ServeurImpl;
 
 /**
- * Servlet implementation class ServletListerJour
+ * Servlet implementation class ServletListerMois
  */
-@WebServlet("/ServletListerJour")
-public class ServletListerJour extends HttpServlet {
+@WebServlet("/ServletListerMois")
+public class ServletListerMois extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletListerJour() {
+    public ServletListerMois() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,21 +35,23 @@ public class ServletListerJour extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String dateString = request.getParameter("maDate");
-		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy",Locale.US);
+		String moisString = request.getParameter("mois");
+		String anneeString = request.getParameter("annee");
+				
+		SimpleDateFormat formatter = new SimpleDateFormat("mm-yyyy");
 		Date date = new Date();
         try {
-            date = formatter.parse(dateString);
+            date = formatter.parse(moisString+"-"+anneeString);
         } catch (java.text.ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		Serveur serveur =  new ServeurImpl();
+        
+        Serveur serveur =  new ServeurImpl();
 		List<ArchiveMeteo> list = serveur.consulterParJour(date);
 		request.setAttribute("lst",list);
 		request.getServletContext().getRequestDispatcher(
-				"/jours.jsp").
+				"/mois.jsp").
 					forward(request, response);
 	}
 
