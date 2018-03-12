@@ -1,10 +1,15 @@
 package base;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.mysql.jdbc.Connection;
+
+import bean.ArchiveMeteo;
+import bean.DonneeMeteo;
+import bean.Lieu;
 
 /**
  * 
@@ -60,5 +65,40 @@ public class Base {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
+    }
+
+    public void ajouterDonneeArchive(ArchiveMeteo archive) {
+	// ajout du lieu
+	this.ajouterLieu(archive.getLieu());
+
+	// ajout de la donnee
+	this.ajouterDonnee(archive.getDonnee());
+
+	// creation de l'archive
+	if (archive.getPhotos() != null) {
+	    // ajout des photos
+	}
+    }
+
+    public int ajouterDonnee(DonneeMeteo donnee) {
+	// TODO Auto-generated method stub
+	return -1;
+    }
+
+    public int ajouterLieu(Lieu lieu) {
+	int res = 0;
+
+	try {
+	    String sql = "insert into T_LIEU_LIE (LIE_ville, LIE_pays, LIE_departement)" + "values (?, ?, ?) ";
+	    PreparedStatement ps = co.prepareStatement(sql);
+	    ps.setString(1, lieu.getVille());
+	    ps.setString(2, lieu.getPays());
+	    ps.setString(3, lieu.getDepartement());
+	    res = ps.executeUpdate();
+	    System.out.println("Exec sql : " + sql);
+	} catch (Exception e) {
+	    System.out.println("Erreur Base.enregistrerLivre " + e.getMessage());
+	}
+	return res;
     }
 }

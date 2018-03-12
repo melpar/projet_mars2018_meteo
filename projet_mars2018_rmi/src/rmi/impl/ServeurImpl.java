@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 
+import base.Base;
 import bean.ArchiveMeteo;
 import bean.DonneeMeteo;
 import bean.Lieu;
@@ -23,16 +24,19 @@ public class ServeurImpl implements Serveur {
 
     @Override
     public String ajouterDonneesArchive(List<ArchiveMeteo> archives) throws RemoteException {
-	// StringBuilder
+	StringBuilder builder = new StringBuilder();
 	for (ArchiveMeteo archive : archives) {
-	    ajouterDonneeArchive(archive);
+	    builder.append(ajouterDonneeArchive(archive));
 	}
-	return null;
+	return builder.toString();
     }
 
     @Override
     public String ajouterDonneeArchive(ArchiveMeteo archive) throws RemoteException {
-	// TODO Auto-generated method stub
+	Base base = new Base();
+	base.ouvrir();
+	base.ajouterDonneeArchive(archive);
+	base.fermer();
 	return null;
     }
 
