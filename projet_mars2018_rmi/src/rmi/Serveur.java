@@ -11,6 +11,9 @@ import bean.Lieu;
 import bean.Photo;
 
 public interface Serveur extends Remote {
+
+    public boolean connexion(String identifiant, String mdp) throws RemoteException;
+
     public String ajouterDonneesArchive(List<ArchiveMeteo> archives) throws RemoteException;
 
     public String ajouterDonneeArchive(ArchiveMeteo archive) throws RemoteException;

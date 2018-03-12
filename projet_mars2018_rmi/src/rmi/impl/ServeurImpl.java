@@ -8,13 +8,25 @@ import bean.ArchiveMeteo;
 import bean.DonneeMeteo;
 import bean.Lieu;
 import bean.Photo;
+import mock.ListeArchiveMOCK;
 import rmi.Serveur;
 
 public class ServeurImpl implements Serveur {
 
     @Override
+    public boolean connexion(String identifiant, String mdp) throws RemoteException {
+	if ("identifiant".equals(identifiant) && "mdp".equals(mdp)) {
+	    return true;
+	}
+	return false;
+    }
+
+    @Override
     public String ajouterDonneesArchive(List<ArchiveMeteo> archives) throws RemoteException {
-	// TODO Auto-generated method stub
+	// StringBuilder
+	for (ArchiveMeteo archive : archives) {
+	    ajouterDonneeArchive(archive);
+	}
 	return null;
     }
 
@@ -39,7 +51,7 @@ public class ServeurImpl implements Serveur {
     @Override
     public List<ArchiveMeteo> consulterParJour(Date date) throws RemoteException {
 	// TODO Auto-generated method stub
-	return null;
+	return ListeArchiveMOCK.getByJour(date);
     }
 
     @Override

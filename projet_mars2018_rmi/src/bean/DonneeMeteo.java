@@ -17,4 +17,44 @@ public class DonneeMeteo {
 
     @Regexp(expr = "^-?(?:50|[1234][0-9]|[0-9])?$", value = "La temperature doit être comprise entre -50 et 50")
     private int temperature;
+
+    public double getPluie() {
+	return pluie;
+    }
+
+    public void setPluie(double pluie) {
+	this.pluie = pluie;
+    }
+
+    public double getDirectionVent() {
+	return directionVent;
+    }
+
+    public void setDirectionVent(double directionVent) {
+	this.directionVent = directionVent;
+    }
+
+    public double getVitesseVent() {
+	return vitesseVent;
+    }
+
+    public void setVitesseVent(double vitesseVent) {
+	this.vitesseVent = vitesseVent;
+    }
+
+    public Soleil getSoleil() {
+	return soleil;
+    }
+
+    public void setSoleil(Soleil soleil) {
+	this.soleil = soleil;
+    }
+
+    public int getTemperature() {
+	return temperature;
+    }
+
+    public void setTemperature(int temperature) {
+	this.temperature = temperature;
+    }
 }
