@@ -89,7 +89,7 @@ public class TestBase {
 
 	Base base = new Base();
 	base.ouvrir();
-	List<ArchiveMeteo> archives = base.consulterParMois(3, 2018);
+	List<ArchiveMeteo> archives = base.consulterParMois(new Date());
 	base.fermer();
 	for (ArchiveMeteo arc : archives) {
 	    System.out.println(arc.getDate());

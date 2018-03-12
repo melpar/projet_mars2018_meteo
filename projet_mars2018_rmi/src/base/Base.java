@@ -180,12 +180,15 @@ public class Base {
 
     }
 
-    public List<ArchiveMeteo> consulterParMois(int mois, int annee) {
+    public List<ArchiveMeteo> consulterParMois(java.util.Date date) {
 	// SELECT month(ARC_date), year(ARC_date) FROM T_ARCHIVE_ARC;
 	List<ArchiveMeteo> archives = new ArrayList<ArchiveMeteo>();
+	System.out.println(new java.sql.Date(date.getTime()));
+	java.sql.Date dateSql = new java.sql.Date(date.getTime());
+	String[] dateString = dateSql.toString().split("-");
 	try {
-	    String sql = "SELECT * FROM `T_ARCHIVE_ARC` WHERE month(ARC_date) = " + mois + " AND year(ARC_date) = "
-		    + annee;
+	    String sql = "SELECT * FROM `T_ARCHIVE_ARC` WHERE month(ARC_date) = " + dateString[1]
+		    + " AND year(ARC_date) = " + dateString[0];
 	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 	    // ps.setDate(1, new java.sql.Date(date.getTime()));
 	    ResultSet rs = ps.executeQuery(sql);
@@ -193,7 +196,7 @@ public class Base {
 
 	    while (rs.next()) {
 		ArchiveMeteo archive = new ArchiveMeteo();
-		archive.setDate(rs.getDate("ARC_date"));
+		archive.setDate(date);
 		archive.setDonnee(this.getDonnee(rs.getInt("ARC_donnee")));
 		archive.setLieu(this.getLieu(rs.getInt("ARC_lieu")));
 		// archive.setPhotos(this.getPhoto(rs.getInt("ARC_id")));
@@ -245,5 +248,22 @@ public class Base {
 	}
 
 	return donnee;
+    }
+
+    public boolean connexion(String identifiant, String mdp) {
+	String selectSQL = "SELECT * FROM T_CONNEXION_CON WHERE CON_identifiant = '" + identifiant
+		+ "' AND CON_motDePasse = '" + mdp + "'";
+	try {
+	    PreparedStatement preparedStatement = co.prepareStatement(selectSQL);
+	    ResultSet rs = preparedStatement.executeQuery(selectSQL);
+	    System.out.println("Exec sql : " + selectSQL);
+	    while (rs.next()) {
+		return true;
+	    }
+	} catch (SQLException e) {
+	    System.out.println("Erreur Base.getLieu " + e.getMessage());
+
+	}
+	return false;
     }
 }

@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -37,9 +39,10 @@ public class ServletListerMois extends HttpServlet {
 		// TODO Auto-generated method stub
 		String moisString = request.getParameter("mois");
 		String anneeString = request.getParameter("annee");
-				
-		SimpleDateFormat formatter = new SimpleDateFormat("mm-yyyy");
+		System.out.println("mois " + moisString + " annee "+anneeString);		
+		SimpleDateFormat formatter = new SimpleDateFormat("MM-yyyy");
 		Date date = new Date();
+
         try {
             date = formatter.parse(moisString+"-"+anneeString);
         } catch (java.text.ParseException e) {
@@ -47,9 +50,21 @@ public class ServletListerMois extends HttpServlet {
 			e.printStackTrace();
 		}
         
-        Serveur serveur =  new ServeurImpl();
-		List<ArchiveMeteo> list = serveur.consulterParJour(date);
-		request.setAttribute("lst",list);
+        int port = 2000;
+		
+		try {
+			Registry registry =
+					LocateRegistry.getRegistry(port);
+			
+		Serveur serveur = (Serveur) registry.lookup("serveurRMI");
+			
+		List<ArchiveMeteo> list = serveur.consulterParMois(date);
+		request.setAttribute("lst",list);	
+		}
+		catch (Exception e) {
+			System.out.println("Erreur client RMI" + e.toString());
+		}
+		
 		request.getServletContext().getRequestDispatcher(
 				"/mois.jsp").
 					forward(request, response);

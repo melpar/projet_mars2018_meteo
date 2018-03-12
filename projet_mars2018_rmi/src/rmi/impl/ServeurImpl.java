@@ -18,10 +18,11 @@ public class ServeurImpl implements Serveur {
 
     @Override
     public boolean connexion(String identifiant, String mdp) throws RemoteException {
-	if ("identifiant".equals(identifiant) && "mdp".equals(mdp)) {
-	    return true;
-	}
-	return false;
+	Base base = new Base();
+	base.ouvrir();
+	boolean ret = base.connexion(identifiant, mdp);
+	base.fermer();
+	return ret;
     }
 
     @Override
@@ -64,10 +65,10 @@ public class ServeurImpl implements Serveur {
     }
 
     @Override
-    public List<ArchiveMeteo> consulterParMois(int annee, int mois) throws RemoteException {
+    public List<ArchiveMeteo> consulterParMois(Date date) throws RemoteException {
 	Base base = new Base();
 	base.ouvrir();
-	List<ArchiveMeteo> archives = base.consulterParMois(mois, annee);
+	List<ArchiveMeteo> archives = base.consulterParMois(date);
 	base.fermer();
 	return archives;
     }

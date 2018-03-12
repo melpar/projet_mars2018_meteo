@@ -22,24 +22,24 @@
         </div>
         <div class="input-field col s3">
 		    <select name="mois">
-		      <option value="0"  selected>Janvier</option>
-		      <option value="1">Février</option>
-		      <option value="2">Mars</option>
-		      <option value="3">Aril</option>
-		      <option value="4">Mai</option>
-		      <option value="5">Juin</option>
-		      <option value="6">Juillet</option>
-		      <option value="7">Aout</option>
-		      <option value="8">Septembre</option>
-		      <option value="9">Octobre</option>
-		      <option value="10">Novembre</option>
-		      <option value="11">Decembre</option>
+		      <option value="1"  selected>Janvier</option>
+		      <option value="2">Février</option>
+		      <option value="3">Mars</option>
+		      <option value="4">Aril</option>
+		      <option value="5">Mai</option>
+		      <option value="6">Juin</option>
+		      <option value="7">Juillet</option>
+		      <option value="8">Aout</option>
+		      <option value="9">Septembre</option>
+		      <option value="10">Octobre</option>
+		      <option value="11">Novembre</option>
+		      <option value="12">Decembre</option>
 		    </select>
 		    <label>Mois</label>
 	  	</div>
         <div class="input-field col s3">
 		    <select name="annee">
-	    		<c:forEach var = "i" begin = "2000" end = "2010">
+	    		<c:forEach var = "i" begin = "2010" end = "2020">
         			 Item <c:out value = "${i}"/><p>
         			 <option value="<c:out value = "${i}"/>"  selected><c:out value = "${i}"/></option>
       			</c:forEach>

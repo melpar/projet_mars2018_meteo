@@ -24,7 +24,7 @@ public interface Serveur extends Remote {
 
     public List<ArchiveMeteo> consulterParJour(Date date) throws RemoteException;
 
-    public List<ArchiveMeteo> consulterParMois(int annee, int mois) throws RemoteException;
+    public List<ArchiveMeteo> consulterParMois(Date date) throws RemoteException;
 
     public boolean productionPDF(List<ArchiveMeteo> archives) throws RemoteException;
 }
