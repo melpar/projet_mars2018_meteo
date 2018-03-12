@@ -4,6 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%    pageContext.setAttribute("monEnum", Soleil.values()); %>
 
+<jsp:useBean id="erreur" class="java.lang.String" scope="request" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,15 +21,15 @@
     <form class="col s12">
       <div class="row">
         <div class="input-field col s6">
-          <input placeholder="Pays" id="pays" type="text" class="validate">
+          <input name="pays" placeholder="Pays" id="pays" type="text" class="validate">
           <label for="pays"></label>
         </div>
         <div class="input-field col s6">
-          <input  placeholder="Ville" id="ville" type="text" class="validate">
+          <input name="ville" placeholder="Ville" id="ville" type="text" class="validate">
           <label for="ville"></label>
         </div>
         <div class="input-field col s6">
-          <input  placeholder="Département" id="departement" type="text" class="validate">
+          <input name="departement" placeholder="Département" id="departement" type="text" class="validate">
           <label for="departement"></label>
         </div>
       </div>
@@ -49,27 +51,27 @@
 		    <label>Ciel</label>
 	  	</div>
         <div class="input-field col s6">
-          <input  placeholder="Diresction du vent" id="direction" type="number" class="validate">
+          <input  name="direction" placeholder="Diresction du vent" id="direction" type="number" class="validate">
           <label for="direction"></label>
         </div>
         <div class="input-field col s6">
-          <input  placeholder="Vitesse du vent" id="vitesse" type="number" class="validate">
+          <input name="vitesse" placeholder="Vitesse du vent" id="vitesse" type="number" class="validate">
           <label for="vitesse"></label>
         </div>
         </div>
         <div class="input-field col s6">
-          <input  placeholder="Température" id="temperature" type="number" class="validate">
+          <input name="temperature" placeholder="Température" id="temperature" type="number" class="validate">
           <label for="temperature"></label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <a class="waves-effect waves-light btn">Connexion</a>
+          <button class="waves-effect waves-light btn">Envoyer</button>
         </div>
       </div>
       </div>
     </form>
-    
+    <p style="color: red;">${erreur}</p>
   </div>
 </body>
 <script type="text/javascript">
