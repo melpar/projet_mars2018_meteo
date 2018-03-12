@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:useBean id="lst" class="java.util.ArrayList" scope="request" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,25 +15,27 @@
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 <!-- <input type="date" class="datepicker"> -->	
-	<form class="col s12">
+	<form class="col s12" action="ServletListerJour" >
       <div class="row">
       <div class="input-field col s3">
 			Date :        	
         </div>
         <div class="input-field col s6">
-			<input type="text" class="datepicker">        	
+			<input name="date" type="date" class="datepicker">        	
+        </div>
+        <div class="input-field col s3">
+			<input name="submit" type="submit" value="Valider"/>       	
         </div>
       </div>
     </form>
     <ul class="collection with-header">
-        <li class="collection-header"><h4>First Names</h4></li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-        <li class="collection-item">Alvin</li>
-
         <c:forEach var="archive" items="${lst}">
-		<li>${archive.lieux.ville}</li>
+		<li class="collection-header"><h4>${archive.lieu.ville}</h4></li>
+		<li class="collection-item">Humidité : ${archive.donnee.pluie}%</li>
+		<li class="collection-item">Direction de vent : ${archive.donnee.directionVent}°</li>
+		<li class="collection-item">Vitesse du vent : ${archive.donnee.vitesseVent} km/h</li>
+		<li class="collection-item">${archive.donnee.soleil.name}</li>
+		<li class="collection-item">${archive.donnee.temperature}°C</li>
 		</c:forEach>
       </ul>
 </body>
