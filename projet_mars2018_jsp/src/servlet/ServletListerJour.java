@@ -16,6 +16,7 @@ import bean.ArchiveMeteo;
 import rmi.Serveur;
 import rmi.impl.ServeurImpl;
 
+
 /**
  * Servlet implementation class ServletListerJour
  */

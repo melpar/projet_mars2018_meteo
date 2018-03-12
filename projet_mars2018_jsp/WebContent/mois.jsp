@@ -54,7 +54,7 @@
      <ul class="collapsible" data-collapsible="expandable">
         <c:forEach var="archive" items="${lst}">
 	        <li>
-				<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.ville}</div>
+				<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.ville}<br>${archive.date.getDay()}/${archive.date.getMonth()+1}/${archive.date.getYear()+1900}</div>
 				<div class="collapsible-body">
 					<ul class="collection">
 						<li class="collection-item">Humidité : ${archive.donnee.pluie}%</li>
