@@ -22,8 +22,8 @@
 			Date :        	
         </div>
         <div class="input-field col s6">
-			<input name="maDate" type="text" class="datepicker"> 
-			<label for="erreur" style="color: red;">${valide.erreurs["pays"]}</label>       	
+			<input name="maDate" type="text" class="datepicker" value="${dateEntre}"> 
+			<label for="erreur" style="color: red;">${erreur}</label>       	
         </div>
         <div class="input-field col s3">
 			<button class="btn waves-effect waves-light" type="submit" name="submit">Valider
@@ -50,15 +50,20 @@
 								<div class="collapsible-body">
 									<ul class="collection">
 										<li class="collection-item">
-										<form action="#">
+										<form method="get" action="ServletAjoutPhoto">
 										    <div class="file-field input-field">
 										      <div class="btn">
 										      	<i class="material-icons right">add_a_photo</i>
 										        <span>File</span>
-										        <input type="file" multiple>
+										        <input type="file" multiple name="photo">
 										      </div>
 										      <div class="file-path-wrapper">
-										        <input class="file-path validate" type="text" placeholder="Upload one or more files">
+										        <input class="file-path validate" type="text" placeholder="Envoyer une ou plusieurs photos">
+										      </div>
+										      <div>
+										        <button class="btn waves-effect waves-light" type="submit" name="submit">Envoyer
+											    	<i class="material-icons right">send</i>
+											  	</button>  
 										      </div>
 										    </div>
 										  </form>

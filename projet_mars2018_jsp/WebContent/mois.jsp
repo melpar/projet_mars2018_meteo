@@ -62,6 +62,18 @@
 						<li class="collection-item">Vitesse du vent : ${archive.donnee.vitesseVent} km/h</li>
 						<li class="collection-item">Ciel : ${archive.donnee.soleil.name}</li>
 						<li class="collection-item">Température : ${archive.donnee.temperature}°C</li>
+						<ul class="collapsible" data-collapsible="expandable">
+							<li>
+								<div class="collapsible-header"><i class="material-icons">photo_library</i>Photo</div>
+								<div class="collapsible-body">
+									<ul class="collection">
+										<li class="collection-item">
+										
+										</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
 					</ul>
 				</div>
 			</li>

@@ -44,7 +44,7 @@ public class ServletAjoutPhoto extends HttpServlet {
 		Date date = new Date();
 		try {
 			date = formatter.parse(dateString);
-		} catch (java.text.ParseException e) {
+		} catch (java.lang.NullPointerException | java.text.ParseException e) {
 			request.setAttribute("erreur", "Date incorrecte");
 		}
 
@@ -60,7 +60,7 @@ public class ServletAjoutPhoto extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println("Erreur client RMI" + e.toString());
 		}
-
+		request.setAttribute("dateEntre", dateString);
 		request.getServletContext().getRequestDispatcher("/ajoutPhotos.jsp").forward(request, response);
 	}
 
