@@ -57,8 +57,6 @@ public class ServletListerJour extends HttpServlet {
 			Serveur serveur = (Serveur) registry.lookup("serveurRMI");
 
 			List<ArchiveMeteo> list = serveur.consulterParJour(date);
-			String str = new String(list.get(0).getPhotos().get(0).getImage(), "UTF-8");
-			System.out.println(str);
 			request.setAttribute("lst", list);
 		} catch (Exception e) {
 			System.out.println("Erreur client RMI" + e.toString());
