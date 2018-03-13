@@ -45,8 +45,14 @@ public class ServeurImpl implements Serveur {
     }
 
     @Override
-    public String ajouterPhoto(Lieu lieu, Date date, List<Photo> photos) throws RemoteException {
+    public String ajouterPhoto(int archive, List<Photo> photos) throws RemoteException {
 	// TODO Auto-generated method stub
+	Base base = new Base();
+	base.ouvrir();
+	for (Photo photo : photos) {
+	    base.ajouterImage(archive, photo);
+	}
+	base.fermer();
 	return null;
     }
 

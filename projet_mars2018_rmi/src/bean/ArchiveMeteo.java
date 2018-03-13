@@ -9,6 +9,7 @@ public class ArchiveMeteo implements Serializable {
      * 
      */
     private static final long serialVersionUID = 1L;
+    private int id;
     private Lieu lieu;
     private Date date;
     private DonneeMeteo donnee;
@@ -44,5 +45,13 @@ public class ArchiveMeteo implements Serializable {
 
     public void setPhotos(List<Photo> photos) {
 	this.photos = photos;
+    }
+
+    public int getId() {
+	return id;
+    }
+
+    public void setId(int id) {
+	this.id = id;
     }
 }

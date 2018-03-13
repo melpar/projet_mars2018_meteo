@@ -15,6 +15,7 @@ import com.mysql.jdbc.Statement;
 import bean.ArchiveMeteo;
 import bean.DonneeMeteo;
 import bean.Lieu;
+import bean.Photo;
 import bean.Soleil;
 import util.Cryptage;
 
@@ -87,6 +88,7 @@ public class Base {
 	    // Erreur
 	}
 	// creation de l'archive
+	int idArchive = -1;
 	try {
 	    String sql = "insert into T_ARCHIVE_ARC (ARC_lieu, ARC_date, ARC_donnee)" + "values (?, ?, ?) ";
 	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -97,6 +99,7 @@ public class Base {
 	    res = ps.executeUpdate();
 	    ResultSet result = ps.getGeneratedKeys();
 	    if (result.next()) {
+		idArchive = result.getInt(1);
 		System.out.println("Exec sql : " + sql + " enregistré à l'id" + result.getInt(1));
 	    }
 	} catch (Exception e) {
@@ -104,15 +107,15 @@ public class Base {
 	}
 
 	if (archive.getPhotos() != null) {
-	    // ajout des photos
+	    for (Photo photo : archive.getPhotos()) {
+		this.ajouterImage(idArchive, photo);
+	    }
 	}
 
 	return res;
     }
 
     public int ajouterDonnee(DonneeMeteo donnee) {
-	int res = 0;
-
 	try {
 	    String sql = "insert into T_DONNEE_DON (DON_pluie, DON_directionVent, DON_vitesseVent, DON_soleil, DON_temperature)"
 		    + "values (?, ?, ?,?,?) ";
@@ -122,7 +125,7 @@ public class Base {
 	    ps.setDouble(3, donnee.getVitesseVent());
 	    ps.setInt(4, donnee.getSoleil().getId());
 	    ps.setDouble(5, donnee.getTemperature());
-	    res = ps.executeUpdate();
+	    ps.executeUpdate();
 	    ResultSet result = ps.getGeneratedKeys();
 	    if (result.next()) {
 		System.out.println("Exec sql : " + sql + " enregistré à l'id" + result.getInt(1));
@@ -229,6 +232,25 @@ public class Base {
 	return lieu;
     }
 
+    private int getIdLieu(Lieu lieu) {
+	int id = -1;
+	String selectSQL = "SELECT * FROM T_LIEU_LIE WHERE LIE_ville = " + lieu.getVille() + " AND LIE_departement = "
+		+ lieu.getDepartement() + " AND LIE_pays = " + lieu.getPays();
+	try {
+	    PreparedStatement preparedStatement = co.prepareStatement(selectSQL);
+	    ResultSet rs = preparedStatement.executeQuery(selectSQL);
+	    while (rs.next()) {
+		return rs.getInt("LIE_id");
+
+	    }
+	} catch (SQLException e) {
+	    System.out.println("Erreur Base.getLieu " + e.getMessage());
+
+	}
+
+	return id;
+    }
+
     private DonneeMeteo getDonnee(int id) {
 	DonneeMeteo donnee = new DonneeMeteo();
 	String selectSQL = "SELECT * FROM T_DONNEE_DON WHERE DON_id = " + id;
@@ -275,4 +297,21 @@ public class Base {
 	}
 	return false;
     }
+
+    public void ajouterImage(int idArchive, Photo photo) {
+
+	try {
+	    String sql = "insert into T_PHOTO_PHO (PHO_nom, PHO_image, PHO_archive)" + "values (?, ?, ?) ";
+	    PreparedStatement ps = co.prepareStatement(sql);
+	    ps.setString(1, photo.getNom());
+	    ps.setBlob(2, photo.getImage());
+	    ps.setInt(3, idArchive);
+	    ps.executeUpdate();
+	    System.out.println("Exec sql : " + sql);
+	} catch (Exception e) {
+	    System.out.println("Erreur Base.ajouterLieu " + e.getMessage());
+	}
+
+    }
+
 }

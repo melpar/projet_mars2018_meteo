@@ -22,7 +22,7 @@ public interface Serveur extends Remote {
 
     public String ajouterDonneeArchive(ArchiveMeteo archive) throws RemoteException;
 
-    public String ajouterPhoto(Lieu lieu, Date date, List<Photo> photos) throws RemoteException;
+    public String ajouterPhoto(int archive, List<Photo> photos) throws RemoteException;
 
     public String modifierDonnee(Lieu lieu, Date date, DonneeMeteo donnees) throws RemoteException;
 
