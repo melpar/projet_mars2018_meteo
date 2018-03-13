@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -176,6 +177,7 @@ public class Base {
 		archive.setDonnee(this.getDonnee(rs.getInt("ARC_donnee")));
 		archive.setLieu(this.getLieu(rs.getInt("ARC_lieu")));
 		archive.setPhotos(this.getPhotos(rs.getInt("ARC_id")));
+		archive.setId(rs.getInt("ARC_id"));
 		archives.add(archive);
 	    }
 
@@ -196,7 +198,7 @@ public class Base {
 		Photo photo = new Photo();
 		int blobLength = (int) rs.getBlob("PHO_image").length();
 		byte[] blobAsBytes = rs.getBlob("PHO_image").getBytes(1, blobLength);
-		photo.setImage(blobAsBytes);
+		photo.setImage(Base64.getEncoder().encode(blobAsBytes));
 		photo.setNom(rs.getString("PHO_nom"));
 		photos.add(photo);
 	    }
