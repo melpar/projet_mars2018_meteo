@@ -52,7 +52,8 @@ public class ServletEnvoyerDonnee extends HttpServlet {
 			Serveur serveur = (Serveur) registry.lookup("serveurRMI");
 			Validation valide = serveur.valider(request.getParameter("pays"), request.getParameter("ville"),
 					request.getParameter("departement"), request.getParameter("direction"),
-					request.getParameter("vitesse"), request.getParameter("temperature"));
+					request.getParameter("vitesse"), request.getParameter("temperature"),
+					request.getParameter("pluie"));
 			if (valide.isValide()) {
 				// creation archive meteo
 				ArchiveMeteo archive = new ArchiveMeteo();
@@ -77,7 +78,7 @@ public class ServletEnvoyerDonnee extends HttpServlet {
 				DonneeMeteo donnee = new DonneeMeteo();
 				donnee.setDirectionVent(Double.parseDouble(request.getParameter("direction")));
 				donnee.setPluie(Double.parseDouble(request.getParameter("pluie")));
-				donnee.setSoleil(Soleil.valueOf(request.getParameter("ciel")));
+				donnee.setSoleil(Soleil.getById(Integer.parseInt(request.getParameter("ciel"))));
 				donnee.setTemperature(Integer.parseInt(request.getParameter("temperature")));
 				donnee.setVitesseVent(Double.parseDouble(request.getParameter("vitesse")));
 				archive.setDonnee(donnee);

@@ -16,7 +16,7 @@ public interface Serveur extends Remote {
     public boolean connexion(String identifiant, String mdp) throws RemoteException;
 
     public Validation valider(String pays, String ville, String departement, String direction, String vitesse,
-	    String temperature) throws RemoteException;
+	    String temperature, String pluie) throws RemoteException;
 
     public String ajouterDonneesArchive(List<ArchiveMeteo> archives) throws RemoteException;
 

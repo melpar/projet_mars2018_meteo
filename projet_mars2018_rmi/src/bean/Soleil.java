@@ -15,6 +15,15 @@ public enum Soleil implements Serializable {
 	this.id = id;
     }
 
+    public static Soleil getById(int id) {
+	for (Soleil sol : Soleil.values()) {
+	    if (sol.id == id) {
+		return sol;
+	    }
+	}
+	return null;
+    }
+
     public String getName() {
 	return name;
     }

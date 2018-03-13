@@ -63,6 +63,10 @@
           <input name="temperature" placeholder="Température" id="temperature" type="number" class="validate" value="${valide.valeurs['temperature']}">
           <label for="temperature" style="color: red;">${valide.erreurs["temperature"]}</label>
         </div>
+        <div class="input-field col s6">
+          <input name="pluie" placeholder="Pluie" id="pluie" type="number" class="validate" value="${valide.valeurs['pluie']}">
+          <label for="pluie" style="color: red;">${valide.erreurs["pluie"]}</label>
+        </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
