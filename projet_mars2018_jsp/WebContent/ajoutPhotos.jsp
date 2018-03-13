@@ -50,18 +50,18 @@
 								<div class="collapsible-body">
 									<ul class="collection">
 										<li class="collection-item">
-										<form method="get" action="ServletAjoutPhoto">
+										<form method="post" action="ServletAjoutPhotoEnvoyer" enctype="multipart/form-data">
 										    <div class="file-field input-field">
 										      <div class="btn">
 										      	<i class="material-icons right">add_a_photo</i>
-										        <span>File</span>
-										        <input type="file" multiple name="photo">
+										        <span>Fichiers</span>
+										        <input type="file" multiple name="imageData">
 										      </div>
 										      <div class="file-path-wrapper">
-										        <input class="file-path validate" type="text" placeholder="Envoyer une ou plusieurs photos">
+										        <input class="file-path validate" type="text" placeholder="Envoyer une ou plusieurs photos" name="imageNom">
 										      </div>
 										      <div>
-										        <button class="btn waves-effect waves-light" type="submit" name="submit">Envoyer
+										        <button class="btn waves-effect waves-light" type="submit" name="imageBoutton" value="${archive.id}%">Envoyer
 											    	<i class="material-icons right">send</i>
 											  	</button>  
 										      </div>
