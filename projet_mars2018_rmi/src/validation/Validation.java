@@ -40,7 +40,7 @@ public class Validation implements Serializable {
 
 	    Pattern pattern = Pattern.compile(ann.expr());
 	    Matcher matcher = pattern.matcher(val);
-	    if (!matcher.matches()) {
+	    if (!matcher.matches() || param == "") {
 		// valeur incorrecte
 		System.out.println("Erreur détectée : " + ann.value());
 		erreurs.put(param, ann.value());
