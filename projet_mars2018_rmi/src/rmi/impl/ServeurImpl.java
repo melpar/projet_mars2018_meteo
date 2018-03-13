@@ -113,7 +113,7 @@ public class ServeurImpl implements Serveur {
 
     @Override
     public Validation valider(String pays, String ville, String departement, String direction, String vitesse,
-	    String temperature) {
+	    String temperature) throws RemoteException {
 	Validation v = new Validation();
 	v.regexp(bean.Lieu.class, "ville", ville);
 	v.regexp(bean.Lieu.class, "departement", departement);
