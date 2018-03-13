@@ -1,5 +1,6 @@
 package validation;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Hashtable;
 import java.util.regex.Matcher;
@@ -7,7 +8,12 @@ import java.util.regex.Pattern;
 
 import annotation.Regexp;
 
-public class Validation {
+public class Validation implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
     boolean valide = true;
     // indique si une erreur a été détectée
@@ -36,7 +42,7 @@ public class Validation {
 	    Matcher matcher = pattern.matcher(val);
 	    if (!matcher.matches()) {
 		// valeur incorrecte
-		System.out.println("Erreur détectée : " + ann.value());
+		System.out.println("Erreur d�tect�e : " + ann.value());
 		erreurs.put(param, ann.value());
 		valide = false;
 	    } else {

@@ -114,8 +114,14 @@ public class ServeurImpl implements Serveur {
     @Override
     public Validation valider(String pays, String ville, String departement, String direction, String vitesse,
 	    String temperature) {
-	// TODO Auto-generated method stub
-	return null;
+	Validation v = new Validation();
+	v.regexp(bean.Lieu.class, "ville", ville);
+	v.regexp(bean.Lieu.class, "departement", departement);
+	v.regexp(bean.Lieu.class, "pays", pays);
+	v.regexp(bean.DonneeMeteo.class, "direction", ville);
+	v.regexp(bean.DonneeMeteo.class, "vitesse", departement);
+	v.regexp(bean.DonneeMeteo.class, "temperature", pays);
+	return v;
     }
 
 }
