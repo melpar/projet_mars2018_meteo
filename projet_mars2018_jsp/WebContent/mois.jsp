@@ -46,9 +46,9 @@
 		    </select>
 		    <label>Annee</label>
 	  	</div>
-        <div class="input-field col s3">
-			<input name="submit" type="submit" value="Valider"/>       	
-        </div>
+       <button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
+		    <i class="material-icons right">send</i>
+		  </button>
       </div>
     </form>
      <ul class="collapsible" data-collapsible="expandable">
@@ -66,11 +66,29 @@
 							<li>
 								<div class="collapsible-header"><i class="material-icons">photo_library</i>Photo</div>
 								<div class="collapsible-body">
-									<ul class="collection">
-										<li class="collection-item">
-										
-										</li>
-									</ul>
+									<div class="col s12 m8 offset-m2 l6 offset-l3">
+								        	<c:forEach var="photo" items="${archive.photos}">
+								        		<div class="card-panel grey lighten-5 z-depth-1">
+								        		<%
+													bean.Photo p = (bean.Photo)pageContext.getAttribute("photo");
+													String image = new String(p.getImage(),"UTF-8");
+												
+													pageContext.setAttribute("p", image);
+													pageContext.setAttribute("nom", p.getNom());
+												%>
+								          		<div class="row valign-wrapper">
+								            		<div class="col s2">
+								              			<img src="data:image/jpg;base64,${p}" alt="" class="responsive-img"> <!-- notice the "circle" class -->
+								           			</div>
+								            		<div class="col s10">
+								              			<span class="black-text">
+								                			${nom}
+								              			</span>
+								            		</div>
+								          		</div>
+											</div>
+								          </c:forEach> 
+								      </div>	
 								</div>
 							</li>
 						</ul>

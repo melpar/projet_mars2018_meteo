@@ -3,10 +3,8 @@ package test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.SQLException;
 
-import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
 
 import org.junit.Test;
@@ -22,7 +20,7 @@ public class TestAjoutImage {
 	base.ouvrir();
 	Photo photo = new Photo();
 	// create file object
-	File file = new File("test.jpg");
+	File file = new File("nuageux.jpg");
 	// initialize a byte array of size of the file
 	byte[] fileContent = new byte[(int) file.length()];
 	FileInputStream inputStream = null;

@@ -9,6 +9,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+	<link rel = "stylesheet" href = "style/datepicker.css">
 	<script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
 	<script src = "Materialize/js/materialize.min.js"></script>
 	<title>Visualiser jours</title>
@@ -24,7 +25,7 @@
         <div class="input-field col s6">
 			<input name="maDate" type="text" class="datepicker">        	
         </div>
-        <button class="btn waves-effect waves-light" type="submit" name="submit">Valider
+        <button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
 		    <i class="material-icons right">send</i>
 		  </button>
       </div>
@@ -43,22 +44,30 @@
 						<ul class="collapsible" data-collapsible="expandable">
 							<li>
 								<div class="collapsible-header"><i class="material-icons">photo_library</i>Photo</div>
-								<div class="collapsible-body">
-									<ul class="collection">
-										<li class="collection-item">
-											<c:forEach var="photo" items="${archive.photos}">
-												<%
-												bean.Photo p = (bean.Photo)pageContext.getAttribute("photo");
-												String image = new String(p.getImage(),"UTF-8");
+									<div class="collapsible-body">
+										<div class="col s12 m8 offset-m2 l6 offset-l3">
+								        	<c:forEach var="photo" items="${archive.photos}">
+								        		<div class="card-panel grey lighten-5 z-depth-1">
+								        		<%
+													bean.Photo p = (bean.Photo)pageContext.getAttribute("photo");
+													String image = new String(p.getImage(),"UTF-8");
 												
-												pageContext.setAttribute("p", p);%>
-												
-												${photo.nom}
-												${image}
-												<img src="data:image/jpg;base64,${p}" width="500" height="500"/>
-											</c:forEach>
-										</li>
-									</ul>
+													pageContext.setAttribute("p", image);
+													pageContext.setAttribute("nom", p.getNom());
+												%>
+								          		<div class="row valign-wrapper">
+								            		<div class="col s2">
+								              			<img src="data:image/jpg;base64,${p}" alt="" class="responsive-img"> <!-- notice the "circle" class -->
+								           			</div>
+								            		<div class="col s10">
+								              			<span class="black-text">
+								                			${nom}
+								              			</span>
+								            		</div>
+								          		</div>
+											</div>
+								          </c:forEach> 
+								      </div>					    
 								</div>
 							</li>
 						</ul>
@@ -74,6 +83,10 @@ $('.datepicker').pickadate({
     selectMonths: 3, // Creates a dropdown to control month
     selectYears: 18,
     selectDays: 12,
+  });
+  
+$(document).ready(function(){
+    $('.carousel').carousel();
   });
 </script>
 
