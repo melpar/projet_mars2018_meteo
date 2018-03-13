@@ -21,16 +21,16 @@
     <form class="col s12" method="get" action="ServletEnvoyerDonnee">
       <div class="row">
         <div class="input-field col s6">
-          <input name="pays" placeholder="Pays" id="pays" type="text" class="validate">
-          <label for="pays"></label>
+          <input name="pays" placeholder="Pays" id="pays" type="text" class="validate" value="${valide.valeurs['pays']}">
+          <label for="pays" style="color: red;">${valide.erreurs["pays"]}</label>
         </div>
         <div class="input-field col s6">
-          <input name="ville" placeholder="Ville" id="ville" type="text" class="validate">
-          <label for="ville"></label>
+          <input name="ville" placeholder="Ville" id="ville" type="text" class="validate" value="${valide.valeurs['ville']}">
+          <label for="ville" style="color: red;">${valide.erreurs["ville"]}</label>
         </div>
         <div class="input-field col s6">
-          <input name="departement" placeholder="Département" id="departement" type="text" class="validate">
-          <label for="departement"></label>
+          <input name="departement" placeholder="Département" id="departement" type="text" class="validate" value="${valide.valeurs['departement']}">
+          <label for="departement" style="color: red;">${valide.erreurs["departement"]}</label>
         </div>
       </div>
       <div class="row">
@@ -51,17 +51,17 @@
 		    <label>Ciel</label>
 	  	</div>
         <div class="input-field col s6">
-          <input  name="direction" placeholder="Diresction du vent" id="direction" type="number" class="validate">
-          <label for="direction">${valide.valeurs[direction]}</label>
+          <input  name="direction" placeholder="Diresction du vent" id="direction" type="number" class="validate" value="${valide.valeurs['directionVent']}">
+          <label for="direction" style="color: red;">${valide.erreurs["directionVent"]}</label>
         </div>
         <div class="input-field col s6">
-          <input name="vitesse" placeholder="Vitesse du vent" id="vitesse" type="number" class="validate">
-          <label for="vitesse"></label>
+          <input name="vitesse" placeholder="Vitesse du vent" id="vitesse" type="number" class="validate"  value="${valide.valeurs['vitesseVent']}">
+          <label for="vitesse" style="color: red;">${valide.erreurs["vitesseVent"]}</label>
         </div>
         </div>
         <div class="input-field col s6">
-          <input name="temperature" placeholder="Température" id="temperature" type="number" class="validate">
-          <label for="temperature"></label>
+          <input name="temperature" placeholder="Température" id="temperature" type="number" class="validate" value="${valide.valeurs['temperature']}">
+          <label for="temperature" style="color: red;">${valide.erreurs["temperature"]}</label>
         </div>
       </div>
       <div class="row">
@@ -71,7 +71,6 @@
       </div>
       </div>
     </form>
-    <p style="color: red;">${erreur}</p>
   </div>
 </body>
 <script type="text/javascript">

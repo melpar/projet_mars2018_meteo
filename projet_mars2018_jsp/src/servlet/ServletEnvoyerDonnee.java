@@ -83,12 +83,8 @@ public class ServletEnvoyerDonnee extends HttpServlet {
 				archive.setDonnee(donnee);
 				// envois au serveur
 				serveur.ajouterDonneeArchive(archive);
-				System.out.println("passer archive");
 			} else {
 				request.setAttribute("valide", valide);
-				System.out.println("pas passer archive");
-				System.out.println(valide.getErreurs().get("temperature"));
-				System.out.println(valide.getValeurs().get("temperature"));
 			}
 		} catch (Exception e) {
 			System.out.println("Erreur client RMI" + e.toString());
