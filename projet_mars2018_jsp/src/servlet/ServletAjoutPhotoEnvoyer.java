@@ -104,8 +104,7 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 			Registry registry = LocateRegistry.getRegistry(port);
 
 			Serveur serveur = (Serveur) registry.lookup("serveurRMI");
-			// serveur.ajouterPhoto(Integer.parseInt(request.getParameter("imageBoutton")),
-			// listePhoto);
+			serveur.ajouterPhoto(Integer.parseInt(request.getParameter("imageBoutton")), listePhoto);
 
 		} catch (Exception e) {
 			System.out.println("Erreur client RMI" + e.toString());

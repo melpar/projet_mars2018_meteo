@@ -61,7 +61,7 @@
 										        <input class="file-path validate" type="text" placeholder="Envoyer une ou plusieurs photos" name="imageNom">
 										      </div>
 										      <div>
-										        <button class="btn waves-effect waves-light" type="submit" name="imageBoutton" value="${archive.id}%">Envoyer
+										        <button class="btn waves-effect waves-light" type="submit" name="imageBoutton" value="${archive.id}">Envoyer
 											    	<i class="material-icons right">send</i>
 											  	</button>  
 										      </div>
