@@ -1,7 +1,6 @@
 package bean;
 
 import java.io.Serializable;
-import java.sql.Blob;
 
 import annotation.Regexp;
 
@@ -14,7 +13,7 @@ public class Photo implements Serializable {
     @Regexp(expr = ".{2,50}", value = "Il faut entre 2 et 50 lettres pour le nom")
     private String nom;
 
-    private Blob image;
+    private byte[] image;
 
     public String getNom() {
 	return nom;
@@ -24,11 +23,11 @@ public class Photo implements Serializable {
 	this.nom = nom;
     }
 
-    public Blob getImage() {
+    public byte[] getImage() {
 	return image;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
 	this.image = image;
     }
 }

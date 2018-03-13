@@ -39,10 +39,9 @@ public class TestAjoutImage {
 		inputStream.close();
 	    }
 	}
-	Blob image = new SerialBlob(fileContent);
-	photo.setImage(image);
+	photo.setImage(fileContent);
 	photo.setNom("test");
-	base.ajouterImage(1, photo);
+	base.ajouterImage(2, photo);
 	base.fermer();
     }
 

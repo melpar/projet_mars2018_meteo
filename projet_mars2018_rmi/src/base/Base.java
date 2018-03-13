@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
@@ -173,7 +175,7 @@ public class Base {
 		archive.setDate(date);
 		archive.setDonnee(this.getDonnee(rs.getInt("ARC_donnee")));
 		archive.setLieu(this.getLieu(rs.getInt("ARC_lieu")));
-		// archive.setPhotos(this.getPhoto(rs.getInt("ARC_id")));
+		archive.setPhotos(this.getPhotos(rs.getInt("ARC_id")));
 		archives.add(archive);
 	    }
 
@@ -184,8 +186,28 @@ public class Base {
 
     }
 
+    private List<Photo> getPhotos(int idArchive) {
+	List<Photo> photos = new ArrayList<>();
+	String selectSQL = "SELECT * FROM T_PHOTO_PHO WHERE PHO_archive = " + idArchive;
+	try {
+	    PreparedStatement preparedStatement = co.prepareStatement(selectSQL);
+	    ResultSet rs = preparedStatement.executeQuery(selectSQL);
+	    while (rs.next()) {
+		Photo photo = new Photo();
+		int blobLength = (int) rs.getBlob("PHO_image").length();
+		byte[] blobAsBytes = rs.getBlob("PHO_image").getBytes(1, blobLength);
+		photo.setImage(blobAsBytes);
+		photo.setNom(rs.getString("PHO_nom"));
+		photos.add(photo);
+	    }
+	} catch (SQLException e) {
+	    System.out.println("Erreur Base.getPhotos " + e.getMessage());
+
+	}
+	return photos;
+    }
+
     public List<ArchiveMeteo> consulterParMois(java.util.Date date) {
-	// SELECT month(ARC_date), year(ARC_date) FROM T_ARCHIVE_ARC;
 	List<ArchiveMeteo> archives = new ArrayList<ArchiveMeteo>();
 	System.out.println(new java.sql.Date(date.getTime()));
 	java.sql.Date dateSql = new java.sql.Date(date.getTime());
@@ -304,7 +326,7 @@ public class Base {
 	    String sql = "insert into T_PHOTO_PHO (PHO_nom, PHO_image, PHO_archive)" + "values (?, ?, ?) ";
 	    PreparedStatement ps = co.prepareStatement(sql);
 	    ps.setString(1, photo.getNom());
-	    ps.setBlob(2, photo.getImage());
+	    ps.setBlob(2, new SerialBlob(photo.getImage()));
 	    ps.setInt(3, idArchive);
 	    ps.executeUpdate();
 	    System.out.println("Exec sql : " + sql);
