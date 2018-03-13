@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%    pageContext.setAttribute("monEnum", Soleil.values()); %>
 
-<jsp:useBean id="erreur" class="java.lang.String" scope="request" />
+<jsp:useBean id="valide" class="validation.Validation" scope="request" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,7 +18,7 @@
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
   <div class="row">
-    <form class="col s12">
+    <form class="col s12" method="get" action="ServletEnvoyerDonnee">
       <div class="row">
         <div class="input-field col s6">
           <input name="pays" placeholder="Pays" id="pays" type="text" class="validate">
@@ -52,7 +52,7 @@
 	  	</div>
         <div class="input-field col s6">
           <input  name="direction" placeholder="Diresction du vent" id="direction" type="number" class="validate">
-          <label for="direction"></label>
+          <label for="direction">${valide.valeurs[direction]}</label>
         </div>
         <div class="input-field col s6">
           <input name="vitesse" placeholder="Vitesse du vent" id="vitesse" type="number" class="validate">
