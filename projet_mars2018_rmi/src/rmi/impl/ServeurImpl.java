@@ -118,9 +118,9 @@ public class ServeurImpl implements Serveur {
 	v.regexp(bean.Lieu.class, "ville", ville);
 	v.regexp(bean.Lieu.class, "departement", departement);
 	v.regexp(bean.Lieu.class, "pays", pays);
-	v.regexp(bean.DonneeMeteo.class, "direction", ville);
-	v.regexp(bean.DonneeMeteo.class, "vitesse", departement);
-	v.regexp(bean.DonneeMeteo.class, "temperature", pays);
+	v.regexp(bean.DonneeMeteo.class, "directionVent", direction);
+	v.regexp(bean.DonneeMeteo.class, "vitesseVent", vitesse);
+	v.regexp(bean.DonneeMeteo.class, "temperature", temperature);
 	return v;
     }
 
