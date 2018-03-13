@@ -25,7 +25,17 @@
 		    <c:when test="${manager.identifie}">
 		    	<li><a href="ajout.jsp">Ajouter données</a></li>
 		    	<li><a href="ajoutPhotos.jsp">Ajouter des photos</a></li>
-		    	<li><a href="/deconnexion">Déconnexion</a></li>
+		    	<li>
+		    		<form name="myform" action="ServletDeconnexion">
+    					<a href="javascript: submitform()">Déconnexion</a>
+</form> 
+<SCRIPT language="JavaScript">
+function submitform()
+{
+  document.myform.submit();
+}
+</SCRIPT>
+				</li>
 		    </c:when>
 		    <c:otherwise>
 		         <li><a href="connexion.jsp">Connexion</a></li>
