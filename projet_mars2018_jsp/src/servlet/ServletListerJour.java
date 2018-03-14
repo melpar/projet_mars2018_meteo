@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.ArchiveMeteo;
-import rmi.Serveur;
+import manager.Manager;
 
 /**
  * Servlet implementation class ServletListerJour
@@ -49,18 +47,9 @@ public class ServletListerJour extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		int port = 2000;
-
-		try {
-			Registry registry = LocateRegistry.getRegistry(port);
-
-			Serveur serveur = (Serveur) registry.lookup("serveurRMI");
-
-			List<ArchiveMeteo> list = serveur.consulterParJour(date);
-			request.setAttribute("lst", list);
-		} catch (Exception e) {
-			System.out.println("Erreur client RMI" + e.toString());
-		}
+		Manager manager = Manager.creer(request);
+		List<ArchiveMeteo> list = manager.getServeur().consulterParJour(date);
+		request.setAttribute("lst", list);
 
 		request.getServletContext().getRequestDispatcher("/jours.jsp").forward(request, response);
 	}

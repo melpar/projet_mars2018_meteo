@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.ArchiveMeteo;
-import rmi.Serveur;
-import rmi.impl.ServeurImpl;
+import manager.Manager;
 
 /**
  * Servlet implementation class ServletListerMois
@@ -23,57 +20,49 @@ import rmi.impl.ServeurImpl;
 @WebServlet("/ServletListerMois")
 public class ServletListerMois extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletListerMois() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String moisString = request.getParameter("mois");
-		String anneeString = request.getParameter("annee");
-		System.out.println("mois " + moisString + " annee "+anneeString);		
-		SimpleDateFormat formatter = new SimpleDateFormat("MM-yyyy");
-		Date date = new Date();
-
-        try {
-            date = formatter.parse(moisString+"-"+anneeString);
-        } catch (java.text.ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-        int port = 2000;
-		
-		try {
-			Registry registry =
-					LocateRegistry.getRegistry(port);
-			
-		Serveur serveur = (Serveur) registry.lookup("serveurRMI");
-			
-		List<ArchiveMeteo> list = serveur.consulterParMois(date);
-		request.setAttribute("lst",list);	
-		}
-		catch (Exception e) {
-			System.out.println("Erreur client RMI" + e.toString());
-		}
-		
-		request.getServletContext().getRequestDispatcher(
-				"/mois.jsp").
-					forward(request, response);
+	public ServletListerMois() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String moisString = request.getParameter("mois");
+		String anneeString = request.getParameter("annee");
+		System.out.println("mois " + moisString + " annee " + anneeString);
+		SimpleDateFormat formatter = new SimpleDateFormat("MM-yyyy");
+		Date date = new Date();
+
+		try {
+			date = formatter.parse(moisString + "-" + anneeString);
+		} catch (java.text.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Manager manager = Manager.creer(request);
+
+		List<ArchiveMeteo> list = manager.getServeur().consulterParMois(date);
+		request.setAttribute("lst", list);
+
+		request.getServletContext().getRequestDispatcher("/mois.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

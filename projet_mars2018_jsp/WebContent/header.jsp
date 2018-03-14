@@ -28,13 +28,13 @@
 		    	<li>
 		    		<form name="myform" action="ServletDeconnexion">
     					<a href="javascript: submitform()">Déconnexion</a>
-</form> 
-<SCRIPT language="JavaScript">
-function submitform()
-{
-  document.myform.submit();
-}
-</SCRIPT>
+					</form> 
+					<SCRIPT language="JavaScript">
+					function submitform()
+					{
+					  document.myform.submit();
+					}
+					</SCRIPT>
 				</li>
 		    </c:when>
 		    <c:otherwise>

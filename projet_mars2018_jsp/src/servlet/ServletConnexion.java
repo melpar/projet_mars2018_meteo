@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import manager.Manager;
-import rmi.Serveur;
 
 /**
  * Servlet implementation class ServletConnexion
@@ -47,32 +44,24 @@ public class ServletConnexion extends HttpServlet {
 		String ident = request.getParameter("ident");
 		String mdp = request.getParameter("mdp");
 
-		int port = 2000;
+		Manager manager = Manager.creer(request);
 
-		try {
-			Registry registry = LocateRegistry.getRegistry(port);
+		if (manager.getServeur().connexion(ident, mdp)) {
+			System.out.println("identification OK");
 
-			Serveur serveur = (Serveur) registry.lookup("serveurRMI");
-			if (serveur.connexion(ident, mdp)) {
-				System.out.println("identification OK");
+			manager.setIdentifie(true);
+			manager.setIdent(ident);
 
-				Manager manager = Manager.creer(request);
-				manager.setIdentifie(true);
-				manager.setIdent(ident);
+			response.sendRedirect("ServletAccueil");
 
-				response.sendRedirect("ServletAccueil");
+			return;
+		} else {
+			System.out.println("Erreur ident " + ident + " " + mdp);
+			request.setAttribute("ident", ident);
+			request.setAttribute("mdp", mdp);
+			request.setAttribute("erreur", "Identifiant ou mot de passe incorrect");
+			request.getServletContext().getRequestDispatcher("/connexion.jsp").forward(request, response);
 
-				return;
-			} else {
-				System.out.println("Erreur ident " + ident + " " + mdp);
-				request.setAttribute("ident", ident);
-				request.setAttribute("mdp", mdp);
-				request.setAttribute("erreur", "Identifiant ou mot de passe incorrect");
-				request.getServletContext().getRequestDispatcher("/connexion.jsp").forward(request, response);
-
-			}
-		} catch (Exception e) {
-			System.out.println("Erreur client RMI" + e.toString());
 		}
 
 	}

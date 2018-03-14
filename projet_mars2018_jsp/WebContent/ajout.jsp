@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%    pageContext.setAttribute("monEnum", Soleil.values()); %>
 
+<jsp:useBean id="manager" class="manager.Manager" scope="session" />
 <jsp:useBean id="valide" class="validation.Validation" scope="request" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,65 +18,70 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-  <div class="row">
-    <form class="col s12" method="get" action="ServletEnvoyerDonnee">
-      <div class="row">
-        <div class="input-field col s6">
-          <input name="pays" placeholder="Pays" id="pays" type="text" class="validate" value="${valide.valeurs['pays']}">
-          <label for="pays" style="color: red;">${valide.erreurs["pays"]}</label>
-        </div>
-        <div class="input-field col s6">
-          <input name="ville" placeholder="Ville" id="ville" type="text" class="validate" value="${valide.valeurs['ville']}">
-          <label for="ville" style="color: red;">${valide.erreurs["ville"]}</label>
-        </div>
-        <div class="input-field col s6">
-          <input name="departement" placeholder="Département" id="departement" type="text" class="validate" value="${valide.valeurs['departement']}">
-          <label for="departement" style="color: red;">${valide.erreurs["departement"]}</label>
-        </div>
-      </div>
-      <div class="row">
-      	<div class="input-field col s3">
-          <span>Date : </span>
-        </div>
-        <div class="input-field col s3">
-          <input name="date" type="text" class="datepicker">
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-		    <select name="ciel">
-		    	<c:forEach var="entry" items="${monEnum}">
-    				<option value="<c:out value = "${entry.getId()}"/>"  selected><c:out value = "${entry.getName()}"/></option>
-				</c:forEach>
-		    </select>
-		    <label>Ciel</label>
-	  	</div>
-        <div class="input-field col s6">
-          <input  name="direction" placeholder="Diresction du vent" id="direction" type="number" class="validate" value="${valide.valeurs['directionVent']}">
-          <label for="direction" style="color: red;">${valide.erreurs["directionVent"]}</label>
-        </div>
-        <div class="input-field col s6">
-          <input name="vitesse" placeholder="Vitesse du vent" id="vitesse" type="number" class="validate"  value="${valide.valeurs['vitesseVent']}">
-          <label for="vitesse" style="color: red;">${valide.erreurs["vitesseVent"]}</label>
-        </div>
-        </div>
-        <div class="input-field col s6">
-          <input name="temperature" placeholder="Température" id="temperature" type="number" class="validate" value="${valide.valeurs['temperature']}">
-          <label for="temperature" style="color: red;">${valide.erreurs["temperature"]}</label>
-        </div>
-        <div class="input-field col s6">
-          <input name="pluie" placeholder="Pluie" id="pluie" type="number" class="validate" value="${valide.valeurs['pluie']}">
-          <label for="pluie" style="color: red;">${valide.erreurs["pluie"]}</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <button class="waves-effect waves-light btn">Envoyer</button>
-        </div>
-      </div>
-      </div>
-    </form>
-  </div>
+	<c:choose>
+		<c:when test="${manager.identifie}">
+  			<div class="row">
+		    <form class="col s12" method="get" action="ServletEnvoyerDonnee">
+		      <div class="row">
+		        <div class="input-field col s6">
+		          <input name="pays" placeholder="Pays" id="pays" type="text" class="validate" value="${valide.valeurs['pays']}">
+		          <label for="pays" style="color: red;">${valide.erreurs["pays"]}</label>
+		        </div>
+		        <div class="input-field col s6">
+		          <input name="ville" placeholder="Ville" id="ville" type="text" class="validate" value="${valide.valeurs['ville']}">
+		          <label for="ville" style="color: red;">${valide.erreurs["ville"]}</label>
+		        </div>
+		        <div class="input-field col s6">
+		          <input name="departement" placeholder="Département" id="departement" type="text" class="validate" value="${valide.valeurs['departement']}">
+		          <label for="departement" style="color: red;">${valide.erreurs["departement"]}</label>
+		        </div>
+		      </div>
+		      <div class="row">
+		      	<div class="input-field col s3">
+		          <span>Date : </span>
+		        </div>
+		        <div class="input-field col s3">
+		          <input name="date" type="text" class="datepicker">
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="input-field col s6">
+				    <select name="ciel">
+				    	<c:forEach var="entry" items="${monEnum}">
+		    				<option value="<c:out value = "${entry.getId()}"/>"  selected><c:out value = "${entry.getName()}"/></option>
+						</c:forEach>
+				    </select>
+				    <label>Ciel</label>
+			  	</div>
+		        <div class="input-field col s6">
+		          <input  name="direction" placeholder="Diresction du vent" id="direction" type="number" class="validate" value="${valide.valeurs['directionVent']}">
+		          <label for="direction" style="color: red;">${valide.erreurs["directionVent"]}</label>
+		        </div>
+		        <div class="input-field col s6">
+		          <input name="vitesse" placeholder="Vitesse du vent" id="vitesse" type="number" class="validate"  value="${valide.valeurs['vitesseVent']}">
+		          <label for="vitesse" style="color: red;">${valide.erreurs["vitesseVent"]}</label>
+		        </div>
+		        </div>
+		        <div class="input-field col s6">
+		          <input name="temperature" placeholder="Température" id="temperature" type="number" class="validate" value="${valide.valeurs['temperature']}">
+		          <label for="temperature" style="color: red;">${valide.erreurs["temperature"]}</label>
+		        </div>
+		        <div class="input-field col s6">
+		          <input name="pluie" placeholder="Pluie" id="pluie" type="number" class="validate" value="${valide.valeurs['pluie']}">
+		          <label for="pluie" style="color: red;">${valide.erreurs["pluie"]}</label>
+		        </div>
+		      <div class="row">
+		        <div class="input-field col s6">
+		          <button class="waves-effect waves-light btn">Envoyer</button>
+		        </div>
+		      </div>
+		    </form>
+  		</div>
+  		</c:when>
+		    <c:otherwise>
+		    	<jsp:include page="redirection.jsp"></jsp:include>	
+		    </c:otherwise>
+		</c:choose> 
 </body>
 <script type="text/javascript">
 $('.datepicker').pickadate({

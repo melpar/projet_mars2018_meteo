@@ -5,8 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import bean.Photo;
-import rmi.Serveur;
+import manager.Manager;
 
 /**
  * Servlet implementation class ServletAjoutPhotoEnvoyer
@@ -47,14 +45,16 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 		/*
 		 * System.out.println("data : " + request.getParameter("imageData"));
 		 * System.out.println("imageNom : " + request.getParameter("imageNom"));
-		 * System.out.println("imageBoutton : " + request.getParameter("imageBoutton"));
+		 * System.out.println("imageBoutton : " +
+		 * request.getParameter("imageBoutton"));
 		 * 
 		 * List<Photo> listePhoto = new ArrayList<Photo>();
 		 * 
-		 * Photo photo = new Photo(); photo.setNom(request.getParameter("imageNom"));
+		 * Photo photo = new Photo();
+		 * photo.setNom(request.getParameter("imageNom"));
 		 * 
-		 * Part filePart = request.getPart("imageData"); InputStream fileContent =
-		 * filePart.getInputStream(); ByteArrayOutputStream buffer = new
+		 * Part filePart = request.getPart("imageData"); InputStream fileContent
+		 * = filePart.getInputStream(); ByteArrayOutputStream buffer = new
 		 * ByteArrayOutputStream();
 		 * 
 		 * int nRead; byte[] data = new byte[16384];
@@ -62,14 +62,16 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 		 * while ((nRead = fileContent.read(data, 0, data.length)) != -1) {
 		 * buffer.write(data, 0, nRead); }
 		 * 
-		 * buffer.flush(); photo.setImage(buffer.toByteArray()); listePhoto.add(photo);
+		 * buffer.flush(); photo.setImage(buffer.toByteArray());
+		 * listePhoto.add(photo);
 		 */
 		List<Photo> listePhoto = new ArrayList<Photo>();
 		for (Part part : request.getParts()) {
 
 			String filename = getFilename(part);
 			if (filename == null) {
-				// Traiter les champs classiques ici (input type="text|radio|checkbox|etc",
+				// Traiter les champs classiques ici (input
+				// type="text|radio|checkbox|etc",
 				// select, etc).
 				String fieldname = part.getName();
 				String fieldvalue = getValue(part);
@@ -98,17 +100,9 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 			}
 		}
 		System.out.println(request.getParameter("imageBoutton"));
-		int port = 2000;
 
-		try {
-			Registry registry = LocateRegistry.getRegistry(port);
-
-			Serveur serveur = (Serveur) registry.lookup("serveurRMI");
-			serveur.ajouterPhoto(Integer.parseInt(request.getParameter("imageBoutton")), listePhoto);
-
-		} catch (Exception e) {
-			System.out.println("Erreur client RMI" + e.toString());
-		}
+		Manager manager = Manager.creer(request);
+		manager.getServeur().ajouterPhoto(Integer.parseInt(request.getParameter("imageBoutton")), listePhoto);
 
 		request.getServletContext().getRequestDispatcher("/ajoutPhotos.jsp").forward(request, response);
 	}

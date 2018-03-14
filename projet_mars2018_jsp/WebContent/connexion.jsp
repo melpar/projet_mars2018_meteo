@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
+<jsp:useBean id="manager" class="manager.Manager" scope="session" />
 <jsp:useBean id="ident" class="java.lang.String" scope="request" />
 <jsp:useBean id="mdp" class="java.lang.String" scope="request" />
 <jsp:useBean id="erreur" class="java.lang.String" scope="request" />
