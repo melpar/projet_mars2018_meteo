@@ -23,7 +23,8 @@
 		<c:choose>
 			<c:when test="${manager.identifie}">
 				<div class="row">
-					<form method="post" action="ServletAjoutXML" enctype="multipart/form-data">
+					<form method="post" action="ServletAjoutFichier" enctype="multipart/form-data">
+						<div class="col s10">
 						<div class="file-field input-field">
 							<div class="btn">
 								<i class="material-icons right">insert_drive_file</i>
@@ -39,6 +40,17 @@
 					  			</button>  
 				      		</div>
 				    	</div>
+				    	</div>
+				    	<div class="col s2">
+				    	<p>
+						      <input name="group1" type="radio" id="json" onclick = "getAnswer('json')" value="json"/>
+						      <label for="json">JSON</label>
+						    </p>
+						    <p>
+						      <input name="group1" type="radio" id="xml" onclick = "getAnswer('json')" value="json"/>
+						      <label for="xml">XML</label>
+						    </p>
+						    </div>
 				  	</form>
 				</div>
 				<div class="divider"></div>
