@@ -14,6 +14,7 @@ import bean.Lieu;
 import bean.Photo;
 import rmi.Serveur;
 import util.parsers.ParserXML;
+import util.pdf.FirstPdf;
 import validation.Validation;
 
 public class ServeurImpl implements Serveur {
@@ -83,9 +84,11 @@ public class ServeurImpl implements Serveur {
     }
 
     @Override
-    public boolean productionPDF(List<ArchiveMeteo> archives) throws RemoteException {
+    public byte[] productionPDF(List<ArchiveMeteo> archives) throws RemoteException {
 	// TODO Auto-generated method stub
-	return false;
+	FirstPdf pdf = new FirstPdf();
+	pdf.initialiser(archives);
+	return pdf.generer();
     }
 
     public static void main(String[] args) {

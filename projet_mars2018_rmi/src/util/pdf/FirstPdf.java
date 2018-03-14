@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.awt.print.PageFormat;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -56,23 +57,15 @@ public class FirstPdf {
 	    // Create a document and a page in default Locale format
 	    pdf.nouvellePage(archive);
 	    pdf.p.saveDocument("Rapport.pdf");
+	    pdf.generer();
 	} catch (Throwable t) {
 	    t.printStackTrace();
 	}
     }
 
-    public void initialiser() {
-	Serveur serveur = new ServeurImpl();
-	Date date = new Date(118, 2, 12);
-	List<ArchiveMeteo> list;
-	try {
-	    list = serveur.consulterParMois(date);
-	    for (ArchiveMeteo archive : list) {
-		nouvellePage(archive);
-	    }
-	} catch (RemoteException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+    public void initialiser(List<ArchiveMeteo> list) {
+	for (ArchiveMeteo archive : list) {
+	    nouvellePage(archive);
 	}
     }
 
@@ -164,7 +157,16 @@ public class FirstPdf {
 	return null;
     }
 
-    public void generer() {
-
+    public byte[] generer() {
+	ByteArrayOutputStream os = new ByteArrayOutputStream();
+	try {
+	    p.saveDocument(os);
+	    byte[] fichier = os.toByteArray();
+	    return fichier;
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	return null;
     }
 }
