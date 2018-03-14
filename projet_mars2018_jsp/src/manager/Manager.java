@@ -40,6 +40,10 @@ public class Manager {
 		if (manager == null) {
 			// Création d'un manager
 			manager = new Manager();
+
+			request.getSession().setAttribute("manager", manager);
+		}
+		if (manager.serveur == null) {
 			int port = 2000;
 
 			try {
@@ -50,7 +54,6 @@ public class Manager {
 			} catch (Exception e) {
 				System.out.println("Erreur client RMI" + e.toString());
 			}
-			request.getSession().setAttribute("manager", manager);
 		}
 		return manager;
 	}

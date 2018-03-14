@@ -7,14 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="col s12 m7">
-		<div class="card horizontal">
-			<div class="card-stacked">
-				<div class="card-content">
-					<p>Veuillez vous connecter avant d'accéder à cette page.</p>
-				</div>
-				<div class="card-action">
-					<a href="connexion.jsp">Connexion</a>
+	<div class="container">
+		<div class="col s12 m7">
+			<div class="card horizontal">
+				<div class="card-stacked">
+					<div class="card-content">
+						<p>Veuillez vous connecter avant d'accéder à cette page.</p>
+					</div>
+					<div class="card-action">
+						<a href="connexion.jsp">Connexion</a>
+					</div>
 				</div>
 			</div>
 		</div>

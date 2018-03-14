@@ -52,6 +52,9 @@ public class ServletListerMois extends HttpServlet {
 		Manager manager = Manager.creer(request);
 
 		List<ArchiveMeteo> list = manager.getServeur().consulterParMois(date);
+		for (ArchiveMeteo arc : list) {
+			System.out.println(arc.getDate().toString());
+		}
 		request.setAttribute("lst", list);
 
 		request.getServletContext().getRequestDispatcher("/mois.jsp").forward(request, response);

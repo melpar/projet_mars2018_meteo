@@ -1,0 +1,36 @@
+<archives>
+<archive>
+<lieu>
+<pays>
+	france
+</pays>
+<ville>
+	brest
+</ville>
+<departement>
+	finistere
+</departement>
+</lieu>
+<date>
+	14/03/2018
+</date>
+<donnees>
+	<ciel>
+		Nuageux
+	</ciel>
+	<direction>
+		10
+	</direction>
+	<vitesse>
+		50
+	</vitesse>
+	<temperature>
+		20
+	</temperature>
+	<pluie>
+		5
+	</pluie>	
+</donnees>
+</archive>
+</archives>
+

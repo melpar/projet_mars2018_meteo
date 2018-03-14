@@ -18,7 +18,7 @@ public interface Serveur extends Remote {
     public Validation valider(String pays, String ville, String departement, String direction, String vitesse,
 	    String temperature, String pluie) throws RemoteException;
 
-    public String ajouterDonneesArchive(List<ArchiveMeteo> archives) throws RemoteException;
+    public String ajouterDonneesArchiveXML(String donneesFichier) throws RemoteException;
 
     public String ajouterDonneeArchive(ArchiveMeteo archive) throws RemoteException;
 
