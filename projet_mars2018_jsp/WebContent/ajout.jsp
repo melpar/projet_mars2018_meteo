@@ -45,15 +45,30 @@
 		      		<div class="row">
 		        		<div class="input-field col s6">
 				        	<input name="pays" placeholder="Pays" id="pays" type="text" class="validate" value="${valide.valeurs['pays']}">
-				        	<label for="pays" style="color: red;">${valide.erreurs["pays"]}</label>
+				        	<label for="pays">
+					        	<div class="row">
+							      <div class="col s3">Pays : </div>
+							      <div class="col s8" style="color: red;">${valide.erreurs["pays"]}</div>
+							    </div>
+						    </label>
 						</div>
 			        	<div class="input-field col s6">
 			        		<input name="ville" placeholder="Ville" id="ville" type="text" class="validate" value="${valide.valeurs['ville']}">
-			          		<label for="ville" style="color: red;">${valide.erreurs["ville"]}</label>
+			          		<label for="ville">
+			          			<div class="row">
+							      <div class="col s3">Ville : </div>
+							      <div class="col s8" style="color: red;">${valide.erreurs["ville"]}</div>
+							    </div>
+			          		</label>
 			        	</div>
 			        	<div class="input-field col s6">
 			          		<input name="departement" placeholder="Département" id="departement" type="text" class="validate" value="${valide.valeurs['departement']}">
-			          		<label for="departement" style="color: red;">${valide.erreurs["departement"]}</label>
+			          		<label for="departement">
+			          			<div class="row">
+							      <div class="col s3">Département : </div>
+							      <div class="col s8" style="color: red;">${valide.erreurs["departement"]}</div>
+							    </div>
+			          		</label>
 			        	</div>
 					</div>
 			      	<div class="row">
@@ -75,20 +90,40 @@
 				  	</div>
 			        <div class="input-field col s6">
 			        	<input  name="direction" placeholder="Direction du vent" id="direction" type="number" class="validate" value="${valide.valeurs['directionVent']}">
-			          	<label for="direction" style="color: red;">${valide.erreurs["directionVent"]}</label>
+			          	<label for="direction">
+			          		<div class="row">
+								<div class="col s3">Direction du vent : </div>
+							    <div class="col s8" style="color: red;">${valide.erreurs["directionVent"]}</div>
+							</div>
+			          	</label>
 			        </div>
 			        <div class="input-field col s6">
 			          	<input name="vitesse" placeholder="Vitesse du vent" id="vitesse" type="number" class="validate"  value="${valide.valeurs['vitesseVent']}">
-			          	<label for="vitesse" style="color: red;">${valide.erreurs["vitesseVent"]}</label>
+			          	<label for="vitesse">
+			          		<div class="row">
+								<div class="col s3">Vitesse du vent : </div>
+							    <div class="col s8" style="color: red;">${valide.erreurs["vitesseVent"]}</div>
+							</div>
+			          	</label>
 			        </div>
 		        </div>
 		        <div class="input-field col s6">
 		          	<input name="temperature" placeholder="Température" id="temperature" type="number" class="validate" value="${valide.valeurs['temperature']}">
-		          	<label for="temperature" style="color: red;">${valide.erreurs["temperature"]}</label>
+		          	<label for="temperature">
+		          		<div class="row">
+							<div class="col s3">Température : </div>
+							<div class="col s8" style="color: red;">${valide.erreurs["temperature"]}</div>
+						</div>
+		          	</label>
 		        </div>
 		        <div class="input-field col s6">
 		          	<input name="pluie" placeholder="Pluie" id="pluie" type="number" class="validate" value="${valide.valeurs['pluie']}">
-		          	<label for="pluie" style="color: red;">${valide.erreurs["pluie"]}</label>
+		          	<label for="pluie">
+		          		<div class="row">
+							<div class="col s3">Pourcentage de pluie : </div>
+							<div class="col s8" style="color: red;">${valide.erreurs["pluie"]}</div>
+						</div>
+		          	</label>
 		        </div>
 		      		<div class="row">
 		        		<div class="input-field col s6">

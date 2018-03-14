@@ -58,7 +58,17 @@
     <ul class="collapsible" data-collapsible="expandable">
     	<c:forEach var="archive" items="${lst}">
 	    	<li>
-				<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.ville}<br>${archive.date.getDay()}/${archive.date.getMonth()+1}/${archive.date.getYear()+1900}</div>
+	    		<%
+	    		java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
+
+	    		// Get the date today using Calendar object.
+	    		bean.ArchiveMeteo archive = (bean.ArchiveMeteo) pageContext.getAttribute("archive");        
+	    		// Using DateFormat format method we can create a string 
+	    		// representation of a date with the defined format.
+	    		String reportDate = df.format(archive.getDate());
+	    		pageContext.setAttribute("d", reportDate);
+	    		%>
+				<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.ville}<br>${d}</div>
 				<div class="collapsible-body">
 					<ul class="collection">
 						<li class="collection-item">Humidité : ${archive.donnee.pluie}%</li>
@@ -66,37 +76,10 @@
 						<li class="collection-item">Vitesse du vent : ${archive.donnee.vitesseVent} km/h</li>
 						<li class="collection-item">Ciel : ${archive.donnee.soleil.name}</li>
 						<li class="collection-item">Température : ${archive.donnee.temperature}°C</li>
-						<ul class="collapsible" data-collapsible="expandable">
-							<li>
-								<div class="collapsible-header"><i class="material-icons">photo_library</i>Photo</div>
-								<div class="collapsible-body">
-									<div class="col s12 m8 offset-m2 l6 offset-l3">
-								        	<c:forEach var="photo" items="${archive.photos}">
-								        		<div class="card-panel grey lighten-5 z-depth-1">
-								        		<%
-													bean.Photo p = (bean.Photo)pageContext.getAttribute("photo");
-													String image = new String(p.getImage(),"UTF-8");
-												
-													pageContext.setAttribute("p", image);
-													pageContext.setAttribute("nom", p.getNom());
-												%>
-								          		<div class="row valign-wrapper">
-								            		<div class="col s2">
-								              			<img src="data:image/jpg;base64,${p}" alt="" class="responsive-img"> <!-- notice the "circle" class -->
-								           			</div>
-								            		<div class="col s10">
-								              			<span class="black-text">
-								                			${nom}
-								              			</span>
-								            		</div>
-								          		</div>
-											</div>
-										</c:forEach> 
-									</div>	
-								</div>
-							</li>
-						</ul>
-					</ul>
+						<c:set var="archive" value="${archive}" scope="request"/>							
+						<jsp:include page="photos.jsp" >
+							<jsp:param name="archive" value="${archive}"/>
+						</jsp:include>
 				</div>
 			</li>
 		</c:forEach>

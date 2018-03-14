@@ -45,35 +45,10 @@
 							<li class="collection-item">Vitesse du vent : ${archive.donnee.vitesseVent} km/h</li>
 							<li class="collection-item">Ciel : ${archive.donnee.soleil.name}</li>
 							<li class="collection-item">Température : ${archive.donnee.temperature}°C</li>
-							<ul class="collapsible" data-collapsible="expandable">
-								<li>
-								<div class="collapsible-header"><i class="material-icons">photo_library</i>Photo</div>
-									<div class="collapsible-body">
-										<div class="col s12 m8 offset-m2 l6 offset-l3">
-							        		<c:forEach var="photo" items="${archive.photos}">
-							        			<%
-														bean.Photo p = (bean.Photo)pageContext.getAttribute("photo");
-														String image = new String(p.getImage(),"UTF-8");
-													
-														pageContext.setAttribute("p", image);
-														pageContext.setAttribute("nom", p.getNom());
-													%>
-							        			  <div class="card" style="width: 50%">
-												    <div class="card-image waves-effect waves-block waves-light">
-												      <img class="activator" src="data:image/jpg;base64,${p}">
-												    </div>
-												    <div class="card-content">
-												      <span class="card-title activator grey-text text-darken-4">${nom}</span>
-												    </div>
-												   
-												  </div>
-											</div>
-							          	</c:forEach> 
-							      	</div>					    
-								</div>
-							</li>
-						</ul>
-					</ul>
+							<c:set var="archive" value="${archive}" scope="request"/>							
+							<jsp:include page="photos.jsp" >
+								<jsp:param name="archive" value="${archive}"/>
+							</jsp:include>
 				</div>
 			</li>
 		</c:forEach>
