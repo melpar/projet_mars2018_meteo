@@ -38,10 +38,9 @@ public class FirstPdf {
 	Serveur serveur = new ServeurImpl();
 	Date date = new Date(118, 2, 12);
 	List<ArchiveMeteo> list = serveur.consulterParMois(date);
-	ArchiveMeteo archive = list.get(0);
 	FirstPdf pdf = new FirstPdf();
 	try {
-	    pdf.nouvellePage(archive);
+	    pdf.initialiser(list);
 	    pdf.p.saveDocument("Rapport.pdf");
 	    pdf.generer();
 	} catch (Throwable t) {

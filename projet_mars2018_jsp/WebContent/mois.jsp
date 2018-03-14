@@ -51,9 +51,22 @@
 				    </select>
 				    <label>Annee</label>
 			  	</div>
+			  	<div class="input-field col s3">
 		       	<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
 				    <i class="material-icons right">send</i>
 				</button>
+				<c:if test="${!lst.isEmpty()}">
+					<form method="get" action="ServletListerMoisTelecharger" >
+					<%
+						java.util.List<bean.ArchiveMeteo> list = (java.util.List<bean.ArchiveMeteo>)pageContext.getAttribute("lst");
+						session.setAttribute("listeArchive", list);
+					%>
+						<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Télécharger
+						    <i class="material-icons right">file_download</i>
+						</button>
+					</form>
+				</c:if>
+				</div>
 			</div>
 		</form>
 	    <ul class="collapsible" data-collapsible="expandable">
