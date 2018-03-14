@@ -21,6 +21,7 @@
 
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
+	<div class="container">
 	<form class="col s12" method="get" action="ServletListerJour" >
     	<div class="row">
       		<div class="input-field col s3">
@@ -40,19 +41,18 @@
 				<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.ville}</div>
 					<div class="collapsible-body">
 						<ul class="collection">
-							<li class="collection-item">Humidité : ${archive.donnee.pluie}%</li>
-							<li class="collection-item">Direction de vent : ${archive.donnee.directionVent}°</li>
-							<li class="collection-item">Vitesse du vent : ${archive.donnee.vitesseVent} km/h</li>
-							<li class="collection-item">Ciel : ${archive.donnee.soleil.name}</li>
-							<li class="collection-item">Température : ${archive.donnee.temperature}°C</li>
-							<c:set var="archive" value="${archive}" scope="request"/>							
-							<jsp:include page="photos.jsp" >
+							<c:set var="archive" value="${archive}" scope="request"/>
+							<jsp:include page="gestionInformations/informations.jsp" >
+								<jsp:param name="archive" value="${archive}"/>
+							</jsp:include>							
+							<jsp:include page="gestionPhotos/listePhotos.jsp" >
 								<jsp:param name="archive" value="${archive}"/>
 							</jsp:include>
-				</div>
+					</div>
 			</li>
 		</c:forEach>
     </ul>
+    </div>
 </body>
 
 <script type="text/javascript">

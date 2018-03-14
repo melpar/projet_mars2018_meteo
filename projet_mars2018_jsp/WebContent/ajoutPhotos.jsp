@@ -20,73 +20,78 @@
 
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<c:choose>
-		<c:when test="${manager.identifie}">
-			<form class="col s12" method="get" action="ServletAjoutPhoto" >
-		    	<div class="row">
-		      		<div class="input-field col s3">
-						Date :        	
-		        	</div>
-		        	<div class="input-field col s6">
-						<input name="maDate" type="text" class="datepicker" value="${dateEntre}"> 
-						<label for="erreur" style="color: red;">${erreur}</label>       	
-		        	</div>
-		        	<div class="input-field col s3">
-						<button class="btn waves-effect waves-light" type="submit" name="submit">Valider
-				    		<i class="material-icons right">send</i>
-				  		</button>      	
-		        	</div>
-		      	</div>
-			</form>
-			<ul class="collapsible" data-collapsible="expandable">
-		    	<c:forEach var="archive" items="${lst}">
-			    	<li>
-						<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.pays}, ${archive.lieu.departement}, ${archive.lieu.ville}</div>
-							<div class="collapsible-body">
-								<ul class="collection">
-									<li class="collection-item">Humidité : ${archive.donnee.pluie}%</li>
-									<li class="collection-item">Direction de vent : ${archive.donnee.directionVent}°</li>
-									<li class="collection-item">Vitesse du vent : ${archive.donnee.vitesseVent} km/h</li>
-									<li class="collection-item">Ciel : ${archive.donnee.soleil.name}</li>
-									<li class="collection-item">Température : ${archive.donnee.temperature}°C</li>
-									<ul class="collapsible" data-collapsible="expandable">
-										<li>
-											<div class="collapsible-header"><i class="material-icons">photo_library</i>Photo</div>
-											<div class="collapsible-body">
-												<ul class="collection">
-													<li class="collection-item">
-													<form method="post" action="ServletAjoutPhotoEnvoyer" enctype="multipart/form-data">
-												    	<div class="file-field input-field">
-												      		<div class="btn">
-												      			<i class="material-icons right">add_a_photo</i>
-												        		<span>Fichiers</span>
-												        		<input type="file" multiple name="imageData">
-												      		</div>
-												      		<div class="file-path-wrapper">
-												        		<input class="file-path validate" type="text" placeholder="Envoyer une ou plusieurs photos" name="imageNom">
-												      		</div>
-												      		<div>
-												        		<button class="btn waves-effect waves-light" type="submit" name="imageBoutton" value="${archive.id}">Envoyer
-													    			<i class="material-icons right">send</i>
-													  			</button>  
-												      		</div>
-												    	</div>
-												  	</form>
-												</li>
-											</ul>
-										</div>
-									</li>
+	<div class="container">
+		<c:choose>
+			<c:when test="${manager.identifie}">
+				<form class="col s12" method="get" action="ServletAjoutPhoto" >
+			    	<div class="row">
+			      		<div class="input-field col s3">
+							Date :        	
+			        	</div>
+			        	<div class="input-field col s6">
+							<input name="maDate" type="text" class="datepicker" value="${dateEntre}"> 
+							<label for="erreur" style="color: red;">${erreur}</label>       	
+			        	</div>
+			        	<div class="input-field col s3">
+							<button class="btn waves-effect waves-light" type="submit" name="submit">Valider
+					    		<i class="material-icons right">send</i>
+					  		</button>      	
+			        	</div>
+			      	</div>
+				</form>
+				<ul class="collapsible" data-collapsible="expandable">
+			    	<c:forEach var="archive" items="${lst}">
+				    	<li>
+							<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.pays}, ${archive.lieu.departement}, ${archive.lieu.ville}</div>
+								<div class="collapsible-body">
+									<ul class="collection">
+										<c:set var="archive" value="${archive}" scope="request"/>
+										<jsp:include page="gestionInformations/informations.jsp" >
+											<jsp:param name="archive" value="${archive}"/>
+										</jsp:include>
+										<ul class="collapsible" data-collapsible="expandable">
+											<li>
+											
+												<div class="collapsible-header"><i class="material-icons">photo_library</i>Photo</div>
+												<div class="collapsible-body">
+												<jsp:include page="gestionPhotos/photos.jsp" >
+												<jsp:param name="archive" value="${archive}"/>
+											</jsp:include>
+													<ul class="collection">
+														<li class="collection-item">
+														<form method="post" action="ServletAjoutPhotoEnvoyer" enctype="multipart/form-data">
+													    	<div class="file-field input-field">
+													      		<div class="btn">
+													      			<i class="material-icons right">add_a_photo</i>
+													        		<span>Fichiers</span>
+													        		<input type="file" multiple name="imageData">
+													      		</div>
+													      		<div class="file-path-wrapper">
+													        		<input class="file-path validate" type="text" placeholder="Envoyer une ou plusieurs photos" name="imageNom">
+													      		</div>
+													      		<div>
+													        		<button class="btn waves-effect waves-light" type="submit" name="imageBoutton" value="${archive.id}">Envoyer
+														    			<i class="material-icons right">send</i>
+														  			</button>  
+													      		</div>
+													    	</div>
+													  	</form>
+													</li>
+												</ul>
+											</div>
+										</li>
+									</ul>
 								</ul>
-							</ul>
-						</div>
-					</li>
-				</c:forEach>
-			</ul>
-		</c:when>
-		<c:otherwise>
-			<jsp:include page="redirection.jsp"></jsp:include>	
-		</c:otherwise>
-	</c:choose> 
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
+			</c:when>
+			<c:otherwise>
+				<jsp:include page="redirection.jsp"></jsp:include>	
+			</c:otherwise>
+		</c:choose> 
+	</div>
 </body>
 
 <script type="text/javascript">

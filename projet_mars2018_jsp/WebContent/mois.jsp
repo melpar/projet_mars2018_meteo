@@ -19,71 +19,68 @@
 
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<form class="col s12" method="get" action="ServletListerMois" >
-      	<div class="row">
-      		<div class="input-field col s3">
-				Date :        	
-        	</div>
-	        <div class="input-field col s3">
-			    <select name="mois">
-			      	<option value="1"  selected>Janvier</option>
-			      	<option value="2">Février</option>
-			      	<option value="3">Mars</option>
-			      	<option value="4">Aril</option>
-			      	<option value="5">Mai</option>
-			      	<option value="6">Juin</option>
-			      	<option value="7">Juillet</option>
-			      	<option value="8">Aout</option>
-			      	<option value="9">Septembre</option>
-			      	<option value="10">Octobre</option>
-			      	<option value="11">Novembre</option>
-			      	<option value="12">Decembre</option>
-			    </select>
-			    <label>Mois</label>
-		  	</div>
-	        <div class="input-field col s3">
-			    <select name="annee">
-		    		<c:forEach var = "i" begin = "2010" end = "2020">
-	        			 Item <c:out value = "${i}"/><p>
-	        			 <option value="<c:out value = "${i}"/>"  selected><c:out value = "${i}"/></option>
-	      			</c:forEach>
-			    </select>
-			    <label>Annee</label>
-		  	</div>
-	       	<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
-			    <i class="material-icons right">send</i>
-			</button>
-		</div>
-	</form>
-    <ul class="collapsible" data-collapsible="expandable">
-    	<c:forEach var="archive" items="${lst}">
-	    	<li>
-	    		<%
-	    		java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
-
-	    		// Get the date today using Calendar object.
-	    		bean.ArchiveMeteo archive = (bean.ArchiveMeteo) pageContext.getAttribute("archive");        
-	    		// Using DateFormat format method we can create a string 
-	    		// representation of a date with the defined format.
-	    		String reportDate = df.format(archive.getDate());
-	    		pageContext.setAttribute("d", reportDate);
-	    		%>
-				<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.ville}<br>${d}</div>
-				<div class="collapsible-body">
-					<ul class="collection">
-						<li class="collection-item">Humidité : ${archive.donnee.pluie}%</li>
-						<li class="collection-item">Direction de vent : ${archive.donnee.directionVent}°</li>
-						<li class="collection-item">Vitesse du vent : ${archive.donnee.vitesseVent} km/h</li>
-						<li class="collection-item">Ciel : ${archive.donnee.soleil.name}</li>
-						<li class="collection-item">Température : ${archive.donnee.temperature}°C</li>
-						<c:set var="archive" value="${archive}" scope="request"/>							
-						<jsp:include page="photos.jsp" >
-							<jsp:param name="archive" value="${archive}"/>
-						</jsp:include>
-				</div>
-			</li>
-		</c:forEach>
-	</ul>
+	<div class="container">
+		<form class="col s12" method="get" action="ServletListerMois" >
+	      	<div class="row">
+	      		<div class="input-field col s3">
+					Date :        	
+	        	</div>
+		        <div class="input-field col s3">
+				    <select name="mois">
+				      	<option value="1"  selected>Janvier</option>
+				      	<option value="2">Février</option>
+				      	<option value="3">Mars</option>
+				      	<option value="4">Aril</option>
+				      	<option value="5">Mai</option>
+				      	<option value="6">Juin</option>
+				      	<option value="7">Juillet</option>
+				      	<option value="8">Aout</option>
+				      	<option value="9">Septembre</option>
+				      	<option value="10">Octobre</option>
+				      	<option value="11">Novembre</option>
+				      	<option value="12">Decembre</option>
+				    </select>
+				    <label>Mois</label>
+			  	</div>
+		        <div class="input-field col s3">
+				    <select name="annee">
+			    		<c:forEach var = "i" begin = "2010" end = "2020">
+		        			 Item <c:out value = "${i}"/><p>
+		        			 <option value="<c:out value = "${i}"/>"  selected><c:out value = "${i}"/></option>
+		      			</c:forEach>
+				    </select>
+				    <label>Annee</label>
+			  	</div>
+		       	<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
+				    <i class="material-icons right">send</i>
+				</button>
+			</div>
+		</form>
+	    <ul class="collapsible" data-collapsible="expandable">
+	    	<c:forEach var="archive" items="${lst}">
+		    	<li>
+		    		<%
+		    		java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
+		    		bean.ArchiveMeteo archive = (bean.ArchiveMeteo) pageContext.getAttribute("archive");
+		    		String reportDate = df.format(archive.getDate());
+		    		pageContext.setAttribute("d", reportDate);
+		    		%>
+					<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.ville}<br>${d}</div>
+					<div class="collapsible-body">
+						<ul class="collection">
+							<c:set var="archive" value="${archive}" scope="request"/>
+							<jsp:include page="gestionInformations/informations.jsp" >
+								<jsp:param name="archive" value="${archive}"/>
+							</jsp:include>		
+							<jsp:include page="gestionPhotos/listePhotos.jsp" >
+								<jsp:param name="archive" value="${archive}"/>
+							</jsp:include>
+						</ul>
+					</div>
+				</li>
+			</c:forEach>
+		</ul>
+	</div>
 </body>
 <script type="text/javascript">
  $(document).ready(function() {
