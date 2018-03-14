@@ -13,6 +13,7 @@ import bean.DonneeMeteo;
 import bean.Lieu;
 import bean.Photo;
 import rmi.Serveur;
+import util.parsers.ParserJSON;
 import util.parsers.ParserXML;
 import util.pdf.FirstPdf;
 import validation.Validation;
@@ -32,6 +33,16 @@ public class ServeurImpl implements Serveur {
     public String ajouterDonneesArchiveXML(String donneesFichier) throws RemoteException {
 	StringBuilder builder = new StringBuilder();
 	List<ArchiveMeteo> archives = ParserXML.parserXML(donneesFichier);
+	for (ArchiveMeteo archive : archives) {
+	    builder.append(ajouterDonneeArchive(archive));
+	}
+	return builder.toString();
+    }
+
+    @Override
+    public String ajouterDonneesArchiveJSON(String donneesFichier) throws RemoteException {
+	StringBuilder builder = new StringBuilder();
+	List<ArchiveMeteo> archives = ParserJSON.parserJSON(donneesFichier);
 	for (ArchiveMeteo archive : archives) {
 	    builder.append(ajouterDonneeArchive(archive));
 	}

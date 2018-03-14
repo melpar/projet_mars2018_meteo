@@ -20,6 +20,8 @@ public interface Serveur extends Remote {
 
     public String ajouterDonneesArchiveXML(String donneesFichier) throws RemoteException;
 
+    public String ajouterDonneesArchiveJSON(String donneesFichier) throws RemoteException;
+
     public String ajouterDonneeArchive(ArchiveMeteo archive) throws RemoteException;
 
     public String ajouterPhoto(int archive, List<Photo> photos) throws RemoteException;
