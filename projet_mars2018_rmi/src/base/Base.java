@@ -173,7 +173,7 @@ public class Base {
 
 	    while (rs.next()) {
 		ArchiveMeteo archive = new ArchiveMeteo();
-		archive.setDate(date);
+		archive.setDate(rs.getDate("ARC_date"));
 		archive.setDonnee(this.getDonnee(rs.getInt("ARC_donnee")));
 		archive.setLieu(this.getLieu(rs.getInt("ARC_lieu")));
 		archive.setPhotos(this.getPhotos(rs.getInt("ARC_id")));
