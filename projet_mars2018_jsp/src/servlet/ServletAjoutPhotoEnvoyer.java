@@ -75,7 +75,6 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 				listePhoto.add(photo);
 			}
 		}
-		System.out.println(request.getParameter("imageBoutton"));
 
 		Manager manager = Manager.creer(request);
 		manager.getServeur().ajouterPhoto(Integer.parseInt(request.getParameter("imageBoutton")), listePhoto);

@@ -66,11 +66,8 @@ public class ServletAjoutXML extends HttpServlet {
 					size = is.read(data, 0, data.length);
 				}
 				manager.getServeur().ajouterDonneesArchive(buffer.toString());
-				System.out.println("test");
-				System.out.println(buffer.toString());
 			}
 		}
-		System.out.println(request.getParameter("documentBoutton"));
 
 		request.getServletContext().getRequestDispatcher("/ajout.jsp").forward(request, response);
 	}

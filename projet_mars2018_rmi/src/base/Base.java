@@ -141,24 +141,47 @@ public class Base {
     }
 
     public int ajouterLieu(Lieu lieu) {
-	int res = 0;
-
-	try {
-	    String sql = "insert into T_LIEU_LIE (LIE_ville, LIE_pays, LIE_departement)" + "values (?, ?, ?) ";
-	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-	    ps.setString(1, lieu.getVille());
-	    ps.setString(2, lieu.getPays());
-	    ps.setString(3, lieu.getDepartement());
-	    res = ps.executeUpdate();
-	    ResultSet result = ps.getGeneratedKeys();
-	    if (result.next()) {
-		System.out.println("Exec sql : " + sql + " enregistré à l'id" + result.getInt(1));
-		return result.getInt(1);
+	int res = this.verifierLieuExiste(lieu);
+	if (res == -1) {
+	    try {
+		String sql = "insert into T_LIEU_LIE (LIE_ville, LIE_pays, LIE_departement)" + "values (?, ?, ?) ";
+		PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		ps.setString(1, lieu.getVille());
+		ps.setString(2, lieu.getPays());
+		ps.setString(3, lieu.getDepartement());
+		res = ps.executeUpdate();
+		ResultSet result = ps.getGeneratedKeys();
+		if (result.next()) {
+		    System.out.println("Exec sql : " + sql + " enregistré à l'id" + result.getInt(1));
+		    return result.getInt(1);
+		}
+	    } catch (Exception e) {
+		System.out.println("Erreur Base.ajouterLieu " + e.getMessage());
 	    }
-	} catch (Exception e) {
-	    System.out.println("Erreur Base.ajouterLieu " + e.getMessage());
 	}
 	return res;
+    }
+
+    private int verifierLieuExiste(Lieu lieu) {
+	try {
+	    String ville = lieu.getVille().toUpperCase();
+	    String pays = lieu.getPays().toUpperCase();
+	    String departement = lieu.getDepartement().toUpperCase();
+	    String sql = "SELECT * FROM `T_LIEU_LIE` WHERE UPPER(LIE_ville) = '" + ville + "' AND UPPER(LIE_pays) = '"
+		    + pays + "' AND UPPER(LIE_departement) = '" + departement + "'";
+	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+	    // ps.setDate(1, new java.sql.Date(date.getTime()));
+	    ResultSet rs = ps.executeQuery(sql);
+	    System.out.println("Exec sql : " + sql);
+
+	    while (rs.next()) {
+		return rs.getInt("LIE_id");
+	    }
+
+	} catch (Exception e) {
+	    System.out.println("Erreur Base.verifierLieu " + e.getMessage());
+	}
+	return -1;
     }
 
     public List<ArchiveMeteo> consulterParJour(java.util.Date date) {
