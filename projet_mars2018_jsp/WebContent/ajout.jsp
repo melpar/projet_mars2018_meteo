@@ -10,16 +10,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link type="text/css" rel="stylesheet" href="Materialize/css/materialize.min.css"  media="screen,projection"/>
-<script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script> 
-<script src = "Materialize/js/materialize.min.js"></script>
-<title>Ajout données</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link type="text/css" rel="stylesheet" href="Materialize/css/materialize.min.css"  media="screen,projection"/>
+	<link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+	<script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script> 
+	<script src = "Materialize/js/materialize.min.js"></script>
+	<title>Ajout données</title>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 	<c:choose>
 		<c:when test="${manager.identifie}">
+			<div class="row">
+				<form method="post" action="ServletAjoutXML" enctype="multipart/form-data">
+												    	<div class="file-field input-field">
+												      		<div class="btn">
+												      			<i class="material-icons right">insert_drive_file</i>
+												        		<span>Fichier</span>
+												        		<input type="file" multiple name="imageData">
+												      		</div>
+												      		<div class="file-path-wrapper">
+												        		<input class="file-path validate" type="text" placeholder="Séléctionner un fichier d'archive" name="imageNom">
+												      		</div>
+												      		<div>
+												        		<button class="btn waves-effect waves-light" type="submit" name="imageBoutton" value="${archive.id}">Valider
+													    			<i class="material-icons right">send</i>
+													  			</button>  
+												      		</div>
+												    	</div>
+												  	</form>
+			</div>
   			<div class="row">
 		    	<form class="col s12" method="get" action="ServletEnvoyerDonnee">
 		      		<div class="row">

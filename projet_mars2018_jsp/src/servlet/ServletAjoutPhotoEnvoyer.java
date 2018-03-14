@@ -42,29 +42,6 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		/*
-		 * System.out.println("data : " + request.getParameter("imageData"));
-		 * System.out.println("imageNom : " + request.getParameter("imageNom"));
-		 * System.out.println("imageBoutton : " +
-		 * request.getParameter("imageBoutton"));
-		 * 
-		 * List<Photo> listePhoto = new ArrayList<Photo>();
-		 * 
-		 * Photo photo = new Photo();
-		 * photo.setNom(request.getParameter("imageNom"));
-		 * 
-		 * Part filePart = request.getPart("imageData"); InputStream fileContent
-		 * = filePart.getInputStream(); ByteArrayOutputStream buffer = new
-		 * ByteArrayOutputStream();
-		 * 
-		 * int nRead; byte[] data = new byte[16384];
-		 * 
-		 * while ((nRead = fileContent.read(data, 0, data.length)) != -1) {
-		 * buffer.write(data, 0, nRead); }
-		 * 
-		 * buffer.flush(); photo.setImage(buffer.toByteArray());
-		 * listePhoto.add(photo);
-		 */
 		List<Photo> listePhoto = new ArrayList<Photo>();
 		for (Part part : request.getParts()) {
 

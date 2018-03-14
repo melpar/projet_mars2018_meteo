@@ -13,6 +13,7 @@ import bean.DonneeMeteo;
 import bean.Lieu;
 import bean.Photo;
 import rmi.Serveur;
+import util.parsers.ParserXML;
 import validation.Validation;
 
 public class ServeurImpl implements Serveur {
@@ -27,8 +28,9 @@ public class ServeurImpl implements Serveur {
     }
 
     @Override
-    public String ajouterDonneesArchive(List<ArchiveMeteo> archives) throws RemoteException {
+    public String ajouterDonneesArchive(String donneesFichier) throws RemoteException {
 	StringBuilder builder = new StringBuilder();
+	List<ArchiveMeteo> archives = ParserXML.parserXML(donneesFichier);
 	for (ArchiveMeteo archive : archives) {
 	    builder.append(ajouterDonneeArchive(archive));
 	}
