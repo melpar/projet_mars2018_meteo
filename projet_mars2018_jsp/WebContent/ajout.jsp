@@ -54,7 +54,7 @@
 						<label>Ciel</label>
 				  	</div>
 			        <div class="input-field col s6">
-			        	<input  name="direction" placeholder="Diresction du vent" id="direction" type="number" class="validate" value="${valide.valeurs['directionVent']}">
+			        	<input  name="direction" placeholder="Direction du vent" id="direction" type="number" class="validate" value="${valide.valeurs['directionVent']}">
 			          	<label for="direction" style="color: red;">${valide.erreurs["directionVent"]}</label>
 			        </div>
 			        <div class="input-field col s6">

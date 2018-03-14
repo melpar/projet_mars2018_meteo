@@ -31,4 +31,13 @@ public enum Soleil implements Serializable {
     public int getId() {
 	return id;
     }
+
+    public static Soleil getByNom(String val) {
+	for (Soleil sol : Soleil.values()) {
+	    if (sol.name.equals(val)) {
+		return sol;
+	    }
+	}
+	return null;
+    }
 }

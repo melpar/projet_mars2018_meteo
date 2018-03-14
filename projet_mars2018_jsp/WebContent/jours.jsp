@@ -51,24 +51,22 @@
 									<div class="collapsible-body">
 										<div class="col s12 m8 offset-m2 l6 offset-l3">
 							        		<c:forEach var="photo" items="${archive.photos}">
-							        			<div class="card-panel grey lighten-5 z-depth-1">
-									        		<%
+							        			<%
 														bean.Photo p = (bean.Photo)pageContext.getAttribute("photo");
 														String image = new String(p.getImage(),"UTF-8");
 													
 														pageContext.setAttribute("p", image);
 														pageContext.setAttribute("nom", p.getNom());
 													%>
-							          				<div class="row valign-wrapper">
-							            				<div class="col s2">
-							              				<img src="data:image/jpg;base64,${p}" alt="" class="responsive-img"> <!-- notice the "circle" class -->
-							           				</div>
-							            			<div class="col s10">
-							              				<span class="black-text">
-							                				${nom}
-							              				</span>
-							            			</div>
-							          			</div>
+							        			  <div class="card" style="width: 50%">
+												    <div class="card-image waves-effect waves-block waves-light">
+												      <img class="activator" src="data:image/jpg;base64,${p}">
+												    </div>
+												    <div class="card-content">
+												      <span class="card-title activator grey-text text-darken-4">${nom}</span>
+												    </div>
+												   
+												  </div>
 											</div>
 							          	</c:forEach> 
 							      	</div>					    
