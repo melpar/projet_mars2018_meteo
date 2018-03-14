@@ -43,17 +43,9 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 		ServletOutputStream myOut = null;
 		System.out.println("HOLLA");
 		try {
-
 			myOut = response.getOutputStream();
-			List<ArchiveMeteo> list = (List<ArchiveMeteo>) request.getSession().getAttribute("listeArchive");
-			System.out.println(list);
-			if (list == null) {
-				System.out.println("Liste vide");
-			} else {
-				System.out.println("Liste non vide");
-			}
+			List<ArchiveMeteo> list = (List<ArchiveMeteo>) request.getSession().getAttribute("lst");
 			byte[] fichier = Manager.creer(request).getServeur().productionPDF(list);// Getting mistake here
-			// File myfile = new File(filepath + filename);
 			//
 			// //set response headers
 			response.setContentType("application/pdf"); // I want to download a PDF file
@@ -70,7 +62,6 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 			// read from the file; write to the ServletOutputStream
 			while ((readBytes = buf.read()) != -1) {
 				myOut.write(readBytes);
-				System.out.println("passer");
 			}
 
 		} catch (IOException ioe) {
@@ -85,8 +76,7 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 			}
 
 		}
-		request.getSession().setAttribute("listeArchive", null);
-		request.getServletContext().getRequestDispatcher("/mois.jsp").forward(request, response);
+		request.getSession().setAttribute("lst", null);
 	}
 
 	/**

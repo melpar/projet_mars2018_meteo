@@ -5,10 +5,7 @@
 
 <jsp:useBean id="manager" class="manager.Manager" scope="session" />
 <jsp:useBean id="lst" class="java.util.ArrayList" scope="request" />
-<%
-						java.util.List<bean.ArchiveMeteo> list = (java.util.List<bean.ArchiveMeteo>)pageContext.getAttribute("lst");
-						session.setAttribute("listeArchive", list);
-					%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -65,7 +62,10 @@
 		</form>
 		<c:if test="${!lst.isEmpty()}">
 					<form method="get" action="ServletListerMoisTelecharger" >
-					
+					<%
+					 	session.setAttribute("lst",request.getAttribute("lst"));
+					%>
+						<input type="hidden" name="listeArchive" id="listeArchive" value="${lst}"/>
 						<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit" >Télécharger
 						    <i class="material-icons right">file_download</i>
 						</button>
