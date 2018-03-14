@@ -23,22 +23,22 @@
 		<c:when test="${manager.identifie}">
 			<div class="row">
 				<form method="post" action="ServletAjoutXML" enctype="multipart/form-data">
-												    	<div class="file-field input-field">
-												      		<div class="btn">
-												      			<i class="material-icons right">insert_drive_file</i>
-												        		<span>Fichier</span>
-												        		<input type="file" multiple name="imageData">
-												      		</div>
-												      		<div class="file-path-wrapper">
-												        		<input class="file-path validate" type="text" placeholder="Séléctionner un fichier d'archive" name="imageNom">
-												      		</div>
-												      		<div>
-												        		<button class="btn waves-effect waves-light" type="submit" name="imageBoutton" value="${archive.id}">Valider
-													    			<i class="material-icons right">send</i>
-													  			</button>  
-												      		</div>
-												    	</div>
-												  	</form>
+					<div class="file-field input-field">
+						<div class="btn">
+							<i class="material-icons right">insert_drive_file</i>
+							<span>Fichier</span>
+							<input type="file" multiple name="imageData">
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text" placeholder="Séléctionner un fichier d'archive" name="imageNom">
+						</div>
+						<div>
+							<button class="btn waves-effect waves-light" type="submit" name="documentBoutton">Valider
+				    			<i class="material-icons right">send</i>
+				  			</button>  
+			      		</div>
+			    	</div>
+			  	</form>
 			</div>
   			<div class="row">
 		    	<form class="col s12" method="get" action="ServletEnvoyerDonnee">

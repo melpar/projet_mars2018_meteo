@@ -1,10 +1,8 @@
 package servlet;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +16,7 @@ import javax.servlet.http.Part;
 
 import bean.Photo;
 import manager.Manager;
+import util.FilesUtil;
 
 /**
  * Servlet implementation class ServletAjoutPhotoEnvoyer
@@ -45,13 +44,13 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 		List<Photo> listePhoto = new ArrayList<Photo>();
 		for (Part part : request.getParts()) {
 
-			String filename = getFilename(part);
+			String filename = FilesUtil.getFilename(part);
 			if (filename == null) {
 				// Traiter les champs classiques ici (input
 				// type="text|radio|checkbox|etc",
 				// select, etc).
 				String fieldname = part.getName();
-				String fieldvalue = getValue(part);
+				String fieldvalue = FilesUtil.getValue(part);
 				System.out.println("objet : " + fieldname);
 			} else if (!filename.isEmpty()) {
 				// Traiter les champs de type fichier (input type="file").
@@ -92,25 +91,6 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	}
-
-	private static String getFilename(Part part) {
-		for (String cd : part.getHeader("content-disposition").split(";")) {
-			if (cd.trim().startsWith("filename")) {
-				return cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-			}
-		}
-		return null;
-	}
-
-	private static String getValue(Part part) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(part.getInputStream(), "UTF-8"));
-		StringBuilder value = new StringBuilder();
-		char[] buffer = new char[1024];
-		for (int length = 0; (length = reader.read(buffer)) > 0;) {
-			value.append(buffer, 0, length);
-		}
-		return value.toString();
 	}
 
 }
