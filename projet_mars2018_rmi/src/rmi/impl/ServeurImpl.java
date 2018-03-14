@@ -28,7 +28,7 @@ public class ServeurImpl implements Serveur {
     }
 
     @Override
-    public String ajouterDonneesArchive(String donneesFichier) throws RemoteException {
+    public String ajouterDonneesArchiveXML(String donneesFichier) throws RemoteException {
 	StringBuilder builder = new StringBuilder();
 	List<ArchiveMeteo> archives = ParserXML.parserXML(donneesFichier);
 	for (ArchiveMeteo archive : archives) {

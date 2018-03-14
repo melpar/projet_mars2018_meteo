@@ -49,7 +49,7 @@ public class ServletAjoutXML extends HttpServlet {
 				System.out.println("objet : " + fieldname);
 			} else if (!filename.isEmpty()) {
 				// Traiter les champs de type fichier (input type="file").
-				String fieldname = part.getName();
+
 				filename = filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE
 																														// fix.
 				InputStream is = part.getInputStream();
@@ -65,7 +65,7 @@ public class ServletAjoutXML extends HttpServlet {
 					System.out.println(str);
 					size = is.read(data, 0, data.length);
 				}
-				manager.getServeur().ajouterDonneesArchive(buffer.toString());
+				manager.getServeur().ajouterDonneesArchiveXML(buffer.toString());
 			}
 		}
 
