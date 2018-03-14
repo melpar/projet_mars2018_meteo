@@ -5,6 +5,10 @@
 
 <jsp:useBean id="manager" class="manager.Manager" scope="session" />
 <jsp:useBean id="lst" class="java.util.ArrayList" scope="request" />
+<%
+						java.util.List<bean.ArchiveMeteo> list = (java.util.List<bean.ArchiveMeteo>)pageContext.getAttribute("lst");
+						session.setAttribute("listeArchive", list);
+					%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -55,20 +59,18 @@
 		       	<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
 				    <i class="material-icons right">send</i>
 				</button>
-				<c:if test="${!lst.isEmpty()}">
+				
+				</div>
+			</div>
+		</form>
+		<c:if test="${!lst.isEmpty()}">
 					<form method="get" action="ServletListerMoisTelecharger" >
-					<%
-						java.util.List<bean.ArchiveMeteo> list = (java.util.List<bean.ArchiveMeteo>)pageContext.getAttribute("lst");
-						session.setAttribute("listeArchive", list);
-					%>
-						<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Télécharger
+					
+						<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit" >Télécharger
 						    <i class="material-icons right">file_download</i>
 						</button>
 					</form>
 				</c:if>
-				</div>
-			</div>
-		</form>
 	    <ul class="collapsible" data-collapsible="expandable">
 	    	<c:forEach var="archive" items="${lst}">
 		    	<li>

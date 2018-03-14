@@ -41,10 +41,17 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 
 		BufferedInputStream buf = null;
 		ServletOutputStream myOut = null;
+		System.out.println("HOLLA");
 		try {
 
 			myOut = response.getOutputStream();
 			List<ArchiveMeteo> list = (List<ArchiveMeteo>) request.getSession().getAttribute("listeArchive");
+			System.out.println(list);
+			if (list == null) {
+				System.out.println("Liste vide");
+			} else {
+				System.out.println("Liste non vide");
+			}
 			byte[] fichier = Manager.creer(request).getServeur().productionPDF(list);// Getting mistake here
 			// File myfile = new File(filepath + filename);
 			//
@@ -55,6 +62,7 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 			//
 			response.setContentLength(fichier.length);
 			//
+			System.out.println("taille : " + fichier.length);
 			InputStream input = new ByteArrayInputStream(fichier);
 			buf = new BufferedInputStream(input);
 			int readBytes = 0;
@@ -62,6 +70,7 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 			// read from the file; write to the ServletOutputStream
 			while ((readBytes = buf.read()) != -1) {
 				myOut.write(readBytes);
+				System.out.println("passer");
 			}
 
 		} catch (IOException ioe) {
