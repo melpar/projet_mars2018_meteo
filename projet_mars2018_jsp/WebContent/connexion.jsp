@@ -16,31 +16,29 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-  <div class="row">
-    <form class="col s12" method="post" action="ServletConnexion">
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="Identifiant" name="ident" type="text" class="validate" value="${ident}">
-          <label for="email"></label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input  placeholder="Mot de passe" name="mdp" type="password" class="validate" value="${mdp}">
-          <label for="password"></label>
-        </div>
-      </div>
-      <div class="row">
-        <button class="btn waves-effect waves-light" type="submit" name="submit">Connexion
-		    <i class="material-icons right">send</i>
-		  </button>
-      </div>
-      <div class="row" style="color: red">
-      	${erreur}
-      </div>
-      </div>
-    </form>
-    
-  </div>
+  	<div class="row">
+    	<form class="col s12" method="post" action="ServletConnexion">
+      		<div class="row">
+        		<div class="input-field col s6">
+          			<input placeholder="Identifiant" name="ident" type="text" class="validate" value="${ident}">
+          			<label for="email"></label>
+        		</div>
+      		</div>
+      		<div class="row">
+        		<div class="input-field col s6">
+          			<input  placeholder="Mot de passe" name="mdp" type="password" class="validate" value="${mdp}">
+          			<label for="password"></label>
+        		</div>
+      		</div>
+      		<div class="row">
+        		<button class="btn waves-effect waves-light" type="submit" name="submit">Connexion
+		    		<i class="material-icons right">send</i>
+		  		</button>
+      		</div>
+      		<div class="row" style="color: red">
+      			${erreur}
+      		</div>
+		</form>
+    </div>
 </body>
 </html>

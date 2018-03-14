@@ -20,44 +20,44 @@
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 	<form class="col s12" method="get" action="ServletListerMois" >
-      <div class="row">
-      	<div class="input-field col s3">
-			Date :        	
-        </div>
-        <div class="input-field col s3">
-		    <select name="mois">
-		      <option value="1"  selected>Janvier</option>
-		      <option value="2">Février</option>
-		      <option value="3">Mars</option>
-		      <option value="4">Aril</option>
-		      <option value="5">Mai</option>
-		      <option value="6">Juin</option>
-		      <option value="7">Juillet</option>
-		      <option value="8">Aout</option>
-		      <option value="9">Septembre</option>
-		      <option value="10">Octobre</option>
-		      <option value="11">Novembre</option>
-		      <option value="12">Decembre</option>
-		    </select>
-		    <label>Mois</label>
-	  	</div>
-        <div class="input-field col s3">
-		    <select name="annee">
-	    		<c:forEach var = "i" begin = "2010" end = "2020">
-        			 Item <c:out value = "${i}"/><p>
-        			 <option value="<c:out value = "${i}"/>"  selected><c:out value = "${i}"/></option>
-      			</c:forEach>
-		    </select>
-		    <label>Annee</label>
-	  	</div>
-       <button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
-		    <i class="material-icons right">send</i>
-		  </button>
-      </div>
-    </form>
-     <ul class="collapsible" data-collapsible="expandable">
-        <c:forEach var="archive" items="${lst}">
-	        <li>
+      	<div class="row">
+      		<div class="input-field col s3">
+				Date :        	
+        	</div>
+	        <div class="input-field col s3">
+			    <select name="mois">
+			      	<option value="1"  selected>Janvier</option>
+			      	<option value="2">Février</option>
+			      	<option value="3">Mars</option>
+			      	<option value="4">Aril</option>
+			      	<option value="5">Mai</option>
+			      	<option value="6">Juin</option>
+			      	<option value="7">Juillet</option>
+			      	<option value="8">Aout</option>
+			      	<option value="9">Septembre</option>
+			      	<option value="10">Octobre</option>
+			      	<option value="11">Novembre</option>
+			      	<option value="12">Decembre</option>
+			    </select>
+			    <label>Mois</label>
+		  	</div>
+	        <div class="input-field col s3">
+			    <select name="annee">
+		    		<c:forEach var = "i" begin = "2010" end = "2020">
+	        			 Item <c:out value = "${i}"/><p>
+	        			 <option value="<c:out value = "${i}"/>"  selected><c:out value = "${i}"/></option>
+	      			</c:forEach>
+			    </select>
+			    <label>Annee</label>
+		  	</div>
+	       	<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
+			    <i class="material-icons right">send</i>
+			</button>
+		</div>
+	</form>
+    <ul class="collapsible" data-collapsible="expandable">
+    	<c:forEach var="archive" items="${lst}">
+	    	<li>
 				<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.ville}<br>${archive.date.getDay()}/${archive.date.getMonth()+1}/${archive.date.getYear()+1900}</div>
 				<div class="collapsible-body">
 					<ul class="collection">
@@ -91,8 +91,8 @@
 								            		</div>
 								          		</div>
 											</div>
-								          </c:forEach> 
-								      </div>	
+										</c:forEach> 
+									</div>	
 								</div>
 							</li>
 						</ul>
@@ -100,7 +100,7 @@
 				</div>
 			</li>
 		</c:forEach>
-      </ul>
+	</ul>
 </body>
 <script type="text/javascript">
  $(document).ready(function() {

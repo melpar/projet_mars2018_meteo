@@ -22,56 +22,56 @@
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 	<form class="col s12" method="get" action="ServletListerJour" >
-      <div class="row">
-      	<div class="input-field col s3">
-			Date :        	
-        </div>
-        <div class="input-field col s6">
-			<input name="maDate" type="text" class="datepicker">        	
-        </div>
-        <button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
-		    <i class="material-icons right">send</i>
-		  </button>
-      </div>
-    </form>
+    	<div class="row">
+      		<div class="input-field col s3">
+				Date :        	
+        	</div>
+        	<div class="input-field col s6">
+				<input name="maDate" type="text" class="datepicker">        	
+        	</div>
+        	<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
+		    	<i class="material-icons right">send</i>
+		  	</button>
+      	</div>
+	</form>
      <ul class="collapsible" data-collapsible="expandable">
-        <c:forEach var="archive" items="${lst}">
-	        <li>
+       	<c:forEach var="archive" items="${lst}">
+	       	<li>
 				<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.ville}</div>
-				<div class="collapsible-body">
-					<ul class="collection">
-						<li class="collection-item">Humidité : ${archive.donnee.pluie}%</li>
-						<li class="collection-item">Direction de vent : ${archive.donnee.directionVent}°</li>
-						<li class="collection-item">Vitesse du vent : ${archive.donnee.vitesseVent} km/h</li>
-						<li class="collection-item">Ciel : ${archive.donnee.soleil.name}</li>
-						<li class="collection-item">Température : ${archive.donnee.temperature}°C</li>
-						<ul class="collapsible" data-collapsible="expandable">
-							<li>
+					<div class="collapsible-body">
+						<ul class="collection">
+							<li class="collection-item">Humidité : ${archive.donnee.pluie}%</li>
+							<li class="collection-item">Direction de vent : ${archive.donnee.directionVent}°</li>
+							<li class="collection-item">Vitesse du vent : ${archive.donnee.vitesseVent} km/h</li>
+							<li class="collection-item">Ciel : ${archive.donnee.soleil.name}</li>
+							<li class="collection-item">Température : ${archive.donnee.temperature}°C</li>
+							<ul class="collapsible" data-collapsible="expandable">
+								<li>
 								<div class="collapsible-header"><i class="material-icons">photo_library</i>Photo</div>
 									<div class="collapsible-body">
 										<div class="col s12 m8 offset-m2 l6 offset-l3">
-								        	<c:forEach var="photo" items="${archive.photos}">
-								        		<div class="card-panel grey lighten-5 z-depth-1">
-								        		<%
-													bean.Photo p = (bean.Photo)pageContext.getAttribute("photo");
-													String image = new String(p.getImage(),"UTF-8");
-												
-													pageContext.setAttribute("p", image);
-													pageContext.setAttribute("nom", p.getNom());
-												%>
-								          		<div class="row valign-wrapper">
-								            		<div class="col s2">
-								              			<img src="data:image/jpg;base64,${p}" alt="" class="responsive-img"> <!-- notice the "circle" class -->
-								           			</div>
-								            		<div class="col s10">
-								              			<span class="black-text">
-								                			${nom}
-								              			</span>
-								            		</div>
-								          		</div>
+							        		<c:forEach var="photo" items="${archive.photos}">
+							        			<div class="card-panel grey lighten-5 z-depth-1">
+									        		<%
+														bean.Photo p = (bean.Photo)pageContext.getAttribute("photo");
+														String image = new String(p.getImage(),"UTF-8");
+													
+														pageContext.setAttribute("p", image);
+														pageContext.setAttribute("nom", p.getNom());
+													%>
+							          				<div class="row valign-wrapper">
+							            				<div class="col s2">
+							              				<img src="data:image/jpg;base64,${p}" alt="" class="responsive-img"> <!-- notice the "circle" class -->
+							           				</div>
+							            			<div class="col s10">
+							              				<span class="black-text">
+							                				${nom}
+							              				</span>
+							            			</div>
+							          			</div>
 											</div>
-								          </c:forEach> 
-								      </div>					    
+							          	</c:forEach> 
+							      	</div>					    
 								</div>
 							</li>
 						</ul>
@@ -79,7 +79,7 @@
 				</div>
 			</li>
 		</c:forEach>
-      </ul>
+    </ul>
 </body>
 
 <script type="text/javascript">
