@@ -662,4 +662,48 @@ public class Base {
 	return false;
     }
 
+    private void supprimerImageParArchive(int idArchive) {
+	try {
+	    String sql = "DELETE FROM `T_PHOTO_PHO` WHERE `PHO_archive` = " + idArchive;
+	    java.sql.Statement stmt = co.createStatement();
+	    stmt.executeUpdate(sql);
+	} catch (
+
+	Exception e) {
+	    System.out.println("Erreur Base.supprimerImage " + e.getMessage());
+	}
+    }
+
+    private void supprimerDonnee(int id) {
+	try {
+	    String sql = "DELETE FROM `T_DONNEE_DON` WHERE `DON_id` = " + id;
+	    java.sql.Statement stmt = co.createStatement();
+	    stmt.executeUpdate(sql);
+	} catch (
+
+	Exception e) {
+	    System.out.println("Erreur Base.supprimerImage " + e.getMessage());
+	}
+    }
+
+    public boolean supprimerArchive(int idArchive) {
+	boolean ret = true;
+	// Suppression des images
+	this.supprimerImageParArchive(idArchive);
+	// Recupérer id données
+	int idDonnee = this.selectionnerIdDonne(idArchive);
+	// Suppression de l'archive
+	try {
+	    String sql = "DELETE FROM `T_ARCHIVE_ARC` WHERE `ARC_id` = " + idArchive;
+	    java.sql.Statement stmt = co.createStatement();
+	    stmt.executeUpdate(sql);
+	} catch (Exception e) {
+	    ret = false;
+	    System.out.println("Erreur Base.supprimerArchive " + e.getMessage());
+	}
+	// Suppression des données
+	this.supprimerDonnee(idDonnee);
+	return ret;
+    }
+
 }
