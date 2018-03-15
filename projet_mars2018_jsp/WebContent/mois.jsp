@@ -56,7 +56,6 @@
 		       	<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
 				    <i class="material-icons right">send</i>
 				</button>
-				
 				</div>
 			</div>
 		</form>

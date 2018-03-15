@@ -44,7 +44,7 @@ public class ServletIndex extends HttpServlet {
 		try {
 			date = formatter.parse(dateString);
 		} catch (java.text.ParseException e) {
-			// TODO Auto-generated catch block
+			request.setAttribute("erreur", "Date incorrecte");
 		}
 
 		Manager manager = Manager.creer(request);
@@ -66,7 +66,7 @@ public class ServletIndex extends HttpServlet {
 		request.setAttribute("pluie", pluie);
 		request.setAttribute("vent", vent);
 		request.setAttribute("initialise", true);
-
+		request.setAttribute("dateEntre", dateString);
 		request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 

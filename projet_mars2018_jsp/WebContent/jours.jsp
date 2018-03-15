@@ -28,11 +28,15 @@
 				Date :        	
         	</div>
         	<div class="input-field col s6">
-				<input name="maDate" type="text" class="datepicker">        	
+				<input name="maDate" type="text" class="datepicker" value="${dateEntre}"> 
+				<label for="erreur" style="color: red;">${erreur}</label>       	
         	</div>
-        	<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
-		    	<i class="material-icons right">send</i>
-		  	</button>
+        	<div class="input-field col s3">
+				<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider
+			    	<i class="material-icons right">send</i>
+			  	</button>
+  	       	</div>
+        	
       	</div>
 	</form>
      <ul class="collapsible" data-collapsible="expandable">
