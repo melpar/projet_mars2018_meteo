@@ -211,4 +211,8 @@ public class ServeurImpl implements Serveur {
 	}
 	return informations;
     }
+
+    public boolean supprimerImage(int idImage) throws RemoteException {
+	return false;
+    }
 }

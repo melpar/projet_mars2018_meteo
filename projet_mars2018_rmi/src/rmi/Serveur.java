@@ -61,4 +61,6 @@ public interface Serveur extends Remote {
     public byte[] productionPDF(List<ArchiveMeteo> archives) throws RemoteException;
 
     public Map<String, Double[]> getInformations(Date date) throws RemoteException;
+
+    public boolean supprimerImage(int idImage) throws RemoteException;
 }

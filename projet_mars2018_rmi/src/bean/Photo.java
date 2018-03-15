@@ -10,6 +10,8 @@ public class Photo implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    private int id;
+
     @Regexp(expr = ".{2,50}", value = "Il faut entre 2 et 50 lettres pour le nom")
     private String nom;
 
@@ -29,5 +31,13 @@ public class Photo implements Serializable {
 
     public void setImage(byte[] image) {
 	this.image = image;
+    }
+
+    public int getId() {
+	return id;
+    }
+
+    public void setId(int id) {
+	this.id = id;
     }
 }
