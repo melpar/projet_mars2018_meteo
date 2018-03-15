@@ -4,8 +4,10 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import base.Base;
 import bean.ArchiveMeteo;
@@ -150,7 +152,7 @@ public class ServeurImpl implements Serveur {
 
     @Override
     public Validation valider(String pays, String ville, String departement, String direction, String vitesse,
-	    String temperature, String pluie, Date date, Soleil soleil) throws RemoteException {
+	    String temperature, String pluie, String date, String soleil) throws RemoteException {
 	Validation v = new Validation();
 	v.regexp(bean.Lieu.class, "ville", ville);
 	v.regexp(bean.Lieu.class, "departement", departement);
@@ -159,8 +161,23 @@ public class ServeurImpl implements Serveur {
 	v.regexp(bean.DonneeMeteo.class, "vitesseVent", vitesse);
 	v.regexp(bean.DonneeMeteo.class, "temperature", temperature);
 	v.regexp(bean.DonneeMeteo.class, "pluie", pluie);
-	v.addSoleil("soleil", soleil);
-	v.addDate("date", date);
+	// Tester soleil
+	if (Soleil.getById(Integer.parseInt(soleil)) == null) {
+	    v.addErreur("soleil", "La valeur n'est pas valide");
+	} else {
+	    v.addValue("soleil", soleil);
+	}
+
+	// Tester date
+	SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy", Locale.US);
+	Date dateD = new Date();
+	try {
+	    dateD = formatter.parse(date);
+	    v.addValue("date", date);
+	} catch (java.text.ParseException e) {
+	    v.addErreur("date", "La date n'est pas au bon format");
+	}
+
 	return v;
     }
 

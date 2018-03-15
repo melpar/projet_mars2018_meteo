@@ -7,15 +7,39 @@ import java.util.List;
 
 import bean.ArchiveMeteo;
 import bean.Photo;
-import bean.Soleil;
 import validation.Validation;
 
 public interface Serveur extends Remote {
 
     public boolean connexion(String identifiant, String mdp) throws RemoteException;
 
+    /**
+     * Permet de valider des données
+     * 
+     * @param pays
+     *            pays à valider
+     * @param ville
+     *            ville à valider
+     * @param departement
+     *            departement à valider
+     * @param direction
+     *            direction à valider
+     * @param vitesse
+     *            vitesse à valider
+     * @param temperature
+     *            temperature à valider
+     * @param pluie
+     *            pluie à valider
+     * @param date
+     *            date à valider
+     * @param soleil
+     *            soleil à valider
+     * @return objet de type Validation, contient les valeurs et messages
+     *         d'erreur
+     * @throws RemoteException
+     */
     public Validation valider(String pays, String ville, String departement, String direction, String vitesse,
-	    String temperature, String pluie, Date date, Soleil soleil) throws RemoteException;
+	    String temperature, String pluie, String date, String soleil) throws RemoteException;
 
     public String ajouterDonneesArchiveXML(String donneesFichier) throws RemoteException;
 
