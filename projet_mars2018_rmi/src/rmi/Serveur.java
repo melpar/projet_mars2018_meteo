@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import bean.ArchiveMeteo;
-import bean.DonneeMeteo;
-import bean.Lieu;
 import bean.Photo;
 import validation.Validation;
 
@@ -26,7 +24,7 @@ public interface Serveur extends Remote {
 
     public String ajouterPhoto(int archive, List<Photo> photos) throws RemoteException;
 
-    public String modifierDonnee(Lieu lieu, Date date, DonneeMeteo donnees) throws RemoteException;
+    public String modifierDonnee(ArchiveMeteo archive) throws RemoteException;
 
     public List<ArchiveMeteo> consulterParJour(Date date) throws RemoteException;
 

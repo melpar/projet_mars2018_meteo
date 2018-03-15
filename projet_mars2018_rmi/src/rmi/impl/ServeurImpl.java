@@ -9,8 +9,6 @@ import java.util.List;
 
 import base.Base;
 import bean.ArchiveMeteo;
-import bean.DonneeMeteo;
-import bean.Lieu;
 import bean.Photo;
 import rmi.Serveur;
 import util.parsers.ParserJSON;
@@ -71,8 +69,11 @@ public class ServeurImpl implements Serveur {
     }
 
     @Override
-    public String modifierDonnee(Lieu lieu, Date date, DonneeMeteo donnees) throws RemoteException {
+    public String modifierDonnee(ArchiveMeteo archive) throws RemoteException {
 	// TODO Auto-generated method stub
+	Base base = new Base();
+	base.ouvrir();
+	ArchiveMeteo ancienne = base.consulterParId(archive.getId());
 	return null;
     }
 

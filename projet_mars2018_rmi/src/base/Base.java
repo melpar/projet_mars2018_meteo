@@ -361,4 +361,9 @@ public class Base {
 
     }
 
+    public ArchiveMeteo consulterParId(int id) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
 }
