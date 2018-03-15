@@ -10,6 +10,7 @@ import java.util.List;
 import base.Base;
 import bean.ArchiveMeteo;
 import bean.Photo;
+import bean.Soleil;
 import rmi.Serveur;
 import util.parsers.ParserJSON;
 import util.parsers.ParserXML;
@@ -77,13 +78,16 @@ public class ServeurImpl implements Serveur {
 	ArchiveMeteo ancienne = base.consulterParId(archive.getId());
 	if (!ancienne.getLieu().equals(archive.getLieu())) {
 	    // Mise à jour du lieu
+	    base.miseAJourLieu(archive.getId(), archive.getLieu());
 	}
-	if (!ancienne.getDate().equals(archive.getDate())) {
-	    // Mise à jour de la date
-	}
-	if (!ancienne.getDonnee().equals(archive.getDonnee())) {
-	    // Mise à jour de la donnée
-	}
+	// if (!ancienne.getDate().equals(archive.getDate())) {
+	// // Mise à jour de la date
+	// base.miseAJourDate(archive.getId(), archive.getDate());
+	// }
+	// if (!ancienne.getDonnee().equals(archive.getDonnee())) {
+	// // Mise à jour de la donnée
+	// base.miseAJour(archive.getId(), archive.getDonnee());
+	// }
 	return null;
     }
 
@@ -146,7 +150,7 @@ public class ServeurImpl implements Serveur {
 
     @Override
     public Validation valider(String pays, String ville, String departement, String direction, String vitesse,
-	    String temperature, String pluie) throws RemoteException {
+	    String temperature, String pluie, Date date, Soleil soleil) throws RemoteException {
 	Validation v = new Validation();
 	v.regexp(bean.Lieu.class, "ville", ville);
 	v.regexp(bean.Lieu.class, "departement", departement);
@@ -155,6 +159,8 @@ public class ServeurImpl implements Serveur {
 	v.regexp(bean.DonneeMeteo.class, "vitesseVent", vitesse);
 	v.regexp(bean.DonneeMeteo.class, "temperature", temperature);
 	v.regexp(bean.DonneeMeteo.class, "pluie", pluie);
+	v.addSoleil("soleil", soleil);
+	v.addDate("date", date);
 	return v;
     }
 

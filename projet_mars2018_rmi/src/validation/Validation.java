@@ -2,11 +2,13 @@ package validation;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import annotation.Regexp;
+import bean.Soleil;
 
 public class Validation implements Serializable {
 
@@ -81,5 +83,14 @@ public class Validation implements Serializable {
 
     public void setErreurs(Hashtable<String, String> erreurs) {
 	this.erreurs = erreurs;
+    }
+
+    public void addSoleil(String key, Soleil value) {
+	this.valeurs.put(key, value.getName());
+    }
+
+    public void addDate(String key, Date value) {
+	this.valeurs.put(key, value.toString());
+
     }
 }

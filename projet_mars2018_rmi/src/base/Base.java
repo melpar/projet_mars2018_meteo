@@ -384,4 +384,23 @@ public class Base {
 	return archive;
     }
 
+    public int miseAJourLieu(int id, Lieu lieu) {
+	// TODO Auto-generated method stub
+	int idLieu = this.ajouterLieu(lieu);
+	try {
+	    String sql = "update T_ARCHIVE_ARC where ARC_id = " + id + " set ARC_lieu = " + idLieu;
+	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+	    ps.executeUpdate();
+	    ResultSet result = ps.getGeneratedKeys();
+	    if (result.next()) {
+		System.out.println("Exec sql : " + sql + " enregistré à l'id" + result.getInt(1));
+		return result.getInt(1);
+	    }
+	} catch (Exception e) {
+	    System.out.println("Erreur Base.ajouterDonnee " + e.getMessage());
+	}
+	return -1;
+    }
+
 }
