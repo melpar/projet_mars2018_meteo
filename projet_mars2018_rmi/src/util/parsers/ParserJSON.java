@@ -15,7 +15,6 @@ import bean.ArchiveMeteo;
 public class ParserJSON {
     public static List<ArchiveMeteo> parserJSON(String jsonIn) {
 
-	System.out.println(jsonIn);
 	final Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
 	List<ArchiveMeteo> archives = new ArrayList<ArchiveMeteo>();
 	try
@@ -43,13 +42,6 @@ public class ParserJSON {
 	} catch (final IOException e) {
 	    e.printStackTrace();
 
-	}
-
-	for (ArchiveMeteo archive : archives) {
-	    System.out.println(archive.getDate());
-	    System.out.println(archive.getLieu().getDepartement());
-	    System.out.println(archive.getLieu().getPays());
-	    System.out.println(archive.getLieu().getVille());
 	}
 	return archives;
 

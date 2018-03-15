@@ -40,18 +40,13 @@ public class Base {
 	}
     }
 
-    public static void main(String[] args) {
-	ResourceBundle resource = ResourceBundle.getBundle(config);
-	String url = resource.getString("url");
-	System.out.println(url);
-    }
-
     /**
-     * Ouverture de la basse
+     * Ouverture de la base
      * 
      * @return true, si la connection a la base a reussi
      */
     public boolean ouvrir() {
+	// On récupère les données dans le fichier de ressources
 	ResourceBundle resource = ResourceBundle.getBundle(config);
 	String url = resource.getString("url");
 	String user = resource.getString("user");
@@ -78,12 +73,19 @@ public class Base {
 	}
     }
 
+    /**
+     * Ajout d'une donnée à la base
+     * 
+     * @param archive
+     *            archive à ajouter
+     * @return id de l'archive ajoutée, -1 si erreur
+     */
     public int ajouterDonneeArchive(ArchiveMeteo archive) {
 	// ajout du lieu
 	int res = 0;
 	int idLieu = this.ajouterLieu(archive.getLieu());
 	if (idLieu == -1) {
-	    // Erreur
+	    return -1;
 	}
 	// ajout de la donnee
 	int idDonnee = this.ajouterDonnee(archive.getDonnee());
@@ -109,15 +111,23 @@ public class Base {
 	    System.out.println("Erreur Base.ajouterLieu " + e.getMessage());
 	}
 
+	// On ajoute les photos si il y en a
 	if (archive.getPhotos() != null) {
 	    for (Photo photo : archive.getPhotos()) {
 		this.ajouterImage(idArchive, photo);
 	    }
 	}
-
-	return res;
+	// id de l'archive créée
+	return idArchive;
     }
 
+    /**
+     * Permet d'ajouter les données météo à la base
+     * 
+     * @param donnee
+     *            données à ajouter
+     * @return id de l'objet donneeMeteo ajouté
+     */
     public int ajouterDonnee(DonneeMeteo donnee) {
 	try {
 	    String sql = "insert into T_DONNEE_DON (DON_pluie, DON_directionVent, DON_vitesseVent, DON_soleil, DON_temperature)"
@@ -140,6 +150,14 @@ public class Base {
 	return -1;
     }
 
+    /**
+     * Permet d'ajouter un lieu à la base. Si le lieu existe déjà (même valeurs)
+     * on utilise cet id.
+     * 
+     * @param lieu
+     *            lieu à ajouter
+     * @return id du lieu ajouté
+     */
     public int ajouterLieu(Lieu lieu) {
 	int res = this.verifierLieuExiste(lieu);
 	if (res == -1) {
@@ -162,6 +180,13 @@ public class Base {
 	return res;
     }
 
+    /**
+     * Permet de verifier si un lieu existe déjà en base.
+     * 
+     * @param lieu
+     *            lieu à rechercher
+     * @return id du lieu
+     */
     private int verifierLieuExiste(Lieu lieu) {
 	try {
 	    String ville = lieu.getVille().toUpperCase();
@@ -184,6 +209,13 @@ public class Base {
 	return -1;
     }
 
+    /**
+     * Permet de consulter une liste d'archive pour un jour donné
+     * 
+     * @param date
+     *            jour recherché
+     * @return liste d'archives
+     */
     public List<ArchiveMeteo> consulterParJour(java.util.Date date) {
 	List<ArchiveMeteo> archives = new ArrayList<ArchiveMeteo>();
 	System.out.println(new java.sql.Date(date.getTime()));
@@ -211,6 +243,13 @@ public class Base {
 
     }
 
+    /**
+     * Permet de retourner les images pour une archive donnée.
+     * 
+     * @param idArchive
+     *            id de l'archive à rechercher
+     * @return liste des images associées
+     */
     private List<Photo> getPhotos(int idArchive) {
 	List<Photo> photos = new ArrayList<>();
 	String selectSQL = "SELECT * FROM T_PHOTO_PHO WHERE PHO_archive = " + idArchive;
@@ -233,6 +272,13 @@ public class Base {
 	return photos;
     }
 
+    /**
+     * Pour de consulter la liste d'archives pour un mois donné
+     * 
+     * @param date
+     *            contient le mois et l'année à chercher
+     * @return liste d'archives associées
+     */
     public List<ArchiveMeteo> consulterParMois(java.util.Date date) {
 	List<ArchiveMeteo> archives = new ArrayList<ArchiveMeteo>();
 	System.out.println(new java.sql.Date(date.getTime()));
@@ -261,6 +307,13 @@ public class Base {
 	return archives;
     }
 
+    /**
+     * Permet d'obtenir un lieu en fonction de l'id.
+     * 
+     * @param id
+     *            id à rechercher
+     * @return lieu associé
+     */
     private Lieu getLieu(int id) {
 	Lieu lieu = new Lieu();
 	String selectSQL = "SELECT * FROM T_LIEU_LIE WHERE LIE_id = " + id;
@@ -281,25 +334,13 @@ public class Base {
 	return lieu;
     }
 
-    private int getIdLieu(Lieu lieu) {
-	int id = -1;
-	String selectSQL = "SELECT * FROM T_LIEU_LIE WHERE LIE_ville = " + lieu.getVille() + " AND LIE_departement = "
-		+ lieu.getDepartement() + " AND LIE_pays = " + lieu.getPays();
-	try {
-	    PreparedStatement preparedStatement = co.prepareStatement(selectSQL);
-	    ResultSet rs = preparedStatement.executeQuery(selectSQL);
-	    while (rs.next()) {
-		return rs.getInt("LIE_id");
-
-	    }
-	} catch (SQLException e) {
-	    System.out.println("Erreur Base.getLieu " + e.getMessage());
-
-	}
-
-	return id;
-    }
-
+    /**
+     * Permet d'obtenir l'objet donnée en fonction de son id
+     * 
+     * @param id
+     *            id à rechercher
+     * @return donnée associée
+     */
     private DonneeMeteo getDonnee(int id) {
 	DonneeMeteo donnee = new DonneeMeteo();
 	String selectSQL = "SELECT * FROM T_DONNEE_DON WHERE DON_id = " + id;
@@ -322,6 +363,15 @@ public class Base {
 	return donnee;
     }
 
+    /**
+     * Permet de savoir si le couple id mdp existe en base
+     * 
+     * @param identifiant
+     *            identifiant à tester
+     * @param mdp
+     *            mot de passe à tester
+     * @return vrai si existe en base, faux sinon
+     */
     public boolean connexion(String identifiant, String mdp) {
 	util.Cryptage cry = new Cryptage(mdp);
 	String mdpCrypte = "";
@@ -347,6 +397,14 @@ public class Base {
 	return false;
     }
 
+    /**
+     * Permet d'ajouter une photo à une archive
+     * 
+     * @param idArchive
+     *            id de l'archive associée
+     * @param photo
+     *            photo à ajouter
+     */
     public void ajouterImage(int idArchive, Photo photo) {
 
 	try {
@@ -363,6 +421,13 @@ public class Base {
 
     }
 
+    /**
+     * Permet de chercher une archive météo en fonction de son id
+     * 
+     * @param id
+     *            id à rechercher
+     * @return archive associée
+     */
     public ArchiveMeteo consulterParId(int id) {
 	ArchiveMeteo archive = new ArchiveMeteo();
 	try {
@@ -386,6 +451,15 @@ public class Base {
 	return archive;
     }
 
+    /**
+     * Permet de mettre à jour un lieu en fonction de son id.
+     * 
+     * @param id
+     *            id du lieu à mettre à jour
+     * @param lieu
+     *            lieu associé
+     * @return id du lieu, -1 si il y eu une erreur
+     */
     public int miseAJourLieu(int id, Lieu lieu) {
 	// TODO Auto-generated method stub
 	int idLieu = this.ajouterLieu(lieu);

@@ -71,16 +71,5 @@ public class ParserXML {
 	    e.printStackTrace();
 	}
 	List<ArchiveMeteo> archives = ParserXML.parserXML(contentBuilder.toString());
-	for (ArchiveMeteo arch : archives) {
-	    System.out.println(arch.getDate());
-	    System.out.println(arch.getLieu().getDepartement());
-	    System.out.println(arch.getLieu().getPays());
-	    System.out.println(arch.getLieu().getVille());
-	    System.out.println(arch.getDonnee().getDirectionVent());
-	    System.out.println(arch.getDonnee().getPluie());
-	    System.out.println(arch.getDonnee().getTemperature());
-	    System.out.println(arch.getDonnee().getVitesseVent());
-	    System.out.println(arch.getDonnee().getSoleil());
-	}
     }
 }

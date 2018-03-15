@@ -45,10 +45,4 @@ public class Cryptage {
 	return new SecretKeySpec(cle, algo);
     }
 
-    public static void main(String[] args) throws Exception {
-	Cryptage c1 = new Cryptage("user1mdp");
-	System.out.println(c1.chiffrer());
-
-    }
-
 }
