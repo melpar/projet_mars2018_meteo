@@ -203,15 +203,17 @@ public class ServeurImpl implements Serveur {
 	    double temperature = 0, pluie = 0, vitesse = 0;
 	    // Si plusieurs données sont associées au jour, pour un lieu, on
 	    // fait une moyenne
-	    for (DonneeMeteo donnee : donnees) {
-		temperature += (double) donnee.getTemperature();
-		pluie += donnee.getPluie();
-		vitesse += donnee.getVitesseVent();
+	    if (donnees.size() != 0) {
+		for (DonneeMeteo donnee : donnees) {
+		    temperature += (double) donnee.getTemperature();
+		    pluie += donnee.getPluie();
+		    vitesse += donnee.getVitesseVent();
+		}
+		infos[0] = temperature / donnees.size();
+		infos[1] = pluie / donnees.size();
+		infos[2] = vitesse / donnees.size();
+		informations.put(lieu.getVille(), infos);
 	    }
-	    infos[0] = temperature / donnees.size();
-	    infos[1] = pluie / donnees.size();
-	    infos[2] = vitesse / donnees.size();
-	    informations.put(lieu.getVille(), infos);
 	}
 	return informations;
     }
