@@ -226,6 +226,10 @@ public class ServeurImpl implements Serveur {
 	return ret;
     }
 
+    public boolean supprimerArchive(int idArchive) throws RemoteException {
+	return false;
+    }
+
     /**
      * Permet de lancer le serveur RMI.
      * 

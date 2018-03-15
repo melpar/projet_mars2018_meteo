@@ -173,4 +173,6 @@ public interface Serveur extends Remote {
      * @throws RemoteException
      */
     public boolean supprimerImage(int idImage) throws RemoteException;
+
+    public boolean supprimerArchive(int idArchive) throws RemoteException;
 }
