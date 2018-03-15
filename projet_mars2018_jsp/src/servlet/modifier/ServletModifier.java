@@ -1,9 +1,10 @@
-package servlet;
+package servlet.modifier;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,16 +16,16 @@ import bean.ArchiveMeteo;
 import manager.Manager;
 
 /**
- * Servlet implementation class ServletListerMois
+ * Servlet implementation class ServletListerJour
  */
-@WebServlet("/ServletListerMois")
-public class ServletListerMois extends HttpServlet {
+@WebServlet("/ServletModifier")
+public class ServletModifier extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ServletListerMois() {
+	public ServletModifier() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -36,27 +37,20 @@ public class ServletListerMois extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String moisString = request.getParameter("mois");
-		String anneeString = request.getParameter("annee");
-		System.out.println("mois " + moisString + " annee " + anneeString);
-		SimpleDateFormat formatter = new SimpleDateFormat("MM-yyyy");
+		String dateString = request.getParameter("maDate");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy", Locale.US);
 		Date date = new Date();
-
 		try {
-			date = formatter.parse(moisString + "-" + anneeString);
-		} catch (java.text.ParseException e) {
-
+			date = formatter.parse(dateString);
+		} catch (java.lang.NullPointerException | java.text.ParseException e) {
+			request.setAttribute("erreur", "Date incorrecte");
 		}
-
 		Manager manager = Manager.creer(request);
-
-		List<ArchiveMeteo> list = manager.getServeur().consulterParMois(date);
-		for (ArchiveMeteo arc : list) {
-			System.out.println(arc.getDate().toString());
-		}
+		List<ArchiveMeteo> list = manager.getServeur().consulterParJour(date);
 		request.setAttribute("lst", list);
 
-		request.getServletContext().getRequestDispatcher("/mois.jsp").forward(request, response);
+		request.setAttribute("dateEntre", dateString);
+		request.getServletContext().getRequestDispatcher("/modifier.jsp").forward(request, response);
 	}
 
 	/**

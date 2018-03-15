@@ -1,4 +1,4 @@
-package servlet;
+package servlet.accueil;
 
 import java.io.IOException;
 
@@ -8,19 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import manager.Manager;
-
 /**
- * Servlet implementation class ServletModifierImageSupprimer
+ * Servlet implementation class ServletAccueil
  */
-@WebServlet("/ServletModifierImageSupprimer")
-public class ServletModifierImageSupprimer extends HttpServlet {
+@WebServlet("/ServletAccueil")
+public class ServletAccueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ServletModifierImageSupprimer() {
+	public ServletAccueil() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -31,12 +29,7 @@ public class ServletModifierImageSupprimer extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String id = request.getParameter("imageDelete");
-		Manager manager = Manager.creer(request);
-		manager.getServeur().supprimerImage(Integer.parseInt(id));
-
-		request.getServletContext().getRequestDispatcher("/modifier.jsp").forward(request, response);
+		request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 	/**

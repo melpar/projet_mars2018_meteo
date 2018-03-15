@@ -1,4 +1,4 @@
-package servlet;
+package servlet.modifier;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -19,16 +19,16 @@ import manager.Manager;
 import validation.Validation;
 
 /**
- * Servlet implementation class ServletEnvoyerDonnee
+ * Servlet implementation class ServletModifierArchiveEnvoyer
  */
-@WebServlet("/ServletEnvoyerDonnee")
-public class ServletEnvoyerDonnee extends HttpServlet {
+@WebServlet("/ServletModifierArchiveEnvoyer")
+public class ServletModifierArchiveEnvoyer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ServletEnvoyerDonnee() {
+	public ServletModifierArchiveEnvoyer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,9 +39,6 @@ public class ServletEnvoyerDonnee extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-
 		Manager manager = Manager.creer(request);
 
 		String pays = request.getParameter("pays");
@@ -53,6 +50,7 @@ public class ServletEnvoyerDonnee extends HttpServlet {
 		String pluie = request.getParameter("pluie");
 		String date = request.getParameter("date");
 		String ciel = request.getParameter("ciel");
+		String id = request.getParameter("archiveId");
 
 		Validation valide = manager.getServeur().valider(pays, ville, departement, direction, vitesse, temperature,
 				pluie, date, ciel);
@@ -84,14 +82,16 @@ public class ServletEnvoyerDonnee extends HttpServlet {
 			donnee.setVitesseVent(Double.parseDouble(vitesse));
 			archive.setDonnee(donnee);
 			// envois au serveur
-
-			manager.getServeur().ajouterDonneeArchive(archive);
+			archive.setId(Integer.parseInt(id));
+			manager.getServeur().modifierDonnee(archive);
+			request.getServletContext().getRequestDispatcher("/modifier.jsp").forward(request, response);
 		} else {
+			request.setAttribute("archiveId", id);
 			request.setAttribute("valide", valide);
+			request.getServletContext().getRequestDispatcher("/modifierArchive.jsp").forward(request, response);
 
 		}
 
-		request.getServletContext().getRequestDispatcher("/ajout.jsp").forward(request, response);
 	}
 
 	/**

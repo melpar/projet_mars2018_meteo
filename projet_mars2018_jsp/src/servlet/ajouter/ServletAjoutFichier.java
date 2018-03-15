@@ -1,4 +1,4 @@
-package servlet;
+package servlet.ajouter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,7 +67,6 @@ public class ServletAjoutFichier extends HttpServlet {
 				while (size > 0) {
 					String str = new String(data, 0, size);
 					buffer.append(str);
-					System.out.println(str);
 					size = is.read(data, 0, data.length);
 				}
 
@@ -75,15 +74,12 @@ public class ServletAjoutFichier extends HttpServlet {
 		}
 		String group1 = request.getParameter("group1");
 		// compare selected value
-		System.out.println(group1);
 		if ("json".equals(group1)) {
 			isXML = false;
 		}
 		if (isXML) {
 			manager.getServeur().ajouterDonneesArchiveXML(buffer.toString());
-			System.out.println("xml");
 		} else {
-			System.out.println("json");
 			manager.getServeur().ajouterDonneesArchiveJSON(buffer.toString());
 		}
 		request.getServletContext().getRequestDispatcher("/ajout.jsp").forward(request, response);

@@ -89,13 +89,12 @@ $('select').material_select();</script>
 	java.util.List<Double> valeursTemperature = (java.util.List)request.getAttribute("temperature");
 	java.util.List<Double> valeursPluie = (java.util.List)request.getAttribute("pluie");
 	java.util.List<Double> valeursVent = (java.util.List)request.getAttribute("vent");
-	System.out.println("test");
 	for (int i=0; i<noms.size(); i++) { %>
 		valeursTemperature[<%= i %>] = "<%= valeursTemperature.get(i) %>";
 		valeursPluie[<%= i %>] = "<%= valeursPluie.get(i) %>";
 		valeursVent[<%= i %>] = "<%= valeursVent.get(i) %>";
 		labels[<%= i %>] = "<%= noms.get(i) %>";
-	<% 	System.out.println("Nom : "+noms.get(i)+" "+valeursTemperature.get(i)+" "+valeursVent.get(i)+" "+valeursPluie.get(i));
+	<% 	
 		}
 	}%>
 	var ctx = document.getElementById("temperatures").getContext('2d');

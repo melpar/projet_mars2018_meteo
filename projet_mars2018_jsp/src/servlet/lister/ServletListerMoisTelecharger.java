@@ -1,4 +1,4 @@
-package servlet;
+package servlet.lister;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -41,7 +41,6 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 
 		BufferedInputStream buf = null;
 		ServletOutputStream myOut = null;
-		System.out.println("HOLLA");
 		try {
 			myOut = response.getOutputStream();
 			List<ArchiveMeteo> list = (List<ArchiveMeteo>) request.getSession().getAttribute("lst");
@@ -54,7 +53,6 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 			//
 			response.setContentLength(fichier.length);
 			//
-			System.out.println("taille : " + fichier.length);
 			InputStream input = new ByteArrayInputStream(fichier);
 			buf = new BufferedInputStream(input);
 			int readBytes = 0;

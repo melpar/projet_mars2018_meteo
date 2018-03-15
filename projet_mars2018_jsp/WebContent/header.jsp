@@ -41,7 +41,37 @@
 				    </c:otherwise>
 				</c:choose>     
 			</ul>
+			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+		 	<ul class="side-nav" id="mobile-demo">
+		        <li><a href="jours.jsp">Visualiser jours</a></li>
+	        	<li><a href="mois.jsp">Visualiser mois</a></li>
+	        	<c:choose>
+			    	<c:when test="${manager.identifie}">
+			    		<li><a href="ajout.jsp">Ajouter données</a></li>
+			    		<li><a href="modifier.jsp">Modifier</a></li>
+			    		
+			    			<form name="myform2" action="ServletDeconnexion">
+			    			<li>
+	    						<a  href="javascript: submitform()" >Déconnexion</a>
+    						</li>
+							</form> 
+							<SCRIPT language="JavaScript">
+							function submitform()
+							{
+						  		document.myform2.submit();
+							}
+							</SCRIPT>
+						
+			    	</c:when>
+					<c:otherwise>
+				    	<li><a href="connexion.jsp">Connexion</a></li>
+				    </c:otherwise>
+				</c:choose>>
+     		</ul>
 		</div>
 	</nav>
 </body>
+<script type="text/javascript">
+$(".button-collapse").sideNav();
+</script>
 </html>

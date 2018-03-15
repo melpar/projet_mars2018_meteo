@@ -1,4 +1,4 @@
-package servlet;
+package servlet.modifier;
 
 import java.io.IOException;
 
@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import manager.Manager;
 
 /**
- * Servlet implementation class ServletConnexion
+ * Servlet implementation class ServletModifierImageSupprimer
  */
-@WebServlet("/ServletConnexion")
-public class ServletConnexion extends HttpServlet {
+@WebServlet("/ServletModifierImageSupprimer")
+public class ServletModifierImageSupprimer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ServletConnexion() {
+	public ServletModifierImageSupprimer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -32,7 +32,11 @@ public class ServletConnexion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String id = request.getParameter("imageDelete");
+		Manager manager = Manager.creer(request);
+		manager.getServeur().supprimerImage(Integer.parseInt(id));
+
+		request.getServletContext().getRequestDispatcher("/modifier.jsp").forward(request, response);
 	}
 
 	/**
@@ -41,27 +45,8 @@ public class ServletConnexion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String ident = request.getParameter("ident");
-		String mdp = request.getParameter("mdp");
-
-		Manager manager = Manager.creer(request);
-
-		if (manager.getServeur().connexion(ident, mdp)) {
-
-			manager.setIdentifie(true);
-			manager.setIdent(ident);
-
-			response.sendRedirect("ServletAccueil");
-
-			return;
-		} else {
-			request.setAttribute("ident", ident);
-			request.setAttribute("mdp", mdp);
-			request.setAttribute("erreur", "Identifiant ou mot de passe incorrect");
-			request.getServletContext().getRequestDispatcher("/connexion.jsp").forward(request, response);
-
-		}
-
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

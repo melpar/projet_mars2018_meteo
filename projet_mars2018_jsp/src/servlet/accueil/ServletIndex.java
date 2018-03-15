@@ -1,4 +1,4 @@
-package servlet;
+package servlet.accueil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -45,7 +45,6 @@ public class ServletIndex extends HttpServlet {
 			date = formatter.parse(dateString);
 		} catch (java.text.ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
 		Manager manager = Manager.creer(request);
