@@ -41,6 +41,7 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String[] listNom = null;
 		List<Photo> listePhoto = new ArrayList<Photo>();
 		for (Part part : request.getParts()) {
 
@@ -51,15 +52,17 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 				// select, etc).
 				String fieldname = part.getName();
 				String fieldvalue = FilesUtil.getValue(part);
+				if (fieldname.equals("imageNom")) {
+					listNom = fieldvalue.split(".jpg,?|.jpeg,?");
+				}
 			} else if (!filename.isEmpty()) {
 				// Traiter les champs de type fichier (input type="file").
 				String fieldname = part.getName();
 				filename = filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE
-																														// fix.
 				InputStream filecontent = part.getInputStream();
 
 				Photo photo = new Photo();
-				photo.setNom(fieldname);
+
 				ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
 				int nRead;
@@ -73,6 +76,10 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 				photo.setImage(buffer.toByteArray());
 				listePhoto.add(photo);
 			}
+		}
+
+		for (int i = 0; i < listePhoto.size(); i++) {
+			listePhoto.get(i).setNom(listNom[i]);
 		}
 
 		Manager manager = Manager.creer(request);
