@@ -213,6 +213,11 @@ public class ServeurImpl implements Serveur {
     }
 
     public boolean supprimerImage(int idImage) throws RemoteException {
-	return false;
+	boolean ret;
+	Base base = new Base();
+	base.ouvrir();
+	ret = base.supprimerImage(idImage);
+	base.fermer();
+	return ret;
     }
 }

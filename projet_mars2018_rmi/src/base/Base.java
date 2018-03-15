@@ -223,6 +223,7 @@ public class Base {
 		byte[] blobAsBytes = rs.getBlob("PHO_image").getBytes(1, blobLength);
 		photo.setImage(Base64.getEncoder().encode(blobAsBytes));
 		photo.setNom(rs.getString("PHO_nom"));
+		photo.setId(rs.getInt("PHO_id"));
 		photos.add(photo);
 	    }
 	} catch (SQLException e) {
@@ -522,6 +523,20 @@ public class Base {
 	    System.out.println("Erreur Base.consulterParJour " + e.getMessage());
 	}
 	return null;
+    }
+
+    public boolean supprimerImage(int idImage) {
+	try {
+	    String sql = "DELETE FROM `T_PHOTO_PHO` WHERE `PHO_id` = " + idImage;
+	    java.sql.Statement stmt = co.createStatement();
+	    stmt.executeUpdate(sql);
+	    return true;
+	} catch (
+
+	Exception e) {
+	    System.out.println("Erreur Base.supprimerImage " + e.getMessage());
+	}
+	return false;
     }
 
 }
