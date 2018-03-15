@@ -168,6 +168,7 @@ public class ServeurImpl implements Serveur {
     public ArchiveMeteo consulterParId(int id) throws RemoteException {
 	ArchiveMeteo arc;
 	Base base = new Base();
+	base.ouvrir();
 	arc = base.consulterParId(id);
 	base.fermer();
 	return arc;
