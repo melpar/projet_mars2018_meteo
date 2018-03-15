@@ -196,7 +196,7 @@ public class ServeurImpl implements Serveur {
     }
 
     @Override
-    public Map<String, Double[]> getInformations(Date date) throws RemoteException {
+    public Map<String, Double[]> getInformationsVille(Date date) throws RemoteException {
 	Map<String, Double[]> informations = new HashMap<>();
 	Base base = new Base();
 	base.ouvrir();
