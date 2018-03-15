@@ -20,7 +20,7 @@ import bean.Soleil;
 import rmi.Serveur;
 import util.parsers.ParserJSON;
 import util.parsers.ParserXML;
-import util.pdf.FirstPdf;
+import util.pdf.PdfWriter;
 import util.xml.XmlWriter;
 import validation.Validation;
 
@@ -127,7 +127,7 @@ public class ServeurImpl implements Serveur {
 
     @Override
     public byte[] productionPDF(List<ArchiveMeteo> archives) throws RemoteException {
-	FirstPdf pdf = new FirstPdf();
+	PdfWriter pdf = new PdfWriter();
 	pdf.initialiser(archives);
 	return pdf.generer();
     }

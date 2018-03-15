@@ -27,7 +27,7 @@ import bean.Photo;
 import rmi.Serveur;
 import rmi.impl.ServeurImpl;
 
-public class FirstPdf {
+public class PdfWriter {
 
     // Variables statiques de la page PDF
     private static final int HAUTEUR_MARGE = 100;
@@ -38,7 +38,7 @@ public class FirstPdf {
     PDFDocument p;
 
     // creation du document pdf
-    public FirstPdf() {
+    public PdfWriter() {
 	p = new PDFDocument();
     }
 
@@ -53,7 +53,7 @@ public class FirstPdf {
 	Serveur serveur = new ServeurImpl();
 	Date date = new Date(118, 2, 12);
 	List<ArchiveMeteo> list = serveur.consulterParMois(date);
-	FirstPdf pdf = new FirstPdf();
+	PdfWriter pdf = new PdfWriter();
 	try {
 	    pdf.initialiser(list);
 	    pdf.p.saveDocument("Rapport.pdf");
