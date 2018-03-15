@@ -19,6 +19,23 @@ public class Lieu implements Serializable {
     @Regexp(expr = ".{2,}", value = "Il faut au moins 2 lettres pour la ville")
     private String ville;
 
+    @Override
+    public boolean equals(Object o) {
+	if (o == null)
+	    return false;
+	if (!(o instanceof Lieu))
+	    return false;
+	Lieu lieu = (Lieu) o;
+	if (lieu == this)
+	    return true;
+
+	if (this.departement.equals(lieu.departement) && this.ville.equals(lieu.ville) && this.pays.equals(lieu.pays)) {
+	    return true;
+	}
+	return false;
+
+    }
+
     public String getPays() {
 	return pays;
     }

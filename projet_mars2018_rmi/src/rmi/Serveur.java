@@ -30,5 +30,7 @@ public interface Serveur extends Remote {
 
     public List<ArchiveMeteo> consulterParMois(Date date) throws RemoteException;
 
+    public ArchiveMeteo consulterParId(int id) throws RemoteException;
+
     public byte[] productionPDF(List<ArchiveMeteo> archives) throws RemoteException;
 }

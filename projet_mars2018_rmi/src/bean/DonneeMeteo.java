@@ -25,6 +25,25 @@ public class DonneeMeteo implements Serializable {
     @Regexp(expr = "^-?(?:50|[1234][0-9]|[0-9])?$", value = "La temperature doit être comprise entre -50 et 50")
     private int temperature;
 
+    @Override
+    public boolean equals(Object o) {
+	if (o == null)
+	    return false;
+	if (!(o instanceof DonneeMeteo))
+	    return false;
+	DonneeMeteo donnee = (DonneeMeteo) o;
+	if (donnee == this)
+	    return true;
+
+	if (this.directionVent == donnee.directionVent && this.pluie == donnee.pluie
+		&& this.soleil.equals(donnee.soleil) && this.temperature == donnee.temperature
+		&& this.vitesseVent == donnee.vitesseVent) {
+	    return true;
+	}
+	return false;
+
+    }
+
     public double getPluie() {
 	return pluie;
     }

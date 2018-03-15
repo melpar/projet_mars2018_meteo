@@ -321,7 +321,7 @@ public class Base {
     }
 
     public boolean connexion(String identifiant, String mdp) {
-	util.Cryptage cry = new Cryptage("mdp");
+	util.Cryptage cry = new Cryptage(mdp);
 	String mdpCrypte = "";
 	try {
 	    mdpCrypte = cry.chiffrer();
@@ -362,8 +362,26 @@ public class Base {
     }
 
     public ArchiveMeteo consulterParId(int id) {
-	// TODO Auto-generated method stub
-	return null;
+	ArchiveMeteo archive = new ArchiveMeteo();
+	try {
+	    String sql = "SELECT * FROM `T_ARCHIVE_ARC` WHERE `ARC_id` = '" + id + "'";
+	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+	    // ps.setDate(1, new java.sql.Date(date.getTime()));
+	    ResultSet rs = ps.executeQuery(sql);
+	    System.out.println("Exec sql : " + sql);
+
+	    if (rs.next()) {
+		archive.setDate(rs.getDate("ARC_date"));
+		archive.setDonnee(this.getDonnee(rs.getInt("ARC_donnee")));
+		archive.setLieu(this.getLieu(rs.getInt("ARC_lieu")));
+		archive.setPhotos(this.getPhotos(rs.getInt("ARC_id")));
+		archive.setId(rs.getInt("ARC_id"));
+	    }
+
+	} catch (Exception e) {
+	    System.out.println("Erreur Base.consulterParJour " + e.getMessage());
+	}
+	return archive;
     }
 
 }

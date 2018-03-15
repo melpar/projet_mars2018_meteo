@@ -20,6 +20,7 @@ public class ServeurImpl implements Serveur {
 
     @Override
     public boolean connexion(String identifiant, String mdp) throws RemoteException {
+	System.out.println("ident " + identifiant + " mdp " + mdp + ".");
 	Base base = new Base();
 	base.ouvrir();
 	boolean ret = base.connexion(identifiant, mdp);
@@ -74,6 +75,15 @@ public class ServeurImpl implements Serveur {
 	Base base = new Base();
 	base.ouvrir();
 	ArchiveMeteo ancienne = base.consulterParId(archive.getId());
+	if (!ancienne.getLieu().equals(archive.getLieu())) {
+	    // Mise à jour du lieu
+	}
+	if (!ancienne.getDate().equals(archive.getDate())) {
+	    // Mise à jour de la date
+	}
+	if (!ancienne.getDonnee().equals(archive.getDonnee())) {
+	    // Mise à jour de la donnée
+	}
 	return null;
     }
 
@@ -146,6 +156,15 @@ public class ServeurImpl implements Serveur {
 	v.regexp(bean.DonneeMeteo.class, "temperature", temperature);
 	v.regexp(bean.DonneeMeteo.class, "pluie", pluie);
 	return v;
+    }
+
+    @Override
+    public ArchiveMeteo consulterParId(int id) throws RemoteException {
+	ArchiveMeteo arc;
+	Base base = new Base();
+	arc = base.consulterParId(id);
+	base.fermer();
+	return arc;
     }
 
 }

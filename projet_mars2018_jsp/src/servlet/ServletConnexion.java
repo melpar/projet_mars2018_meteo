@@ -47,7 +47,7 @@ public class ServletConnexion extends HttpServlet {
 		Manager manager = Manager.creer(request);
 
 		if (manager.getServeur().connexion(ident, mdp)) {
-			System.out.println("identification OK");
+			System.out.println("identification OK " + ident + " " + mdp);
 
 			manager.setIdentifie(true);
 			manager.setIdent(ident);
