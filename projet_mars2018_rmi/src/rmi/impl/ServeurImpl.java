@@ -6,11 +6,15 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import base.Base;
 import bean.ArchiveMeteo;
+import bean.DonneeMeteo;
+import bean.Lieu;
 import bean.Photo;
 import bean.Soleil;
 import rmi.Serveur;
@@ -191,4 +195,20 @@ public class ServeurImpl implements Serveur {
 	return arc;
     }
 
+    @Override
+    public Map<String, Double[]> getInformations(Date date) throws RemoteException {
+	Map<String, Double[]> informations = new HashMap<>();
+	Base base = new Base();
+	base.ouvrir();
+	List<Lieu> lieux = base.getLieux();
+	for (Lieu lieu : lieux) {
+	    DonneeMeteo donnee = base.getDonnees(date, lieu.getId());
+	    Double[] infos = new Double[3];
+	    infos[0] = (double) donnee.getTemperature();
+	    infos[1] = donnee.getPluie();
+	    infos[2] = donnee.getVitesseVent();
+	    informations.put(lieu.getVille(), infos);
+	}
+	return informations;
+    }
 }

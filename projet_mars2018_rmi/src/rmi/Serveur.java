@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import bean.ArchiveMeteo;
 import bean.Photo;
@@ -58,4 +59,6 @@ public interface Serveur extends Remote {
     public ArchiveMeteo consulterParId(int id) throws RemoteException;
 
     public byte[] productionPDF(List<ArchiveMeteo> archives) throws RemoteException;
+
+    public Map<String, Double[]> getInformations(Date date) throws RemoteException;
 }

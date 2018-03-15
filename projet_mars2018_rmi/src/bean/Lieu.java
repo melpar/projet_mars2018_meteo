@@ -10,6 +10,8 @@ public class Lieu implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    private int id;
+
     @Regexp(expr = ".{2,}", value = "Il faut au moins 2 lettres pour le pays")
     private String pays;
 
@@ -59,4 +61,13 @@ public class Lieu implements Serializable {
     public void setVille(String ville) {
 	this.ville = ville;
     }
+
+    public int getId() {
+	return id;
+    }
+
+    public void setId(int id) {
+	this.id = id;
+    }
+
 }

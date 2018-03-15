@@ -270,6 +270,7 @@ public class Base {
 		lieu.setDepartement(rs.getString("LIE_departement"));
 		lieu.setPays(rs.getString("LIE_pays"));
 		lieu.setVille(rs.getString("LIE_ville"));
+		lieu.setId(id);
 	    }
 	} catch (SQLException e) {
 	    System.out.println("Erreur Base.getLieu " + e.getMessage());
@@ -478,6 +479,49 @@ public class Base {
 	    System.out.println("Erreur Base.modifierDonnee " + e.getMessage());
 	}
 	return -1;
+    }
+
+    public List<Lieu> getLieux() {
+	List<Lieu> lieux = new ArrayList<Lieu>();
+	String selectSQL = "SELECT * FROM T_LIEU_LIE";
+	try {
+	    PreparedStatement preparedStatement = co.prepareStatement(selectSQL);
+	    ResultSet rs = preparedStatement.executeQuery(selectSQL);
+	    while (rs.next()) {
+		Lieu lieu = new Lieu();
+		lieu.setDepartement(rs.getString("LIE_departement"));
+		lieu.setPays(rs.getString("LIE_pays"));
+		lieu.setVille(rs.getString("LIE_ville"));
+		lieu.setId(rs.getInt("LIE_id"));
+		lieux.add(lieu);
+	    }
+	} catch (SQLException e) {
+	    System.out.println("Erreur Base.getLieu " + e.getMessage());
+
+	}
+	return lieux;
+    }
+
+    public DonneeMeteo getDonnees(java.util.Date date, int lieu) {
+	DonneeMeteo donnee = new DonneeMeteo();
+	System.out.println(new java.sql.Date(date.getTime()));
+	try {
+	    String sql = "SELECT * FROM `T_ARCHIVE_ARC` WHERE `ARC_date` = '" + new java.sql.Date(date.getTime())
+		    + "' AND ARC_lieu = " + lieu;
+	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+	    // ps.setDate(1, new java.sql.Date(date.getTime()));
+	    ResultSet rs = ps.executeQuery(sql);
+	    System.out.println("Exec sql : " + sql);
+
+	    if (rs.next()) {
+		return this.getDonnee(rs.getInt("ARC_donnee"));
+
+	    }
+
+	} catch (Exception e) {
+	    System.out.println("Erreur Base.consulterParJour " + e.getMessage());
+	}
+	return null;
     }
 
 }
