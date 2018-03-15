@@ -6,6 +6,7 @@
 
 <jsp:useBean id="manager" class="manager.Manager" scope="session" />
 <jsp:useBean id="valide" class="validation.Validation" scope="request" />
+<jsp:useBean id="archiveId" class="java.lang.String" scope="request" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,7 +24,8 @@
 		<c:choose>
 			<c:when test="${manager.identifie}">
 	  			<div class="row">
-			    	<form class="col s12" method="get" action="ServletEnvoyerDonnee">
+			    	<form class="col s12" method="get" action="ServletModifierArchiveEnvoyer">
+			    		<input type="hidden" name="archiveId" id="archiveId" value="${archiveId}"/>
 			      		<div class="row">
 			      			<p class="flow-text">Lieu : </p>
 			        		<div class="input-field col s6">
@@ -69,7 +71,7 @@
 						    	<select name="ciel">
 						    		<c:forEach var="entry" items="${monEnum}">
 						    			<c:choose>
-											<c:when test="${entry.getId() == valide.valeurs['ciel']}">
+											<c:when test="${java.lang.Integer.toString(entry.getId()) == valide.valeurs['ciel']}">
 				    							<option value="<c:out value = "${entry.getId()}"/>"  selected><c:out value = "${entry.getName()}"/></option>
 				    						</c:when>
 											<c:otherwise>

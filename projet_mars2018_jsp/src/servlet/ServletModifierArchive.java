@@ -42,14 +42,13 @@ public class ServletModifierArchive extends HttpServlet {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy", Locale.US);
 
 		Validation valide = manager.getServeur().valider(archive.getLieu().getPays(), archive.getLieu().getVille(),
-				archive.getLieu().getDepartement(),
-				Double.toString(archive.getDonnee().getDirectionVent()).replace('.', ','),
-				Double.toString(archive.getDonnee().getVitesseVent()).replace('.', ','),
-				Integer.toString(archive.getDonnee().getTemperature()),
-				Double.toString(archive.getDonnee().getPluie()).replace('.', ','), formatter.format(archive.getDate()),
-				Integer.toString(archive.getDonnee().getSoleil().getId()));
+				archive.getLieu().getDepartement(), Double.toString(archive.getDonnee().getDirectionVent()),
+				Double.toString(archive.getDonnee().getVitesseVent()),
+				Integer.toString(archive.getDonnee().getTemperature()), Double.toString(archive.getDonnee().getPluie()),
+				formatter.format(archive.getDate()), Integer.toString(archive.getDonnee().getSoleil().getId()));
 
 		request.setAttribute("valide", valide);
+		request.setAttribute("archiveId", request.getParameter("archiveId"));
 		request.getServletContext().getRequestDispatcher("/modifierArchive.jsp").forward(request, response);
 	}
 

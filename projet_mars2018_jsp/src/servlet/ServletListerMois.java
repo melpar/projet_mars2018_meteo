@@ -45,8 +45,7 @@ public class ServletListerMois extends HttpServlet {
 		try {
 			date = formatter.parse(moisString + "-" + anneeString);
 		} catch (java.text.ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
 
 		Manager manager = Manager.creer(request);

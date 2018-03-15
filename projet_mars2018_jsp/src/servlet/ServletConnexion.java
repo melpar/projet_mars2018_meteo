@@ -47,7 +47,6 @@ public class ServletConnexion extends HttpServlet {
 		Manager manager = Manager.creer(request);
 
 		if (manager.getServeur().connexion(ident, mdp)) {
-			System.out.println("identification OK " + ident + " " + mdp);
 
 			manager.setIdentifie(true);
 			manager.setIdent(ident);
@@ -56,7 +55,6 @@ public class ServletConnexion extends HttpServlet {
 
 			return;
 		} else {
-			System.out.println("Erreur ident " + ident + " " + mdp);
 			request.setAttribute("ident", ident);
 			request.setAttribute("mdp", mdp);
 			request.setAttribute("erreur", "Identifiant ou mot de passe incorrect");

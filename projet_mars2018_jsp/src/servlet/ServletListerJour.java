@@ -43,8 +43,7 @@ public class ServletListerJour extends HttpServlet {
 		try {
 			date = formatter.parse(dateString);
 		} catch (java.text.ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
 
 		Manager manager = Manager.creer(request);
