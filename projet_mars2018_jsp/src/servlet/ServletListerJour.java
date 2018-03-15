@@ -50,9 +50,6 @@ public class ServletListerJour extends HttpServlet {
 		Manager manager = Manager.creer(request);
 		List<ArchiveMeteo> list = manager.getServeur().consulterParJour(date);
 		request.setAttribute("lst", list);
-		System.out.println("valeur recuperer : " + list.get(0).getDonnee().getSoleil().getName() + " : "
-				+ list.get(0).getDonnee().getSoleil().getId());
-
 		request.getServletContext().getRequestDispatcher("/jours.jsp").forward(request, response);
 	}
 
