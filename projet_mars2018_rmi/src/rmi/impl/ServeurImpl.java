@@ -82,14 +82,14 @@ public class ServeurImpl implements Serveur {
 	    // Mise à jour du lieu
 	    base.miseAJourLieu(archive.getId(), archive.getLieu());
 	}
-	// if (!ancienne.getDate().equals(archive.getDate())) {
-	// // Mise à jour de la date
-	// base.miseAJourDate(archive.getId(), archive.getDate());
-	// }
-	// if (!ancienne.getDonnee().equals(archive.getDonnee())) {
-	// // Mise à jour de la donnée
-	// base.miseAJour(archive.getId(), archive.getDonnee());
-	// }
+	if (!ancienne.getDate().equals(archive.getDate())) {
+	    // Mise à jour de la date
+	    base.miseAJourDate(archive.getId(), archive.getDate());
+	}
+	if (!ancienne.getDonnee().equals(archive.getDonnee())) {
+	    // Mise à jour de la donnée
+	    base.miseAJour(archive.getId(), archive.getDonnee());
+	}
 	return null;
     }
 

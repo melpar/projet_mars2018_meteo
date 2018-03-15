@@ -388,7 +388,7 @@ public class Base {
 	// TODO Auto-generated method stub
 	int idLieu = this.ajouterLieu(lieu);
 	try {
-	    String sql = "update T_ARCHIVE_ARC where ARC_id = " + id + " set ARC_lieu = " + idLieu;
+	    String sql = "update T_ARCHIVE_ARC set ARC_lieu = " + idLieu + " where ARC_id = " + id;
 	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 	    ps.executeUpdate();
@@ -398,7 +398,84 @@ public class Base {
 		return result.getInt(1);
 	    }
 	} catch (Exception e) {
-	    System.out.println("Erreur Base.ajouterDonnee " + e.getMessage());
+	    System.out.println("Erreur Base.miseAJourLieu" + e.getMessage());
+	}
+	return -1;
+    }
+
+    public int miseAJourDate(int id, java.util.Date date) {
+	try {
+	    String sql = "update T_ARCHIVE_ARC set ARC_date = '" + new java.sql.Date(date.getTime())
+		    + "' where ARC_id = " + id;
+	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+	    ps.executeUpdate();
+	    ResultSet result = ps.getGeneratedKeys();
+	    if (result.next()) {
+		System.out.println("Exec sql : " + sql + " enregistré à l'id" + result.getInt(1));
+		return result.getInt(1);
+	    }
+	} catch (Exception e) {
+	    System.out.println("Erreur Base.MiseAJourDate " + e.getMessage());
+	}
+	return -1;
+    }
+
+    public int miseAJour(int id, DonneeMeteo donnee) {
+	// TODO Auto-generated method stub
+
+	int idDonnee = selectionnerIdDonne(id);
+	this.modifierDonnee(idDonnee, donnee);
+	try {
+	    String sql = "update T_ARCHIVE_ARC set ARC_donnee = " + idDonnee + " where ARC_id = " + id;
+	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+	    ps.executeUpdate();
+	    ResultSet result = ps.getGeneratedKeys();
+	    if (result.next()) {
+		System.out.println("Exec sql : " + sql + " enregistré à l'id" + result.getInt(1));
+		return result.getInt(1);
+	    }
+	} catch (Exception e) {
+	    System.out.println("Erreur Base.miseAJourDonnee " + e.getMessage());
+	}
+	return -1;
+    }
+
+    private int selectionnerIdDonne(int id) {
+	try {
+	    String sql = "SELECT * FROM `T_ARCHIVE_ARC` WHERE `ARC_id` = '" + id + "'";
+	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+	    // ps.setDate(1, new java.sql.Date(date.getTime()));
+	    ResultSet rs = ps.executeQuery(sql);
+	    System.out.println("Exec sql : " + sql);
+
+	    if (rs.next()) {
+		return rs.getInt("ARC_donnee");
+
+	    }
+
+	} catch (Exception e) {
+	    System.out.println("Erreur Base.selectionnerIdDonnee " + e.getMessage());
+	}
+	return -1;
+    }
+
+    private int modifierDonnee(int idDonnee, DonneeMeteo donnee) {
+	try {
+	    String sql = "update T_DONNEE_DON set DON_pluie = " + donnee.getPluie() + ", DON_directionVent = "
+		    + donnee.getDirectionVent() + ", DON_vitesseVent = " + donnee.getVitesseVent() + ", DON_soleil = "
+		    + donnee.getSoleil().getId() + ", DON_temperature = " + donnee.getTemperature() + " WHERE DON_id = "
+		    + idDonnee;
+	    PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+	    ps.executeUpdate();
+	    ResultSet result = ps.getGeneratedKeys();
+	    if (result.next()) {
+		System.out.println("Exec sql : " + sql + " enregistré à l'id" + result.getInt(1));
+		return result.getInt(1);
+	    }
+	} catch (Exception e) {
+	    System.out.println("Erreur Base.modifierDonnee " + e.getMessage());
 	}
 	return -1;
     }
