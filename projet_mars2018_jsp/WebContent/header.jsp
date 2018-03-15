@@ -23,7 +23,7 @@
 	        	<c:choose>
 			    	<c:when test="${manager.identifie}">
 			    		<li><a href="ajout.jsp">Ajouter données</a></li>
-			    		<li><a href="ajoutPhotos.jsp">Ajouter des photos</a></li>
+			    		<li><a href="ajoutPhotos.jsp">Modifier</a></li>
 			    		<li>
 			    			<form name="myform" action="ServletDeconnexion">
 	    						<a href="javascript: submitform()">Déconnexion</a>
