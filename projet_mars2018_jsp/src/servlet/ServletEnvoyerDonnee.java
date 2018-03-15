@@ -84,6 +84,10 @@ public class ServletEnvoyerDonnee extends HttpServlet {
 			donnee.setVitesseVent(Double.parseDouble(vitesse));
 			archive.setDonnee(donnee);
 			// envois au serveur
+
+			System.out.println("valeur soleil : " + Soleil.getById(Integer.parseInt(ciel)) + " : "
+					+ Integer.parseInt(ciel) + " " + ciel);
+
 			manager.getServeur().ajouterDonneeArchive(archive);
 		} else {
 			request.setAttribute("valide", valide);

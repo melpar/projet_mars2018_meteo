@@ -308,7 +308,7 @@ public class Base {
 	    while (rs.next()) {
 		donnee.setDirectionVent(rs.getDouble("DON_directionVent"));
 		donnee.setPluie(rs.getDouble("DON_pluie"));
-		donnee.setSoleil(Soleil.AVERSE_ORAGEUSE);
+		donnee.setSoleil(Soleil.getById(rs.getInt("DON_soleil")));
 		donnee.setTemperature(rs.getInt("DON_temperature"));
 		donnee.setVitesseVent(rs.getDouble("DON_vitesseVent"));
 	    }

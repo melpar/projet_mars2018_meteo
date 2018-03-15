@@ -17,7 +17,7 @@ public class DonneeMeteo implements Serializable {
     @Regexp(expr = "^(?:360|(3[0-5][0-9]|[12][0-9][0-9]|[1-9]?[0-9])(,[0-9]{1,3})?$)?$", value = "La direction du vent doit être comprise entre 0 et 360")
     private double directionVent;
 
-    @Regexp(expr = "^(?:500|([1234][0-9][0-9]|[1-9]?[0-9])(,[0-9]{1,3}))?$", value = "La vitesse du vent doit être comprise entre 0 et 500")
+    @Regexp(expr = "^(?:500|([1234][0-9][0-9]|[1-9]?[0-9])(,[0-9]{1,3})?)$", value = "La vitesse du vent doit être comprise entre 0 et 500")
     private double vitesseVent;
 
     private Soleil soleil;
