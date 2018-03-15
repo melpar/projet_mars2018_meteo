@@ -79,7 +79,7 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 		Manager manager = Manager.creer(request);
 		manager.getServeur().ajouterPhoto(Integer.parseInt(request.getParameter("imageBoutton")), listePhoto);
 
-		request.getServletContext().getRequestDispatcher("/ajoutPhotos.jsp").forward(request, response);
+		request.getServletContext().getRequestDispatcher("/modifier.jsp").forward(request, response);
 	}
 
 	/**

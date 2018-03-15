@@ -44,41 +44,50 @@ public class ServletEnvoyerDonnee extends HttpServlet {
 
 		Manager manager = Manager.creer(request);
 
-		Validation valide = manager.getServeur().valider(request.getParameter("pays"), request.getParameter("ville"),
-				request.getParameter("departement"), request.getParameter("direction"), request.getParameter("vitesse"),
-				request.getParameter("temperature"), request.getParameter("pluie"));
+		String pays = request.getParameter("pays");
+		String ville = request.getParameter("ville");
+		String departement = request.getParameter("departement");
+		String direction = request.getParameter("direction");
+		String vitesse = request.getParameter("vitesse");
+		String temperature = request.getParameter("temperature");
+		String pluie = request.getParameter("pluie");
+		String date = request.getParameter("date");
+		String ciel = request.getParameter("ciel");
+
+		Validation valide = manager.getServeur().valider(pays, ville, departement, direction, vitesse, temperature,
+				pluie, date, ciel);
 		if (valide.isValide()) {
 			// creation archive meteo
 			ArchiveMeteo archive = new ArchiveMeteo();
 			// recuperation date
-			String dateString = request.getParameter("date");
 			SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy", Locale.US);
-			Date date = new Date();
+			Date dateD = new Date();
 			try {
-				date = formatter.parse(dateString);
+				dateD = formatter.parse(date);
 			} catch (java.text.ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			archive.setDate(date);
+			archive.setDate(dateD);
 			// recuperation du lieu
 			Lieu lieu = new Lieu();
-			lieu.setPays(request.getParameter("pays"));
-			lieu.setDepartement(request.getParameter("departement"));
-			lieu.setVille(request.getParameter("ville"));
+			lieu.setPays(pays);
+			lieu.setDepartement(departement);
+			lieu.setVille(ville);
 			archive.setLieu(lieu);
 			// recuperation donnee meteo
 			DonneeMeteo donnee = new DonneeMeteo();
-			donnee.setDirectionVent(Double.parseDouble(request.getParameter("direction")));
-			donnee.setPluie(Double.parseDouble(request.getParameter("pluie")));
-			donnee.setSoleil(Soleil.getById(Integer.parseInt(request.getParameter("ciel"))));
-			donnee.setTemperature(Integer.parseInt(request.getParameter("temperature")));
-			donnee.setVitesseVent(Double.parseDouble(request.getParameter("vitesse")));
+			donnee.setDirectionVent(Double.parseDouble(direction));
+			donnee.setPluie(Double.parseDouble(pluie));
+			donnee.setSoleil(Soleil.getById(Integer.parseInt(ciel)));
+			donnee.setTemperature(Integer.parseInt(temperature));
+			donnee.setVitesseVent(Double.parseDouble(vitesse));
 			archive.setDonnee(donnee);
 			// envois au serveur
 			manager.getServeur().ajouterDonneeArchive(archive);
 		} else {
 			request.setAttribute("valide", valide);
+
 		}
 
 		request.getServletContext().getRequestDispatcher("/ajout.jsp").forward(request, response);

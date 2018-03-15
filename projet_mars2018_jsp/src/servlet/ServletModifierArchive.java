@@ -2,8 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.ServletException;
@@ -14,18 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.ArchiveMeteo;
 import manager.Manager;
+import validation.Validation;
 
 /**
- * Servlet implementation class ServletListerJour
+ * Servlet implementation class ServletModifierArchive
  */
-@WebServlet("/ServletAjoutPhoto")
-public class ServletAjoutPhoto extends HttpServlet {
+@WebServlet("/ServletModifierArchive")
+public class ServletModifierArchive extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ServletAjoutPhoto() {
+	public ServletModifierArchive() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -36,21 +35,22 @@ public class ServletAjoutPhoto extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String dateString = request.getParameter("maDate");
-		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy", Locale.US);
-		Date date = new Date();
-		try {
-			date = formatter.parse(dateString);
-		} catch (java.lang.NullPointerException | java.text.ParseException e) {
-			request.setAttribute("erreur", "Date incorrecte");
-		}
-		Manager manager = Manager.creer(request);
-		List<ArchiveMeteo> list = manager.getServeur().consulterParJour(date);
-		request.setAttribute("lst", list);
 
-		request.setAttribute("dateEntre", dateString);
-		request.getServletContext().getRequestDispatcher("/ajoutPhotos.jsp").forward(request, response);
+		Manager manager = Manager.creer(request);
+		// ArchiveMeteo archive =
+		ArchiveMeteo archive = manager.getServeur().consulterParId(Integer.parseInt(request.getParameter("archiveId")));
+		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy", Locale.US);
+
+		Validation valide = manager.getServeur().valider(archive.getLieu().getPays(), archive.getLieu().getVille(),
+				archive.getLieu().getDepartement(),
+				Double.toString(archive.getDonnee().getDirectionVent()).replace('.', ','),
+				Double.toString(archive.getDonnee().getVitesseVent()).replace('.', ','),
+				Integer.toString(archive.getDonnee().getTemperature()),
+				Double.toString(archive.getDonnee().getPluie()).replace('.', ','), formatter.format(archive.getDate()),
+				Integer.toString(archive.getDonnee().getSoleil().getId()));
+
+		request.setAttribute("valide", valide);
+		request.getServletContext().getRequestDispatcher("/modifierArchive.jsp").forward(request, response);
 	}
 
 	/**

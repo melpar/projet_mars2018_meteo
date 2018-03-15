@@ -15,7 +15,7 @@
 	<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
 	<script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
 	<script src = "Materialize/js/materialize.min.js"></script>
-	<title>Visualiser jours</title>
+	<title>Modifier</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
 	<div class="container">
 		<c:choose>
 			<c:when test="${manager.identifie}">
-				<form class="col s12" method="get" action="ServletAjoutPhoto" >
+				<form class="col s12" method="get" action="ServletModifier" >
 			    	<div class="row">
 			      		<div class="input-field col s3">
 							Date :        	
@@ -42,23 +42,36 @@
 				<ul class="collapsible" data-collapsible="expandable">
 			    	<c:forEach var="archive" items="${lst}">
 				    	<li>
-							<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.pays}, ${archive.lieu.departement}, ${archive.lieu.ville}</div>
-								<div class="collapsible-body">
-									<ul class="collection">
-										<c:set var="archive" value="${archive}" scope="request"/>
-										<jsp:include page="gestionInformations/informations.jsp" >
-											<jsp:param name="archive" value="${archive}"/>
-										</jsp:include>
-										<ul class="collapsible" data-collapsible="expandable">
-											<li>
-											
-												<div class="collapsible-header"><i class="material-icons">photo_library</i>Photo</div>
-												<div class="collapsible-body">
+							<div class="collapsible-header">
+								<div class="row" style="width: 100%">
+									<div class="col s8">
+										<i class="material-icons">place</i>${archive.lieu.pays}, ${archive.lieu.departement}, ${archive.lieu.ville}
+									</div>
+									<div class="col s4">
+										<form method="get" action="ServletModifierArchive">
+											<button class="btn waves-effect waves-light" type="submit" name="archiveId" value="${archive.id}">Modifier
+								    			<i class="material-icons right">edit</i>
+								  			</button>
+							  			</form>  
+									</div>
+								</div>
+							</div>
+							<div class="collapsible-body">
+								<ul class="collection">
+									<c:set var="archive" value="${archive}" scope="request"/>
+									<jsp:include page="gestionInformations/informations.jsp" >
+										<jsp:param name="archive" value="${archive}"/>
+									</jsp:include>
+									<ul class="collapsible" data-collapsible="expandable">
+										<li>
+										
+											<div class="collapsible-header"><i class="material-icons">photo_library</i>Photo</div>
+											<div class="collapsible-body">
 												<jsp:include page="gestionPhotos/photos.jsp" >
-												<jsp:param name="archive" value="${archive}"/>
-											</jsp:include>
-													<ul class="collection">
-														<li class="collection-item">
+													<jsp:param name="archive" value="${archive}"/>
+												</jsp:include>
+												<ul class="collection">
+													<li class="collection-item">
 														<form method="post" action="ServletAjoutPhotoEnvoyer" enctype="multipart/form-data">
 													    	<div class="file-field input-field">
 													      		<div class="btn">
