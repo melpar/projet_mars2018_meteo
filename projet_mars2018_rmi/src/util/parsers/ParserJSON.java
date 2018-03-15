@@ -13,8 +13,16 @@ import com.google.gson.stream.JsonReader;
 import bean.ArchiveMeteo;
 
 public class ParserJSON {
+    /**
+     * Permet d'obtenir une liste d'archives en fonction du contenu d'un fichier
+     * json.
+     * 
+     * @param jsonIn
+     *            contenu du fichier
+     * @return liste des archives extraites
+     */
     public static List<ArchiveMeteo> parserJSON(String jsonIn) {
-
+	// On initialise le parser avec le bon formatage de dates
 	final Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
 	List<ArchiveMeteo> archives = new ArrayList<ArchiveMeteo>();
 	try
@@ -26,9 +34,9 @@ public class ParserJSON {
 	    final JsonReader reader = new JsonReader(new StringReader(jsonIn));
 
 	    reader.beginArray();
-
+	    // Pour chaque objet détecté
 	    while (reader.hasNext()) {
-
+		// Création de l'objet archive
 		final ArchiveMeteo archive = gson.fromJson(reader, ArchiveMeteo.class);
 
 		archives.add(archive);

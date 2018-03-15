@@ -9,23 +9,35 @@ import java.util.regex.Pattern;
 import annotation.Regexp;
 
 public class Validation implements Serializable {
-
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Indique si une erreur a ÈtÈ detectÈe
+     */
     boolean valide = true;
-    // indique si une erreur a √©t√© d√©tect√©e
 
+    /**
+     * Contiendra les valeurs saisies dans les champs. ex : ("auteur",
+     * "lauteursaisi")
+     */
     Hashtable<String, String> valeurs = new Hashtable<String, String>();
-    // contiendra les valeurs saisies dans les champs
-    // ex : ("auteur", "lauteursaisi")
 
+    /**
+     * Contiendra les erreurs Èventuelles
+     */
     Hashtable<String, String> erreurs = new Hashtable<String, String>();
-    // contiendra les erreurs √©ventuelles
-    // ex: ("annee","L'ann√©e doit comporter 4 chiffres")
 
+    /**
+     * Permet de tester une valeur
+     * 
+     * @param c
+     *            class ou le champs est contenu
+     * @param param
+     *            nom du champs
+     * @param val
+     *            valeur du champs
+     * @return vrai si pas d'erreur, faux sinon
+     */
     public boolean regexp(Class c, String param, String val) {
 	boolean res = false;
 

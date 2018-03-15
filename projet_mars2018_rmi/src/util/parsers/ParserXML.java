@@ -21,6 +21,13 @@ import bean.Lieu;
 import bean.Soleil;
 
 public class ParserXML {
+    /**
+     * Permet de créer une liste à partir du contenu d'un fichier xml
+     * 
+     * @param donnees
+     *            contenu du fichier xml
+     * @return liste créée
+     */
     public static List<ArchiveMeteo> parserXML(String donnees) {
 	Document doc = Jsoup.parse(donnees, "", Parser.xmlParser());
 	List<ArchiveMeteo> listeArchives = new ArrayList<ArchiveMeteo>();

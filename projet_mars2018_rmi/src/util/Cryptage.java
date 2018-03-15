@@ -10,13 +10,28 @@ import sun.misc.BASE64Encoder;
 
 public class Cryptage {
 
+    /**
+     * Chaine à crypter
+     */
     private String chaineIn;
+
+    /**
+     * Algorythme utilisé
+     */
     private String algo;
+
+    /**
+     * Clé utilisée
+     */
     private byte[] cle;
+
+    /**
+     * Fichier de configuration où les données sont stockées
+     */
     private static String config = "resources/cleDeChiffrement";
 
     /**
-     * chriffrage d'une chaine de caractere
+     * Initialisation de l'objet.
      * 
      * @param chaine
      *            Chaine de caractere a chiffrer
@@ -33,6 +48,12 @@ public class Cryptage {
 	this.algo = resource.getString("algorithme");
     }
 
+    /**
+     * Chriffrage d'une chaine de caractere
+     * 
+     * @return chaine chiffrée
+     * @throws Exception
+     */
     public String chiffrer() throws Exception {
 	Key cle = generationCle();
 	Cipher c = Cipher.getInstance(algo);
@@ -41,6 +62,12 @@ public class Cryptage {
 	return new BASE64Encoder().encode(encVal);
     }
 
+    /**
+     * Génère la clé
+     * 
+     * @return clé
+     * @throws Exception
+     */
     private Key generationCle() throws Exception {
 	return new SecretKeySpec(cle, algo);
     }

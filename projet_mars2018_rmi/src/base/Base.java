@@ -35,7 +35,6 @@ public class Base {
 	try {
 	    Class.forName("com.mysql.jdbc.Driver");
 	} catch (ClassNotFoundException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
     }
@@ -54,7 +53,6 @@ public class Base {
 	try {
 	    co = (Connection) DriverManager.getConnection(url, user, password);
 	} catch (SQLException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	    return false;
 	}
@@ -68,7 +66,6 @@ public class Base {
 	try {
 	    co.close();
 	} catch (SQLException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
     }
@@ -378,7 +375,6 @@ public class Base {
 	try {
 	    mdpCrypte = cry.chiffrer();
 	} catch (Exception e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 	String selectSQL = "SELECT * FROM T_CONNEXION_CON WHERE CON_identifiant = '" + identifiant
@@ -461,7 +457,6 @@ public class Base {
      * @return id du lieu, -1 si il y eu une erreur
      */
     public int miseAJourLieu(int id, Lieu lieu) {
-	// TODO Auto-generated method stub
 	int idLieu = this.ajouterLieu(lieu);
 	try {
 	    String sql = "update T_ARCHIVE_ARC set ARC_lieu = " + idLieu + " where ARC_id = " + id;
@@ -479,6 +474,16 @@ public class Base {
 	return -1;
     }
 
+    /**
+     * Permet de mettre à jour la date en fonction de l'id de l'archive
+     * associée.
+     * 
+     * @param id
+     *            id de l'archive
+     * @param date
+     *            nouvelle date
+     * @return id de l'archive modifiée, -1 si erreur
+     */
     public int miseAJourDate(int id, java.util.Date date) {
 	try {
 	    String sql = "update T_ARCHIVE_ARC set ARC_date = '" + new java.sql.Date(date.getTime())
@@ -497,9 +502,16 @@ public class Base {
 	return -1;
     }
 
+    /**
+     * Permet de mette à jour les données associées à une archive.
+     * 
+     * @param id
+     *            id de l'archive à modifier
+     * @param donnee
+     *            nouvelles données
+     * @return id de l'archive modifiée, -1 si erreur
+     */
     public int miseAJour(int id, DonneeMeteo donnee) {
-	// TODO Auto-generated method stub
-
 	int idDonnee = selectionnerIdDonne(id);
 	this.modifierDonnee(idDonnee, donnee);
 	try {
@@ -518,6 +530,13 @@ public class Base {
 	return -1;
     }
 
+    /**
+     * Permet d'obtenir l'id des données associées à une archive.
+     * 
+     * @param id
+     *            id de l'archive
+     * @return id des données
+     */
     private int selectionnerIdDonne(int id) {
 	try {
 	    String sql = "SELECT * FROM `T_ARCHIVE_ARC` WHERE `ARC_id` = '" + id + "'";
@@ -537,6 +556,15 @@ public class Base {
 	return -1;
     }
 
+    /**
+     * Permet de modifier des données.
+     * 
+     * @param idDonnee
+     *            id des données à modifier
+     * @param donnee
+     *            nouvelles valeurs
+     * @return id de la donnée modifiée, -1 si erreur
+     */
     private int modifierDonnee(int idDonnee, DonneeMeteo donnee) {
 	try {
 	    String sql = "update T_DONNEE_DON set DON_pluie = " + donnee.getPluie() + ", DON_directionVent = "
@@ -556,6 +584,11 @@ public class Base {
 	return -1;
     }
 
+    /**
+     * Permet d'obtenir la liste des lieux contenus en base.
+     * 
+     * @return liste des lieux
+     */
     public List<Lieu> getLieux() {
 	List<Lieu> lieux = new ArrayList<Lieu>();
 	String selectSQL = "SELECT * FROM T_LIEU_LIE";
@@ -577,6 +610,15 @@ public class Base {
 	return lieux;
     }
 
+    /**
+     * Permet d'obtenir les données pour une date et un lieu.
+     * 
+     * @param date
+     *            date à chercher
+     * @param lieu
+     *            lieu à chercher
+     * @return les des données
+     */
     public List<DonneeMeteo> getDonnees(java.util.Date date, int lieu) {
 	List<DonneeMeteo> donnees = new ArrayList<DonneeMeteo>();
 	System.out.println(new java.sql.Date(date.getTime()));
@@ -599,6 +641,13 @@ public class Base {
 	return donnees;
     }
 
+    /**
+     * Permet de supprimer une image.
+     * 
+     * @param idImage
+     *            id de l'image à supprimer
+     * @return vrai si supprimé, faux si erreur
+     */
     public boolean supprimerImage(int idImage) {
 	try {
 	    String sql = "DELETE FROM `T_PHOTO_PHO` WHERE `PHO_id` = " + idImage;
