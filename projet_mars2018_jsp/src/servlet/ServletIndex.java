@@ -49,7 +49,7 @@ public class ServletIndex extends HttpServlet {
 		}
 
 		Manager manager = Manager.creer(request);
-		Map<String, Double[]> informations = manager.getServeur().getInformations(date);
+		Map<String, Double[]> informations = manager.getServeur().getInformationsVille(date);
 		List<String> noms = new ArrayList<>();
 		List<Double> temperature = new ArrayList<>();
 		List<Double> pluie = new ArrayList<>();

@@ -503,8 +503,8 @@ public class Base {
 	return lieux;
     }
 
-    public DonneeMeteo getDonnees(java.util.Date date, int lieu) {
-	DonneeMeteo donnee = new DonneeMeteo();
+    public List<DonneeMeteo> getDonnees(java.util.Date date, int lieu) {
+	List<DonneeMeteo> donnees = new ArrayList<DonneeMeteo>();
 	System.out.println(new java.sql.Date(date.getTime()));
 	try {
 	    String sql = "SELECT * FROM `T_ARCHIVE_ARC` WHERE `ARC_date` = '" + new java.sql.Date(date.getTime())
@@ -514,15 +514,15 @@ public class Base {
 	    ResultSet rs = ps.executeQuery(sql);
 	    System.out.println("Exec sql : " + sql);
 
-	    if (rs.next()) {
-		return this.getDonnee(rs.getInt("ARC_donnee"));
+	    while (rs.next()) {
+		donnees.add(this.getDonnee(rs.getInt("ARC_donnee")));
 
 	    }
 
 	} catch (Exception e) {
 	    System.out.println("Erreur Base.consulterParJour " + e.getMessage());
 	}
-	return null;
+	return donnees;
     }
 
     public boolean supprimerImage(int idImage) {
