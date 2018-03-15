@@ -47,7 +47,7 @@
 						      <label for="json">JSON</label>
 						    </p>
 						    <p>
-						      <input name="group1" type="radio" id="xml" onclick = "getAnswer('json')" value="json"/>
+						      <input name="group1" type="radio" id="xml" onclick = "getAnswer('xml')" value="xml"/>
 						      <label for="xml">XML</label>
 						    </p>
 						    </div>

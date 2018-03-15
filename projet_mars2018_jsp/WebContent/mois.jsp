@@ -66,7 +66,10 @@
 					 	session.setAttribute("lst",request.getAttribute("lst"));
 					%>
 						<input type="hidden" name="listeArchive" id="listeArchive" value="${lst}"/>
-						<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit" >Télécharger
+						<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="pdf" >PDF
+						    <i class="material-icons right">file_download</i>
+						</button>
+						<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="xml" >XML
 						    <i class="material-icons right">file_download</i>
 						</button>
 					</form>

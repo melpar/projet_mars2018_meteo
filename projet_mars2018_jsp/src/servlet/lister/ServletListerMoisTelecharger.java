@@ -44,12 +44,32 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 		try {
 			myOut = response.getOutputStream();
 			List<ArchiveMeteo> list = (List<ArchiveMeteo>) request.getSession().getAttribute("lst");
-			byte[] fichier = Manager.creer(request).getServeur().productionPDF(list);// Getting mistake here
-			//
-			// //set response headers
-			response.setContentType("application/pdf"); // I want to download a PDF file
-			//
-			response.addHeader("Content-Disposition", "attachment; filename=rapport.pdf");
+			byte[] fichier;
+
+			if (request.getParameter("pdf") != null) {
+				fichier = Manager.creer(request).getServeur().productionPDF(list);// Getting
+				// mistake
+				// here
+
+				// set response headers
+				response.setContentType("application/pdf"); // I want to
+															// download a PDF
+															// file
+				//
+				response.addHeader("Content-Disposition", "attachment; filename=rapport.pdf");
+			} else {
+				fichier = Manager.creer(request).getServeur().productionXml(list);// Getting
+				// mistake
+				// here
+
+				// set response headers
+				response.setContentType("application/xml"); // I want to
+				// download a PDF
+				// file
+				//
+				response.addHeader("Content-Disposition", "attachment; filename=rapport.xml");
+			}
+
 			//
 			response.setContentLength(fichier.length);
 			//
