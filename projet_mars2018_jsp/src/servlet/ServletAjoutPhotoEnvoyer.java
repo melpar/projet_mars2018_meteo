@@ -51,7 +51,6 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 				// select, etc).
 				String fieldname = part.getName();
 				String fieldvalue = FilesUtil.getValue(part);
-				System.out.println("objet : " + fieldname);
 			} else if (!filename.isEmpty()) {
 				// Traiter les champs de type fichier (input type="file").
 				String fieldname = part.getName();

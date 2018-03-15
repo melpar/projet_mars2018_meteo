@@ -32,7 +32,7 @@ public class ServletModifierImageSupprimer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String id = request.getParameter("id");
+		String id = request.getParameter("imageDelete");
 		Manager manager = Manager.creer(request);
 		manager.getServeur().supprimerImage(Integer.parseInt(id));
 

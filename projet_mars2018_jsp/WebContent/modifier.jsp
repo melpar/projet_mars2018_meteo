@@ -78,16 +78,16 @@
 																	pageContext.setAttribute("id", p.getId());
 																%>
 									        			  	<div class="card" style="width: 50%">
-															    <div class="card-image waves-effect waves-block waves-light">
+															    <div class="card-image">
 														      		<img class="activator" src="data:image/jpg;base64,${p}">
-															    </div>
-															    <div class="card-content">
-														      		<span class="card-title activator grey-text text-darken-4">${nom}</span>
 														      		<form method="post" action="ServletModifierImageSupprimer">
-															      		<button class="btn waves-effect waves-light" type="submit" name="imageDelete" value="${id}">
-															    			<i class="material-icons right">send</i>
+															      		<button class="btn-floating halfway-fab waves-effect waves-light red" type="submit" name="imageDelete" value="${id}">
+															    			<i class="material-icons right">delete</i>
 															  			</button> 
 														  			</form>
+															    </div>
+															    <div class="card-content">
+													    			<p class="card-title activator grey-text text-darken-4">${nom}</p>
 															    </div>
 													  		</div>
 										          		</c:forEach> 

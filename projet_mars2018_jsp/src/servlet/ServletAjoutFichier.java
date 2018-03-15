@@ -50,7 +50,6 @@ public class ServletAjoutFichier extends HttpServlet {
 				// select, etc).
 				String fieldname = part.getName();
 				String fieldvalue = FilesUtil.getValue(part);
-				System.out.println("objet : " + fieldname + " value " + fieldvalue);
 				if (fieldname.equals("group1") && fieldvalue.equals("json")) {
 					isXML = true;
 				}
