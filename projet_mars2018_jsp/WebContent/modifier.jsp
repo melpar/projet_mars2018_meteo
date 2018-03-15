@@ -48,11 +48,22 @@
 										<i class="material-icons">place</i>${archive.lieu.pays}, ${archive.lieu.departement}, ${archive.lieu.ville}
 									</div>
 									<div class="col s4">
-										<form method="get" action="ServletModifierArchive">
-											<button class="btn waves-effect waves-light" type="submit" name="archiveId" value="${archive.id}">Modifier
-								    			<i class="material-icons right">edit</i>
-								  			</button>
-							  			</form>  
+										<div class="row">
+											<div class="col s8">
+												<form method="get" action="ServletModifierArchive">
+													<button class="btn waves-effect waves-light" type="submit" name="archiveId" value="${archive.id}">Modifier
+										    			<i class="material-icons right">edit</i>
+										  			</button>
+									  			</form>
+											</div>
+											<div class="col s4 m4 center">
+												<form method="get" action="ServletModifierArchiveSupprimer">
+													<button class="btn-floating waves-effect waves-light red " type="submit" name="archiveDelete" value="${archive.id}">
+														<i class="mdi-content-clear" style="margin-left: 5px;"></i>
+										  			</button> 
+									  			</form>  
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
