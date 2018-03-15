@@ -134,7 +134,7 @@ public interface Serveur extends Remote {
     public ArchiveMeteo consulterParId(int id) throws RemoteException;
 
     /**
-     * Permet de produire une pdf.
+     * Permet de produire un pdf.
      * 
      * @param archives
      *            archives à ajouter dans le pdf
@@ -142,6 +142,16 @@ public interface Serveur extends Remote {
      * @throws RemoteException
      */
     public byte[] productionPDF(List<ArchiveMeteo> archives) throws RemoteException;
+
+    /**
+     * Permet de produire un fichier excel.
+     * 
+     * @param archives
+     *            archives à ajouter dans le fichier excel
+     * @return tableau de bytes contenant le fichier excel
+     * @throws RemoteException
+     */
+    public byte[] productionXml(List<ArchiveMeteo> archives) throws RemoteException;
 
     /**
      * Permet de retourner des informations pour une date donnée.

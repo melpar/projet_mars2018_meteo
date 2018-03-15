@@ -21,6 +21,7 @@ import rmi.Serveur;
 import util.parsers.ParserJSON;
 import util.parsers.ParserXML;
 import util.pdf.FirstPdf;
+import util.xml.XmlWriter;
 import validation.Validation;
 
 public class ServeurImpl implements Serveur {
@@ -129,6 +130,11 @@ public class ServeurImpl implements Serveur {
 	FirstPdf pdf = new FirstPdf();
 	pdf.initialiser(archives);
 	return pdf.generer();
+    }
+
+    @Override
+    public byte[] productionXml(List<ArchiveMeteo> archives) throws RemoteException {
+	return XmlWriter.generer(archives);
     }
 
     @Override
