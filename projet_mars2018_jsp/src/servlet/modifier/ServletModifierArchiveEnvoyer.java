@@ -66,6 +66,8 @@ public class ServletModifierArchiveEnvoyer extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			// association des donnees
 			archive.setDate(dateD);
 			// recuperation du lieu
 			Lieu lieu = new Lieu();
@@ -83,9 +85,12 @@ public class ServletModifierArchiveEnvoyer extends HttpServlet {
 			archive.setDonnee(donnee);
 			// envois au serveur
 			archive.setId(Integer.parseInt(id));
+
+			// envois des donnees
 			manager.getServeur().modifierDonnee(archive);
 			request.getServletContext().getRequestDispatcher("/modifier.jsp").forward(request, response);
 		} else {
+			// gestion des erreur
 			request.setAttribute("archiveId", id);
 			request.setAttribute("valide", valide);
 			request.getServletContext().getRequestDispatcher("/modifierArchive.jsp").forward(request, response);

@@ -36,7 +36,7 @@ public class ServletModifier extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// tranformation en format date
 		String dateString = request.getParameter("maDate");
 		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy", Locale.US);
 		Date date = new Date();
@@ -47,8 +47,8 @@ public class ServletModifier extends HttpServlet {
 		}
 		Manager manager = Manager.creer(request);
 		List<ArchiveMeteo> list = manager.getServeur().consulterParJour(date);
+		// envois des donnees au client
 		request.setAttribute("lst", list);
-
 		request.setAttribute("dateEntre", dateString);
 		request.getServletContext().getRequestDispatcher("/modifier.jsp").forward(request, response);
 	}

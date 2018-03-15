@@ -36,17 +36,20 @@ public class ServletModifierArchive extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// recuperation de l'achive
 		Manager manager = Manager.creer(request);
-		// ArchiveMeteo archive =
 		ArchiveMeteo archive = manager.getServeur().consulterParId(Integer.parseInt(request.getParameter("archiveId")));
+		// format de la date
 		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy", Locale.US);
 
+		// sauvegarde des donner dans une classe
 		Validation valide = manager.getServeur().valider(archive.getLieu().getPays(), archive.getLieu().getVille(),
 				archive.getLieu().getDepartement(), Double.toString(archive.getDonnee().getDirectionVent()),
 				Double.toString(archive.getDonnee().getVitesseVent()),
 				Integer.toString(archive.getDonnee().getTemperature()), Double.toString(archive.getDonnee().getPluie()),
 				formatter.format(archive.getDate()), Integer.toString(archive.getDonnee().getSoleil().getId()));
 
+		// envois des donnees au client
 		request.setAttribute("valide", valide);
 		request.setAttribute("archiveId", request.getParameter("archiveId"));
 		request.getServletContext().getRequestDispatcher("/modifierArchive.jsp").forward(request, response);

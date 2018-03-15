@@ -45,24 +45,20 @@ public class ServletAjoutFichier extends HttpServlet {
 
 			String filename = FilesUtil.getFilename(part);
 			if (filename == null) {
-				// Traiter les champs classiques ici (input
-				// type="text|radio|checkbox|etc",
-				// select, etc).
+				// Traitement des champs classiques.
 				String fieldname = part.getName();
 				String fieldvalue = FilesUtil.getValue(part);
 				if (fieldname.equals("group1") && fieldvalue.equals("json")) {
 					isXML = true;
 				}
 			} else if (!filename.isEmpty()) {
-				// Traiter les champs de type fichier (input type="file").
-
-				filename = filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE
-																														// fix.
+				// Traiter les champs de type fichier.
+				filename = filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1);
 				InputStream is = part.getInputStream();
 
 				byte[] data = new byte[PKG_SIZE];
 				int size;
-
+				// transformation du format du fichier.
 				size = is.read(data, 0, data.length);
 				while (size > 0) {
 					String str = new String(data, 0, size);
@@ -73,10 +69,11 @@ public class ServletAjoutFichier extends HttpServlet {
 			}
 		}
 		String group1 = request.getParameter("group1");
-		// compare selected value
+		// selection du format du fichier
 		if ("json".equals(group1)) {
 			isXML = false;
 		}
+		// envois au serveur
 		if (isXML) {
 			manager.getServeur().ajouterDonneesArchiveXML(buffer.toString());
 		} else {

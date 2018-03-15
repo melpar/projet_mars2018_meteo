@@ -45,39 +45,22 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 			myOut = response.getOutputStream();
 			List<ArchiveMeteo> list = (List<ArchiveMeteo>) request.getSession().getAttribute("lst");
 			byte[] fichier;
-
+			// selection format du fichier a telecharger
 			if (request.getParameter("pdf") != null) {
-				fichier = Manager.creer(request).getServeur().productionPDF(list);// Getting
-				// mistake
-				// here
-
-				// set response headers
-				response.setContentType("application/pdf"); // I want to
-															// download a PDF
-															// file
-				//
+				fichier = Manager.creer(request).getServeur().productionPDF(list);
+				response.setContentType("application/pdf");
 				response.addHeader("Content-Disposition", "attachment; filename=rapport.pdf");
 			} else {
 				fichier = Manager.creer(request).getServeur().productionXml(list);// Getting
-				// mistake
-				// here
-
-				// set response headers
 				response.setContentType("application/xml"); // I want to
-				// download a PDF
-				// file
-				//
 				response.addHeader("Content-Disposition", "attachment; filename=rapport.xml");
 			}
 
-			//
+			// envois du fichier au client
 			response.setContentLength(fichier.length);
-			//
 			InputStream input = new ByteArrayInputStream(fichier);
 			buf = new BufferedInputStream(input);
 			int readBytes = 0;
-			//
-			// read from the file; write to the ServletOutputStream
 			while ((readBytes = buf.read()) != -1) {
 				myOut.write(readBytes);
 			}
@@ -85,7 +68,7 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 		} catch (IOException ioe) {
 		} finally {
 
-			// close the input/output streams
+			// traitement des erreur
 			if (myOut != null) {
 				myOut.close();
 			}
@@ -94,6 +77,7 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 			}
 
 		}
+		// suppression des donnees en cache
 		request.getSession().setAttribute("lst", null);
 	}
 
