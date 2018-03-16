@@ -50,7 +50,7 @@
 									<div class="col s4">
 										<div class="row">
 											<div class="col s8">
-												<form method="get" action="ServletModifierArchive">
+												<form method="post" action="ServletModifierArchive">
 													<button class="btn waves-effect waves-light" type="submit" name="archiveId" value="${archive.id}">Modifier
 										    			<i class="material-icons right">edit</i>
 										  			</button>

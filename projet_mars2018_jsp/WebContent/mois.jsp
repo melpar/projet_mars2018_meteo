@@ -82,7 +82,7 @@
 		    		String reportDate = df.format(archive.getDate());
 		    		pageContext.setAttribute("d", reportDate);
 		    		%>
-					<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.ville}<br>${d}</div>
+					<div class="collapsible-header"><i class="material-icons">place</i>${archive.lieu.pays}, ${archive.lieu.departement}, ${archive.lieu.ville}<br>${d}</div>
 					<div class="collapsible-body">
 						<ul class="collection">
 							<c:set var="archive" value="${archive}" scope="request"/>
