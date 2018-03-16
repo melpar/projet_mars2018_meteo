@@ -161,8 +161,11 @@ public class Base {
 	    try {
 		String sql = "insert into T_LIEU_LIE (LIE_ville, LIE_pays, LIE_departement)" + "values (?, ?, ?) ";
 		PreparedStatement ps = co.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		lieu.getVille().replaceAll("'", "\'");
 		ps.setString(1, lieu.getVille());
+		lieu.getPays().replaceAll("'", "\'");
 		ps.setString(2, lieu.getPays());
+		lieu.getDepartement().replaceAll("'", "\'");
 		ps.setString(3, lieu.getDepartement());
 		res = ps.executeUpdate();
 		ResultSet result = ps.getGeneratedKeys();
