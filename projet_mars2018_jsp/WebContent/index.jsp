@@ -18,7 +18,7 @@ $('.collapsible').collapsible();
 $('select').material_select();</script>
 
 <script type="text/javascript" src="chart/Chart.min.js"></script>
-<title>Insert title here</title>
+<title>Projet UE SOR</title>
 
 </head>
 <body>
