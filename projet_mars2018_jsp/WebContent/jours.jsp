@@ -24,12 +24,14 @@
 	<div class="container">
 	<form class="col s12" method="get" action="ServletListerJour" >
     	<div class="row">
-      		<div class="input-field col s3">
-				Date :        	
-        	</div>
         	<div class="input-field col s6">
 				<input name="maDate" type="text" class="datepicker" value="${dateEntre}"> 
-				<label for="erreur" style="color: red;">${erreur}</label>       	
+				<label for="date" style="width: 100%">
+				          			<div class="row">
+								      <div class="col s4">Date : </div>
+								      <div class="col s8" style="color: red;">${valide.erreurs["date"]}</div>
+								    </div>
+				          		</label>       	
         	</div>
         	<div class="input-field col s3">
 				<button class="btn waves-effect waves-light cyan lighten-2" type="submit" name="submit">Valider

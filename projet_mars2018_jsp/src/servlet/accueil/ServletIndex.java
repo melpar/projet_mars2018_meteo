@@ -66,7 +66,7 @@ public class ServletIndex extends HttpServlet {
 		request.setAttribute("pluie", pluie);
 		request.setAttribute("vent", vent);
 		request.setAttribute("initialise", true);
-		request.setAttribute("dateEntre", dateString);
+		request.setAttribute("dateEntre", formatter.format(date));
 		request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 

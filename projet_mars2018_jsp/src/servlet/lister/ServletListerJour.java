@@ -50,7 +50,7 @@ public class ServletListerJour extends HttpServlet {
 		Manager manager = Manager.creer(request);
 		List<ArchiveMeteo> list = manager.getServeur().consulterParJour(date);
 		request.setAttribute("lst", list);
-		request.setAttribute("dateEntre", dateString);
+		request.setAttribute("dateEntre", formatter.format(date));
 		request.getServletContext().getRequestDispatcher("/jours.jsp").forward(request, response);
 	}
 

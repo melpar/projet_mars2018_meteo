@@ -49,7 +49,7 @@ public class ServletModifier extends HttpServlet {
 		List<ArchiveMeteo> list = manager.getServeur().consulterParJour(date);
 		// envois des donnees au client
 		request.setAttribute("lst", list);
-		request.setAttribute("dateEntre", dateString);
+		request.setAttribute("dateEntre", formatter.format(date));
 		request.getServletContext().getRequestDispatcher("/modifier.jsp").forward(request, response);
 	}
 
