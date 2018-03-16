@@ -63,6 +63,12 @@
 				        	</div>
 				        	<div class="input-field col s3">
 				          		<input name="date" type="text" class="datepicker" value="${valide.valeurs['date']}">
+				          		<label for="date">
+				          			<div class="row">
+								      <div class="col s3">Date : </div>
+								      <div class="col s8" style="color: red;">${valide.erreurs["date"]}</div>
+								    </div>
+				          		</label>
 				        	</div>
 				      	</div>
 				      	<div class="row">
@@ -88,6 +94,7 @@
 				          		<div class="row">
 									<div class="col s4">Direction du vent : </div>
 								    <div class="col s8" style="color: red;">${valide.erreurs["directionVent"]}</div>
+								    
 								</div>
 				          	</label>
 				        </div>

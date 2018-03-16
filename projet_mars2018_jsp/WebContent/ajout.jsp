@@ -44,7 +44,7 @@
 				    	</div>
 				    	<div class="col s2">
 				    	<p>
-						      <input name="group1" type="radio" id="json" onclick = "getAnswer('json')" value="json"/>
+						      <input name="group1" type="radio" id="json" onclick = "getAnswer('json')" value="json" checked="checked"/>
 						      <label for="json">JSON</label>
 						    </p>
 						    <p>
@@ -89,12 +89,14 @@
 				        	</div>
 						</div>
 				      	<div class="row">
-				      		<p class="flow-text">Date : </p>
-				     		<div class="input-field col s3">
-				          		<span>Date : </span>
-				        	</div>
-				        	<div class="input-field col s3">
-				          		<input name="date" type="text" class="datepicker">
+				        	<div class="input-field col s6">
+				          		<input name="date" type="text" class="datepicker" value="${valide.valeurs['date']}">
+				          		<label for="date" style="width: 100%">
+				          			<div class="row">
+								      <div class="col s4">Date : </div>
+								      <div class="col s8" style="color: red;">${valide.erreurs["date"]}</div>
+								    </div>
+				          		</label>
 				        	</div>
 				      	</div>
 				      	<div class="row">
