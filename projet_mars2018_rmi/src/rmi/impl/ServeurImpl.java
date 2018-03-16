@@ -43,10 +43,13 @@ public class ServeurImpl implements Serveur {
 	// Récupère les archives à partir du contenu du fichier
 	try {
 	    List<ArchiveMeteo> archives = ParserXML.parserXML(donneesFichier);
+	    if (archives.size() == 0) {
+		return "Erreur dans le parsing du fichier xml";
+	    }
 	    for (ArchiveMeteo archive : archives) {
 		builder.append(ajouterDonneeArchive(archive));
 	    }
-	    return builder.toString();
+	    return null;
 	} catch (Exception e) {
 	    return "Erreur dans le parsing du fichier xml";
 	}

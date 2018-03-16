@@ -83,7 +83,9 @@ public class ServletAjoutFichier extends HttpServlet {
 			} else {
 				erreur = manager.getServeur().ajouterDonneesArchiveJSON(buffer.toString());
 			}
-			erreur = "Les données ont été ajoutées";
+			if (erreur == null) {
+				erreur = "Les données ont été ajoutées";
+			}
 		}
 		request.setAttribute("message", erreur);
 		request.getServletContext().getRequestDispatcher("/ajout.jsp").forward(request, response);

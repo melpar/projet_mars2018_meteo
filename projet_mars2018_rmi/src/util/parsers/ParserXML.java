@@ -29,45 +29,49 @@ public class ParserXML {
      * @return liste créée
      */
     public static List<ArchiveMeteo> parserXML(String donnees) {
-	Document doc = Jsoup.parse(donnees, "", Parser.xmlParser());
-	List<ArchiveMeteo> listeArchives = new ArrayList<ArchiveMeteo>();
-	Elements lesArchives = doc.select("archive");
-	for (Element archive : lesArchives) {
-	    ArchiveMeteo uneArchive = new ArchiveMeteo();
-	    // Initialisation du lieu
-	    Element lieuxml = archive.getElementsByTag("lieu").first();
-	    Lieu lieu = new Lieu();
-	    lieu.setDepartement(lieuxml.getElementsByTag("departement").text());
-	    lieu.setPays(lieuxml.getElementsByTag("pays").text());
-	    lieu.setVille(lieuxml.getElementsByTag("ville").text());
-	    uneArchive.setLieu(lieu);
+	try {
+	    Document doc = Jsoup.parse(donnees, "", Parser.xmlParser());
+	    List<ArchiveMeteo> listeArchives = new ArrayList<ArchiveMeteo>();
+	    Elements lesArchives = doc.select("archive");
+	    for (Element archive : lesArchives) {
+		ArchiveMeteo uneArchive = new ArchiveMeteo();
+		// Initialisation du lieu
+		Element lieuxml = archive.getElementsByTag("lieu").first();
+		Lieu lieu = new Lieu();
+		lieu.setDepartement(lieuxml.getElementsByTag("departement").text());
+		lieu.setPays(lieuxml.getElementsByTag("pays").text());
+		lieu.setVille(lieuxml.getElementsByTag("ville").text());
+		uneArchive.setLieu(lieu);
 
-	    // Date
-	    Element datexml = archive.getElementsByTag("date").first();
-	    String[] elementsDateString = datexml.text().split("/");
-	    int[] elementsDate = new int[3];
-	    for (int i = 0; i < 3; i++) {
-		elementsDate[i] = Integer.parseInt(elementsDateString[i]);
+		// Date
+		Element datexml = archive.getElementsByTag("date").first();
+		String[] elementsDateString = datexml.text().split("/");
+		int[] elementsDate = new int[3];
+		for (int i = 0; i < 3; i++) {
+		    elementsDate[i] = Integer.parseInt(elementsDateString[i]);
+		}
+		uneArchive.setDate(new Date(elementsDate[2] - 1900, elementsDate[1] - 1, elementsDate[0]));
+
+		// Donnees meteo
+		Element donneexml = archive.getElementsByTag("donnees").first();
+		DonneeMeteo donnee = new DonneeMeteo();
+		double dir = Double.parseDouble(donneexml.getElementsByTag("direction").text());
+		donnee.setDirectionVent(dir);
+		double pluie = Double.parseDouble(donneexml.getElementsByTag("pluie").text());
+		donnee.setPluie(pluie);
+		Soleil sol = Soleil.getByNom(donneexml.getElementsByTag("ciel").text());
+		donnee.setSoleil(sol);
+		int temperature = Integer.parseInt(donneexml.getElementsByTag("temperature").text());
+		donnee.setTemperature(temperature);
+		double vitesse = Double.parseDouble(donneexml.getElementsByTag("vitesse").text());
+		donnee.setVitesseVent(vitesse);
+		uneArchive.setDonnee(donnee);
+		listeArchives.add(uneArchive);
 	    }
-	    uneArchive.setDate(new Date(elementsDate[2] - 1900, elementsDate[1] - 1, elementsDate[0]));
-
-	    // Donnees meteo
-	    Element donneexml = archive.getElementsByTag("donnees").first();
-	    DonneeMeteo donnee = new DonneeMeteo();
-	    double dir = Double.parseDouble(donneexml.getElementsByTag("direction").text());
-	    donnee.setDirectionVent(dir);
-	    double pluie = Double.parseDouble(donneexml.getElementsByTag("pluie").text());
-	    donnee.setPluie(pluie);
-	    Soleil sol = Soleil.getByNom(donneexml.getElementsByTag("ciel").text());
-	    donnee.setSoleil(sol);
-	    int temperature = Integer.parseInt(donneexml.getElementsByTag("temperature").text());
-	    donnee.setTemperature(temperature);
-	    double vitesse = Double.parseDouble(donneexml.getElementsByTag("vitesse").text());
-	    donnee.setVitesseVent(vitesse);
-	    uneArchive.setDonnee(donnee);
-	    listeArchives.add(uneArchive);
+	    return listeArchives;
+	} catch (Exception e) {
+	    return new ArrayList<ArchiveMeteo>();
 	}
-	return listeArchives;
     }
 
     public static void main(String[] args) {
