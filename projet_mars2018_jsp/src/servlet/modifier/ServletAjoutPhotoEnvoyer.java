@@ -3,8 +3,10 @@ package servlet.modifier;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -73,15 +75,25 @@ public class ServletAjoutPhotoEnvoyer extends HttpServlet {
 			}
 		}
 
-		// association des noms aux photo
-		for (int i = 0; i < listePhoto.size(); i++) {
-			listePhoto.get(i).setNom(listNom[i]);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd MMM, yyyy", Locale.US);
+		System.out.println(request.getParameter("imageBoutton"));
+		String values[] = request.getParameter("imageBoutton").split("-");
+
+		String erreur = null;
+		if (listePhoto.size() == 0) {
+			erreur = "Erreur : pas de fichier sélectionné";
+		} else {
+			// association des noms aux photo
+			for (int i = 0; i < listePhoto.size(); i++) {
+				listePhoto.get(i).setNom(listNom[i]);
+			}
+			// envois des photos sur le serveur
+			Manager manager = Manager.creer(request);
+			manager.getServeur().ajouterPhoto(Integer.parseInt(values[0]), listePhoto);
+			erreur = "Photo(s) ont été ajoutée(s)";
 		}
-
-		// envois des photos sur le serveur
-		Manager manager = Manager.creer(request);
-		manager.getServeur().ajouterPhoto(Integer.parseInt(request.getParameter("imageBoutton")), listePhoto);
-
+		request.setAttribute("message", erreur);
+		request.setAttribute("dateEntre", values[1]);
 		request.getServletContext().getRequestDispatcher("/modifier.jsp").forward(request, response);
 	}
 

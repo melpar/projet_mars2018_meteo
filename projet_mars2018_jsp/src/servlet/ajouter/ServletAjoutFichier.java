@@ -74,11 +74,16 @@ public class ServletAjoutFichier extends HttpServlet {
 			isXML = false;
 		}
 		String erreur = null;
-		// envois au serveur
-		if (isXML) {
-			erreur = manager.getServeur().ajouterDonneesArchiveXML(buffer.toString());
+		if (buffer.toString() == null || buffer.toString().isEmpty()) {
+			erreur = "Erreur : Pas de fichier sélectionné ou fichier vide";
 		} else {
-			erreur = manager.getServeur().ajouterDonneesArchiveJSON(buffer.toString());
+			// envois au serveur
+			if (isXML) {
+				erreur = manager.getServeur().ajouterDonneesArchiveXML(buffer.toString());
+			} else {
+				erreur = manager.getServeur().ajouterDonneesArchiveJSON(buffer.toString());
+			}
+			erreur = "Les données ont été ajoutées";
 		}
 		request.setAttribute("message", erreur);
 		request.getServletContext().getRequestDispatcher("/ajout.jsp").forward(request, response);

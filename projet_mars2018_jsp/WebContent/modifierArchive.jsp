@@ -140,6 +140,19 @@
 		</c:choose> 
 	</div>
 </body>
+
+<%if(request.getAttribute("message") != null && !((String)request.getAttribute("message")).isEmpty()){
+	String color = "green";
+	if(((String)request.getAttribute("message")).contains("Erreur")){
+		color = "red";
+	}
+%>
+<script type="text/javascript">
+Materialize.toast('<%= request.getAttribute("message") %>', 3000, '<%=color%>')
+</script>
+<%	
+}%>
+
 <script type="text/javascript">
 $('.datepicker').pickadate({
     selectMonths: 3, // Creates a dropdown to control month

@@ -116,7 +116,7 @@
 													        		<input class="file-path validate" type="text" placeholder="Envoyer une ou plusieurs photos" name="imageNom">
 													      		</div>
 													      		<div>
-													        		<button class="btn waves-effect waves-light" type="submit" name="imageBoutton" value="${archive.id}">Envoyer
+													        		<button class="btn waves-effect waves-light" type="submit" name="imageBoutton" value="${archive.id}-${dateEntre}">Envoyer
 														    			<i class="material-icons right">send</i>
 														  			</button>  
 													      		</div>
@@ -139,6 +139,18 @@
 		</c:choose> 
 	</div>
 </body>
+
+<%if(request.getAttribute("message") != null && !((String)request.getAttribute("message")).isEmpty()){
+	String color = "green";
+	if(((String)request.getAttribute("message")).contains("Erreur")){
+		color = "red";
+	}
+%>
+<script type="text/javascript">
+Materialize.toast('<%= request.getAttribute("message") %>', 3000, '<%=color%>')
+</script>
+<%	
+}%>
 
 <script type="text/javascript">
 $('.datepicker').pickadate({

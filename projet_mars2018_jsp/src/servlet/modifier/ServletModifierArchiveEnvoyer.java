@@ -88,11 +88,13 @@ public class ServletModifierArchiveEnvoyer extends HttpServlet {
 
 			// envois des donnees
 			manager.getServeur().modifierDonnee(archive);
+			request.setAttribute("message", "La modification a été effectuée");
 			request.getServletContext().getRequestDispatcher("/modifier.jsp").forward(request, response);
 		} else {
 			// gestion des erreur
 			request.setAttribute("archiveId", id);
 			request.setAttribute("valide", valide);
+			request.setAttribute("message", "Erreur : données saisies incorrectes");
 			request.getServletContext().getRequestDispatcher("/modifierArchive.jsp").forward(request, response);
 
 		}
