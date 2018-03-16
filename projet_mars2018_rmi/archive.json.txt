@@ -1,0 +1,9 @@
+[
+{
+	"lieu" : {"pays" : "france","ville":"rennes", "departement": "ille et vilaine"},
+	"date" : "15/03/2018",
+	"donnee" : 
+	{
+		"soleil" : "NUAGEUX", "directionVent":40,"vitesseVent": 20," temperature": 8, "pluie": 8
+	}
+}]

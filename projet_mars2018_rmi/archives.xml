@@ -5,14 +5,14 @@
 	france
 </pays>
 <ville>
-	brest
+	la rochelle
 </ville>
 <departement>
-	finistere
+	charente maritime
 </departement>
 </lieu>
 <date>
-	14/03/2018
+	15/03/2018
 </date>
 <donnees>
 	<ciel>
@@ -22,13 +22,13 @@
 		10
 	</direction>
 	<vitesse>
-		50
+		90
 	</vitesse>
 	<temperature>
-		20
+		10
 	</temperature>
 	<pluie>
-		5
+		22
 	</pluie>	
 </donnees>
 </archive>
