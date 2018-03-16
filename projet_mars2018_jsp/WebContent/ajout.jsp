@@ -44,7 +44,7 @@
 				    	</div>
 				    	<div class="col s2">
 				    	<p>
-						      <input name="group1" type="radio" id="json" onclick = "getAnswer('json')" value="json"/>
+						      <input name="group1" type="radio" id="json" onclick = "getAnswer('json')" value="json" checked="checked"/>
 						      <label for="json">JSON</label>
 						    </p>
 						    <p>

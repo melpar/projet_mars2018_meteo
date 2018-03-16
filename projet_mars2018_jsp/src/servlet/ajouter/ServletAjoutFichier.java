@@ -73,12 +73,14 @@ public class ServletAjoutFichier extends HttpServlet {
 		if ("json".equals(group1)) {
 			isXML = false;
 		}
+		String erreur = null;
 		// envois au serveur
 		if (isXML) {
-			manager.getServeur().ajouterDonneesArchiveXML(buffer.toString());
+			erreur = manager.getServeur().ajouterDonneesArchiveXML(buffer.toString());
 		} else {
-			manager.getServeur().ajouterDonneesArchiveJSON(buffer.toString());
+			erreur = manager.getServeur().ajouterDonneesArchiveJSON(buffer.toString());
 		}
+		request.setAttribute("message", erreur);
 		request.getServletContext().getRequestDispatcher("/ajout.jsp").forward(request, response);
 	}
 
