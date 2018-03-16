@@ -38,12 +38,12 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		List<ArchiveMeteo> list = (List<ArchiveMeteo>) request.getSession().getAttribute("lst");
 		BufferedInputStream buf = null;
 		ServletOutputStream myOut = null;
 		try {
 			myOut = response.getOutputStream();
-			List<ArchiveMeteo> list = (List<ArchiveMeteo>) request.getSession().getAttribute("lst");
+
 			byte[] fichier;
 			// selection format du fichier a telecharger
 			if (request.getParameter("pdf") != null) {
@@ -77,8 +77,7 @@ public class ServletListerMoisTelecharger extends HttpServlet {
 			}
 
 		}
-		// suppression des donnees en cache
-		request.getSession().setAttribute("lst", null);
+
 	}
 
 	/**
