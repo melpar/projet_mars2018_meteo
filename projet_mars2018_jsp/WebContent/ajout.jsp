@@ -6,6 +6,7 @@
 
 <jsp:useBean id="manager" class="manager.Manager" scope="session" />
 <jsp:useBean id="valide" class="validation.Validation" scope="request" />
+<jsp:useBean id="message" class="java.lang.String" scope="request" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -157,6 +158,19 @@
 		</c:choose> 
 	</div>
 </body>
+
+<%if(request.getAttribute("message") != null && !((String)request.getAttribute("message")).isEmpty()){
+	String color = "green";
+	if(((String)request.getAttribute("message")).contains("Erreur")){
+		color = "red";
+	}
+%>
+<script type="text/javascript">
+Materialize.toast('<%= request.getAttribute("message") %>', 3000, '<%=color%>')
+</script>
+<%	
+}%>
+
 <script type="text/javascript">
 $('.datepicker').pickadate({
     selectMonths: 3, // Creates a dropdown to control month
@@ -164,9 +178,11 @@ $('.datepicker').pickadate({
     selectDays: 12,
   });
 </script>
+
 <script type="text/javascript">
  $(document).ready(function() {
     $('select').material_select();
   });
  </script>
+ 
 </html>

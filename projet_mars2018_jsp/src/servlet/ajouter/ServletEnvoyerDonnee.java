@@ -86,9 +86,10 @@ public class ServletEnvoyerDonnee extends HttpServlet {
 			// envois au serveur
 
 			manager.getServeur().ajouterDonneeArchive(archive);
+			request.setAttribute("message", "Les données ont bien été enregistrées");
 		} else {
 			request.setAttribute("valide", valide);
-
+			request.setAttribute("message", "Erreur dans le formulaire");
 		}
 
 		request.getServletContext().getRequestDispatcher("/ajout.jsp").forward(request, response);
