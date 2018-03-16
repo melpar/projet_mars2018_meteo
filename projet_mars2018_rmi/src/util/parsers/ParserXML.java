@@ -32,9 +32,7 @@ public class ParserXML {
 	Document doc = Jsoup.parse(donnees, "", Parser.xmlParser());
 	List<ArchiveMeteo> listeArchives = new ArrayList<ArchiveMeteo>();
 	Elements lesArchives = doc.select("archive");
-	System.out.println(lesArchives.size());
 	for (Element archive : lesArchives) {
-	    System.out.println("une nouvelle archive");
 	    ArchiveMeteo uneArchive = new ArchiveMeteo();
 	    // Initialisation du lieu
 	    Element lieuxml = archive.getElementsByTag("lieu").first();
@@ -46,7 +44,6 @@ public class ParserXML {
 
 	    // Date
 	    Element datexml = archive.getElementsByTag("date").first();
-	    System.out.println("date : " + datexml.text());
 	    String[] elementsDateString = datexml.text().split("/");
 	    int[] elementsDate = new int[3];
 	    for (int i = 0; i < 3; i++) {

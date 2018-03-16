@@ -1,5 +1,6 @@
 package rmi.impl;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -40,22 +41,30 @@ public class ServeurImpl implements Serveur {
     public String ajouterDonneesArchiveXML(String donneesFichier) throws RemoteException {
 	StringBuilder builder = new StringBuilder();
 	// Récupère les archives à partir du contenu du fichier
-	List<ArchiveMeteo> archives = ParserXML.parserXML(donneesFichier);
-	for (ArchiveMeteo archive : archives) {
-	    builder.append(ajouterDonneeArchive(archive));
+	try {
+	    List<ArchiveMeteo> archives = ParserXML.parserXML(donneesFichier);
+	    for (ArchiveMeteo archive : archives) {
+		builder.append(ajouterDonneeArchive(archive));
+	    }
+	    return builder.toString();
+	} catch (Exception e) {
+	    return "Erreur dans le parsing du fichier xml";
 	}
-	return builder.toString();
     }
 
     @Override
     public String ajouterDonneesArchiveJSON(String donneesFichier) throws RemoteException {
 	StringBuilder builder = new StringBuilder();
 	// Récupère les archives à partir du contenu du fichier
-	List<ArchiveMeteo> archives = ParserJSON.parserJSON(donneesFichier);
-	for (ArchiveMeteo archive : archives) {
-	    builder.append(ajouterDonneeArchive(archive));
+	try {
+	    List<ArchiveMeteo> archives = ParserJSON.parserJSON(donneesFichier);
+	    for (ArchiveMeteo archive : archives) {
+		builder.append(ajouterDonneeArchive(archive));
+	    }
+	    return builder.toString();
+	} catch (IOException e) {
+	    return "Erreur dans le parsing du fichier json";
 	}
-	return builder.toString();
     }
 
     @Override

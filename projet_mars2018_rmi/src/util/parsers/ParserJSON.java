@@ -20,37 +20,30 @@ public class ParserJSON {
      * @param jsonIn
      *            contenu du fichier
      * @return liste des archives extraites
+     * @throws IOException
      */
-    public static List<ArchiveMeteo> parserJSON(String jsonIn) {
+    public static List<ArchiveMeteo> parserJSON(String jsonIn) throws IOException {
 	// On initialise le parser avec le bon formatage de dates
 	final Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
 	List<ArchiveMeteo> archives = new ArrayList<ArchiveMeteo>();
-	try
+	new StringWriter();
 
-	{
+	final JsonReader reader = new JsonReader(new StringReader(jsonIn));
 
-	    new StringWriter();
+	reader.beginArray();
+	// Pour chaque objet détecté
+	while (reader.hasNext()) {
+	    // Création de l'objet archive
+	    final ArchiveMeteo archive = gson.fromJson(reader, ArchiveMeteo.class);
 
-	    final JsonReader reader = new JsonReader(new StringReader(jsonIn));
-
-	    reader.beginArray();
-	    // Pour chaque objet détecté
-	    while (reader.hasNext()) {
-		// Création de l'objet archive
-		final ArchiveMeteo archive = gson.fromJson(reader, ArchiveMeteo.class);
-
-		archives.add(archive);
-
-	    }
-
-	    reader.endArray();
-	    reader.close();
-	    reader.close();
-
-	} catch (final IOException e) {
-	    e.printStackTrace();
+	    archives.add(archive);
 
 	}
+
+	reader.endArray();
+	reader.close();
+	reader.close();
+
 	return archives;
 
     }
